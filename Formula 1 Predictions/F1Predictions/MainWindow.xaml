@@ -5,8 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:F1Predictions"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        FontFamily="Calibri"
+        Title="F1 Predictions 2021" Height="450" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#181730"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Background="#0F0F2D" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Column 0 -->
+            <Image Grid.Column="0" Height="35" Width="70" Source="/Images/F1.png" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            
+            <!-- Column 1 -->
+            <TextBlock Grid.Column="1" Text="F1 Predictions 2021" Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
+            
+            <!-- Column 3 -->
+            <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
+                <Button Content="Home" Foreground="White" Margin="15,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Content="Predictions" Foreground="White" Margin="15,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                <Button Content="Results" Foreground="White" Margin="15,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+            </StackPanel>
+            
+            <!-- Column 5 -->
+            <StackPanel Grid.Column="5" Margin="0,6" Orientation="Horizontal">
+                <Button Content="_" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="▢" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="X" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
