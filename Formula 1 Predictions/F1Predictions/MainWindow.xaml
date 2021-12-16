@@ -8,30 +8,37 @@
         FontFamily="Calibri"
         Title="F1 Predictions 2021" Height="450" Width="800"
         WindowStyle="None"
-        Background="#181730">
+        ResizeMode="NoResize"
+        Background="#181730"
+        WindowStartupLocation="CenterScreen">
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
-        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
         
-        <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
+        <Grid Background="#0F0F2D" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
             </Grid.ColumnDefinitions>
             
-            <Image Grid.Column="0" Height="35" Width="70" Source="/Images/F1.png" VerticalAlignment="Center" HorizontalAlignment="Center" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            <!-- Column 0 -->
+            <Image Grid.Column="0" Height="35" Width="70" Source="/Images/F1.png" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
             
-            <TextBlock Grid.Column="1" Text="F1 Predictions 2021" Foreground="White" VerticalAlignment="Center" FontSize="20" FontWeight="Heavy"/>
+            <!-- Column 1 -->
+            <TextBlock Grid.Column="1" Text="F1 Predictions 2021" Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
         </Grid>
     </Grid>
 </Window>
