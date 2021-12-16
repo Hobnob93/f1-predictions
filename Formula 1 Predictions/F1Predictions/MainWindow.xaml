@@ -39,6 +39,31 @@
             
             <!-- Column 1 -->
             <TextBlock Grid.Column="1" Text="F1 Predictions 2021" Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
+            
+            <!-- Column 3 -->
+            <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
+                <Button Content="_" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="▢" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="X" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
