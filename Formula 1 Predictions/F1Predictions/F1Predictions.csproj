@@ -13,4 +13,8 @@
       <Resource Include="Images\F1.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MvvmCross.Platforms.Wpf" Version="8.0.2" />
+    </ItemGroup>
+
 </Project>
