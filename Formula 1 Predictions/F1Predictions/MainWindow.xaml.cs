@@ -1,11 +1,8 @@
-﻿using System.Windows;
+﻿using MvvmCross.Platforms.Wpf.Views;
 
 namespace F1Predictions
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MvxWindow
     {
         public MainWindow()
         {

@@ -1,15 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="FluentAssertions" Version="6.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
       <PackageReference Include="Moq" Version="4.16.1" />
       <PackageReference Include="NUnit" Version="3.13.2" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\F1Predictions.Core\F1Predictions.Core.csproj" />
+      <ProjectReference Include="..\F1Predictions\F1Predictions.csproj" />
     </ItemGroup>
 
 </Project>
