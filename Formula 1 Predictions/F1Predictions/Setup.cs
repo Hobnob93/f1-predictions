@@ -1,3 +1,4 @@
+using F1Predictions.Core.MvvmCross;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Platforms.Wpf.Core;
 using Serilog;
@@ -5,7 +6,7 @@ using Serilog.Extensions.Logging;
 
 namespace F1Predictions;
 
-public class Setup : MvxWpfSetup<Core.Mvx.MvxStartup>
+public class Setup : MvxWpfSetup<MvxStartup>
 {
     protected override ILoggerProvider? CreateLogProvider()
     {
