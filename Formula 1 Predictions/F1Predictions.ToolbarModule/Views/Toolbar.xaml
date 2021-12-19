@@ -38,9 +38,9 @@
             
         <!-- Column 5 -->
         <StackPanel Grid.Column="5" Margin="0,6" Orientation="Horizontal">
-            <components:WindowsButton Text="_"/>
-            <components:WindowsButton Text="▢"/>
-            <components:WindowsButton Text="X"/>
+            <components:WindowsButton Text="_" OnClick="{Binding MinimizeCommand}"/>
+            <components:WindowsButton Text="▢" OnClick="{Binding MaximizeCommand}"/>
+            <components:WindowsButton Text="X" OnClick="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using F1Predictions.Core.Interfaces;
+using F1Predictions.Core.Services;
 using F1Predictions.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -10,6 +12,7 @@ namespace F1Predictions
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IWindowService, WindowService>();
         }
 
         protected override Window CreateShell()
