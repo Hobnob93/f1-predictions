@@ -4,17 +4,17 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ToolbarViewModel : BindableBase
 {
-    private string appName = "F1 Predictions 2021";
+    private string _appName = "F1 Predictions 2021";
     public string AppName
     {
-        get => appName;
-        set => SetProperty(ref appName, value);
+        get => _appName;
+        set => SetProperty(ref _appName, value);
     }
 
-    private string f1ImageRef = "/Images/F1.png";
+    private string _f1ImageRef = "/Images/F1.png";
     public string F1ImageRef
     {
-        get => f1ImageRef;
-        set => SetProperty(ref f1ImageRef, value);
+        get => _f1ImageRef;
+        set => SetProperty(ref _f1ImageRef, value);
     }
 }

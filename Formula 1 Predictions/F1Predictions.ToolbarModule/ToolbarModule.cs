@@ -10,17 +10,17 @@ namespace F1Predictions.ToolbarModule;
 
 public class ToolbarModule : IModule
 {
-    private readonly IRegionManager regionManager;
+    private readonly IRegionManager _regionManager;
     
     public ToolbarModule(IRegionManager regionManager)
     {
-        this.regionManager = regionManager;
+        _regionManager = regionManager;
     }
     
     
     public void OnInitialized(IContainerProvider containerProvider)
     {
-        regionManager.RegisterViewWithRegion<ToolbarView>($"{Regions.ToolbarRegion}");
+        _regionManager.RegisterViewWithRegion<ToolbarView>($"{Regions.ToolbarRegion}");
     }
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
