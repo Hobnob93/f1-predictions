@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace F1Predictions.Components;
+namespace F1Predictions.Core.Components;
 
 public partial class ToolbarButton : UserControl
 {

@@ -8,8 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Images\f1 image.png" />
-      <None Remove="Images\F1.png" />
       <Resource Include="Images\F1.png" />
     </ItemGroup>
 
@@ -22,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\F1Predictions.Core\F1Predictions.Core.csproj" />
+      <ProjectReference Include="..\F1Predictions.ToolbarModule\F1Predictions.ToolbarModule.csproj" />
     </ItemGroup>
 
 </Project>

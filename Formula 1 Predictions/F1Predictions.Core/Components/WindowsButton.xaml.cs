@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace F1Predictions.Components;
+namespace F1Predictions.Core.Components;
 
 public partial class WindowsButton : UserControl
 {
@@ -9,7 +9,7 @@ public partial class WindowsButton : UserControl
     {
         InitializeComponent();
     }
-
+    
     public static readonly DependencyProperty TextProperty = 
         DependencyProperty.Register(nameof(Text), typeof(string), typeof(WindowsButton), new PropertyMetadata(string.Empty));
 
