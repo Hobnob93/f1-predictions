@@ -6,4 +6,5 @@ public interface IWindowService
     void Maximize();
     void Restore();
     void Minimize();
+    void Drag();
 }

@@ -33,4 +33,9 @@ public class WindowService : IWindowService
     {
         Application.Current.MainWindow!.WindowState = WindowState.Minimized;
     }
+
+    public void Drag()
+    {
+        Application.Current.MainWindow!.DragMove();
+    }
 }
