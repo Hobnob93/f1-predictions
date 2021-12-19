@@ -13,17 +13,4 @@
         ResizeMode="NoResize"
         Background="#181730"
         WindowStartupLocation="CenterScreen">
-    
-    <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="15"/>
-        </Grid.ColumnDefinitions>-->
-    </Grid>
 </views:MvxWindow>
