@@ -1,6 +1,4 @@
-﻿<views:MvxWindow
-        xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-        x:Class="F1Predictions.MainWindow"
+﻿<Window x:Class="F1Predictions.ShellWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,4 +11,7 @@
         ResizeMode="NoResize"
         Background="#181730"
         WindowStartupLocation="CenterScreen">
-</views:MvxWindow>
+    <Grid>
+                
+    </Grid>
+</Window>

@@ -1,13 +1,19 @@
-﻿using MvvmCross.Core;
-using MvvmCross.Platforms.Wpf.Views;
+﻿using System.Windows;
+using Prism.DryIoc;
+using Prism.Ioc;
 
 namespace F1Predictions
 {
-    public partial class App : MvxApplication
+    public partial class App : PrismApplication
     {
-        protected override void RegisterSetup()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            this.RegisterSetupType<Setup>();
+            
+        }
+
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<ShellWindow>();
         }
     }
 }

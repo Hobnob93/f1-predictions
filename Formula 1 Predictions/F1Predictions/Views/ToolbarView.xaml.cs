@@ -1,13 +1,8 @@
-using F1Predictions.Core.ViewModels;
-using MvvmCross.Platforms.Wpf.Presenters.Attributes;
-using MvvmCross.Platforms.Wpf.Views;
-using MvvmCross.ViewModels;
+using System.Windows.Controls;
 
 namespace F1Predictions.Views;
 
-[MvxContentPresentation]
-[MvxViewFor(typeof(ToolbarViewModel))]
-public partial class ToolbarView : MvxWpfView
+public partial class ToolbarView : UserControl
 {
     public ToolbarView()
     {
