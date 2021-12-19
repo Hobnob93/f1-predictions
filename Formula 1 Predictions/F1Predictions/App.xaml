@@ -1,9 +1,9 @@
-﻿<Application x:Class="F1Predictions.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:F1Predictions"
-             StartupUri="MainWindow.xaml">
+﻿<prism:PrismApplication x:Class="F1Predictions.App"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:F1Predictions">
     <Application.Resources>
-         
+        
     </Application.Resources>
-</Application>
+</prism:PrismApplication>

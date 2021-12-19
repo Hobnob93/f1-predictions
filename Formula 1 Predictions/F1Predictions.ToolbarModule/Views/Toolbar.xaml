@@ -1,0 +1,46 @@
+<UserControl
+        x:Class="F1Predictions.ToolbarModule.Views.ToolbarView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:components="clr-namespace:F1Predictions.Core.Components;assembly=F1Predictions.Core"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        d:DesignHeight="auto" d:DesignWidth="auto">
+    <Grid Background="#0F0F2D">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+            
+        <!-- Column 0 -->
+        <Image Grid.Column="0" Source="{Binding F1ImageRef, Mode=OneTime}"
+               Height="35" Width="70" VerticalAlignment="Center" HorizontalAlignment="Center" 
+               RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            
+        <!-- Column 1 -->
+        <TextBlock Grid.Column="1" Text="{Binding AppName, Mode=OneTime}"
+               Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
+            
+        <!-- Column 3 -->
+        <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
+            <components:ToolbarButton Text="Home"/>
+            <components:ToolbarButton Text="Predictions"/>
+            <components:ToolbarButton Text="Results"/>
+        </StackPanel>
+            
+        <!-- Column 5 -->
+        <StackPanel Grid.Column="5" Margin="0,6" Orientation="Horizontal">
+            <components:WindowsButton Text="_"/>
+            <components:WindowsButton Text="▢"/>
+            <components:WindowsButton Text="X"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

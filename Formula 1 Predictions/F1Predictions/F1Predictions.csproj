@@ -8,9 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Images\f1 image.png" />
-      <None Remove="Images\F1.png" />
       <Resource Include="Images\F1.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+      <PackageReference Include="Serilog.Sinks.Trace" Version="3.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\F1Predictions.Core\F1Predictions.Core.csproj" />
+      <ProjectReference Include="..\F1Predictions.ToolbarModule\F1Predictions.ToolbarModule.csproj" />
     </ItemGroup>
 
 </Project>
