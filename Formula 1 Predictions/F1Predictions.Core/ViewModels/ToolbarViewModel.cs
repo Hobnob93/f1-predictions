@@ -20,6 +20,7 @@ public class ToolbarViewModel : BindableBase
         MaximizeCommand = new DelegateCommand(_window.Maximize);
         RestoreCommand = new DelegateCommand(_window.Restore);
         MinimizeCommand = new DelegateCommand(_window.Minimize);
+        WindowDragCommand = new DelegateCommand(_window.Drag);
     }
     
     
@@ -27,6 +28,7 @@ public class ToolbarViewModel : BindableBase
     public ICommand MaximizeCommand { get; private set; }
     public ICommand RestoreCommand { get; private set; }
     public ICommand MinimizeCommand { get; private set; }
+    public ICommand WindowDragCommand { get; private set; }
     
     public string AppName
     {
