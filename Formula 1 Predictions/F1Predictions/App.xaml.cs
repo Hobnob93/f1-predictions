@@ -29,6 +29,7 @@ namespace F1Predictions
             containerRegistry.RegisterInstance(appLogger);
             
             containerRegistry.Register<IWindowService, WindowService>();
+            containerRegistry.Register<IToolbarService, ToolbarService>();
         }
 
         protected override Window CreateShell()

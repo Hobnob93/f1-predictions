@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Input;
 using F1Predictions.Core.Interfaces;
 using Prism.Commands;
@@ -7,20 +8,24 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ToolbarViewModel : BindableBase
 {
-    private readonly IWindowService _window;
+    private readonly IToolbarService _toolbar;
     
     private string _appName = "F1 Predictions 2021";
     private string _f1ImageRef = "/Images/F1.png";
+    private Visibility _restoreVisibility = Visibility.Collapsed;
+    private Visibility _maximizeVisibility = Visibility.Visible;
 
-    public ToolbarViewModel(IWindowService window)
+    public ToolbarViewModel(IToolbarService toolbar)
     {
-        _window = window;
+        _toolbar = toolbar;
 
-        CloseCommand = new DelegateCommand(_window.Close);
-        MaximizeCommand = new DelegateCommand(_window.Maximize);
-        RestoreCommand = new DelegateCommand(_window.Restore);
-        MinimizeCommand = new DelegateCommand(_window.Minimize);
-        WindowDragCommand = new DelegateCommand(_window.Drag);
+        CloseCommand = new DelegateCommand(_toolbar.CloseWindow);
+        MaximizeCommand = new DelegateCommand(_toolbar.MaximizeWindow);
+        RestoreCommand = new DelegateCommand(_toolbar.RestoreWindow);
+        MinimizeCommand = new DelegateCommand(_toolbar.MinimizeWindow);
+        WindowDragCommand = new DelegateCommand(_toolbar.DragWindow);
+
+        _toolbar.ViewModel = this;
     }
     
     
@@ -40,5 +45,17 @@ public class ToolbarViewModel : BindableBase
     {
         get => _f1ImageRef;
         set => SetProperty(ref _f1ImageRef, value);
+    }
+
+    public Visibility RestoreVisibility
+    {
+        get => _restoreVisibility;
+        set => SetProperty(ref _restoreVisibility, value);
+    }
+    
+    public Visibility MaximizeVisibility
+    {
+        get => _maximizeVisibility;
+        set => SetProperty(ref _maximizeVisibility, value);
     }
 }

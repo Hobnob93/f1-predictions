@@ -30,12 +30,12 @@
             
         <!-- Column 0 -->
         <Image Grid.Column="0" Source="{Binding F1ImageRef, Mode=OneTime}"
-               Height="35" Width="70" VerticalAlignment="Center" HorizontalAlignment="Center" 
+               Height="40" Width="85" VerticalAlignment="Center" HorizontalAlignment="Center" 
                RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
             
         <!-- Column 1 -->
         <TextBlock Grid.Column="1" Text="{Binding AppName, Mode=OneTime}"
-               Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
+               Foreground="White" VerticalAlignment="Center" FontSize="25" FontWeight="Heavy"/>
             
         <!-- Column 3 -->
         <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
@@ -47,7 +47,8 @@
         <!-- Column 5 -->
         <StackPanel Grid.Column="5" Margin="0,6" Orientation="Horizontal">
             <components:WindowsButton Text="_" OnClick="{Binding MinimizeCommand}"/>
-            <components:WindowsButton Text="▢" OnClick="{Binding MaximizeCommand}"/>
+            <components:WindowsButton Text="▢" OnClick="{Binding MaximizeCommand}" Visibility="{Binding MaximizeVisibility}"/>
+            <components:WindowsButton Text="◱" OnClick="{Binding RestoreCommand}" Visibility="{Binding RestoreVisibility}"/>
             <components:WindowsButton Text="X" OnClick="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>

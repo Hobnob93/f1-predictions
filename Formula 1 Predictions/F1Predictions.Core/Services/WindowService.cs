@@ -6,7 +6,7 @@ namespace F1Predictions.Core.Services;
 
 public class WindowService : IWindowService
 {
-    private ILogger _logger;
+    private readonly ILogger _logger;
 
     public WindowService(ILogger logger)
     {
