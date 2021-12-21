@@ -27,7 +27,7 @@ public class Startup
     
     public void InitializeLogging()
     {
-        var logger = _config.GetValue<LoggingConfig>(LoggingConfig.Section);
+        var logger = _config.GetSection(LoggingConfig.Section).Get<LoggingConfig>();
         var interval = Enum.Parse<RollingInterval>(logger.RollingInterval, true);
         
         Log.Logger = new LoggerConfiguration()
@@ -46,13 +46,13 @@ public class Startup
         containerRegistry.Register<IToolbarService, ToolbarService>();
 
         // App Options
-        containerRegistry.RegisterInstance(_config.GetValue<AppConfig>(AppConfig.Section));
-        containerRegistry.RegisterInstance(_config.GetValue<ToolbarConfig>(ToolbarConfig.Section));
+        containerRegistry.RegisterInstance(_config.GetSection(AppConfig.Section).Get<AppConfig>());
+        containerRegistry.RegisterInstance(_config.GetSection(ToolbarConfig.Section).Get<ToolbarConfig>());
     }
 
     private void RegisterLogging(IContainerRegistry containerRegistry)
     {
-        var logger = _config.GetValue<LoggingConfig>(LoggingConfig.Section);
+        var logger = _config.GetSection(LoggingConfig.Section).Get<LoggingConfig>();
         var appLogger = new SerilogLoggerProvider(Log.Logger).CreateLogger(logger.LoggerName);
         containerRegistry.RegisterInstance(appLogger);
     }

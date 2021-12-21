@@ -16,15 +16,9 @@ namespace F1Predictions
         }
         
         
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            
-            _startup.InitializeLogging();
-        }
-
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            _startup.InitializeLogging();
             _startup.RegisterTypes(containerRegistry);
         }
 
