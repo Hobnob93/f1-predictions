@@ -7,11 +7,11 @@
         x:Name="Window"
         xmlns:local="clr-namespace:F1Predictions"
         mc:Ignorable="d"
-        FontFamily="Calibri"
-        Title="F1 Predictions 2021" Height="500" Width="920"
+        FontFamily="{Binding Font, Mode=OneTime}"
+        Title="{Binding AppName, Mode=OneTime}" Height="500" Width="920"
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanResize"
-        Background="#181730"
+        Background="{Binding BackgroundColor, Mode=OneTime}"
         WindowStartupLocation="CenterScreen">
     
     <WindowChrome.WindowChrome>

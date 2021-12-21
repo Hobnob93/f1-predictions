@@ -4,8 +4,7 @@ namespace F1Predictions.Core.Interfaces;
 
 public interface IToolbarService
 {
-    ToolbarViewModel ViewModel { get; set; }
-
+    void Initialize(ToolbarViewModel vm);
     void CloseWindow();
     void MaximizeWindow();
     void MinimizeWindow();

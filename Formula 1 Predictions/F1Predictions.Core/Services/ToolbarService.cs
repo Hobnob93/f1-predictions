@@ -1,3 +1,4 @@
+using F1Predictions.Core.Config;
 using F1Predictions.Core.Extensions;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.ViewModels;
@@ -7,14 +8,24 @@ namespace F1Predictions.Core.Services;
 public class ToolbarService : IToolbarService
 {
     private readonly IWindowService _window;
+    private readonly ToolbarConfig _config;
+
+    private ToolbarViewModel _viewModel;
     
-    public ToolbarService(IWindowService window)
+    public ToolbarService(IWindowService window, ToolbarConfig config)
     {
         _window = window;
+        _config = config;
     }
 
-    public ToolbarViewModel ViewModel { get; set; }
-    
+
+    public void Initialize(ToolbarViewModel vm)
+    {
+        _viewModel = vm;
+        vm.AppName = _config.Title;
+        vm.F1ImageRef = _config.F1Logo;
+        vm.BackgroundColor = _config.BackgroundColor;
+    }
 
     public void CloseWindow()
     {
@@ -45,7 +56,7 @@ public class ToolbarService : IToolbarService
 
     private void FlipRestoreMaximize()
     {
-        ViewModel.MaximizeVisibility = ViewModel.MaximizeVisibility.FlipCollapsed();
-        ViewModel.RestoreVisibility = ViewModel.RestoreVisibility.FlipCollapsed();
+        _viewModel.MaximizeVisibility = _viewModel.MaximizeVisibility.FlipCollapsed();
+        _viewModel.RestoreVisibility = _viewModel.RestoreVisibility.FlipCollapsed();
     }
 }
