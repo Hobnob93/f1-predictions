@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows;
+using F1Predictions.Core.Config;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Services;
 using Microsoft.Extensions.Configuration;
@@ -35,9 +36,14 @@ public class Startup
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
         SetupLogging(containerRegistry);
-            
+        
+        // WPF Services
         containerRegistry.Register<IWindowService, WindowService>();
         containerRegistry.Register<IToolbarService, ToolbarService>();
+
+        // App Options
+        containerRegistry.RegisterInstance(_config.GetValue<AppConfig>(AppConfig.Section));
+        containerRegistry.RegisterInstance(_config.GetValue<ToolbarConfig>(ToolbarConfig.Section));
     }
 
     private void SetupLogging(IContainerRegistry containerRegistry)
