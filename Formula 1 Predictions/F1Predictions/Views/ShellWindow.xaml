@@ -4,17 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        x:Name="Window"
         xmlns:local="clr-namespace:F1Predictions"
         mc:Ignorable="d"
         FontFamily="Calibri"
-        Title="F1 Predictions 2021" Height="450" Width="800"
-        WindowStyle="None"
-        ResizeMode="NoResize"
+        Title="F1 Predictions 2021" Height="500" Width="920"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
         Background="#181730"
-        WindowStartupLocation="CenterScreen" d:DataContext="{d:DesignInstance}">
+        WindowStartupLocation="CenterScreen">
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
+    </WindowChrome.WindowChrome>
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="15"></RowDefinition>
         </Grid.RowDefinitions>

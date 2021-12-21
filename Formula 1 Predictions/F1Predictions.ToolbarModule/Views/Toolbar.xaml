@@ -4,12 +4,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:components="clr-namespace:F1Predictions.Core.Components;assembly=F1Predictions.Core"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         d:DesignHeight="auto" d:DesignWidth="auto">
+    
     <Grid Background="#0F0F2D">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <i:InvokeCommandAction Command="{Binding WindowDragCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="Auto"/>
@@ -22,12 +30,12 @@
             
         <!-- Column 0 -->
         <Image Grid.Column="0" Source="{Binding F1ImageRef, Mode=OneTime}"
-               Height="35" Width="70" VerticalAlignment="Center" HorizontalAlignment="Center" 
+               Height="40" Width="85" VerticalAlignment="Center" HorizontalAlignment="Center" 
                RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
             
         <!-- Column 1 -->
         <TextBlock Grid.Column="1" Text="{Binding AppName, Mode=OneTime}"
-               Foreground="White" VerticalAlignment="Center" FontSize="22" FontWeight="Heavy"/>
+               Foreground="White" VerticalAlignment="Center" FontSize="25" FontWeight="Heavy"/>
             
         <!-- Column 3 -->
         <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
@@ -38,9 +46,10 @@
             
         <!-- Column 5 -->
         <StackPanel Grid.Column="5" Margin="0,6" Orientation="Horizontal">
-            <components:WindowsButton Text="_"/>
-            <components:WindowsButton Text="▢"/>
-            <components:WindowsButton Text="X"/>
+            <components:WindowsButton Text="_" OnClick="{Binding MinimizeCommand}"/>
+            <components:WindowsButton Text="▢" OnClick="{Binding MaximizeCommand}" Visibility="{Binding MaximizeVisibility}"/>
+            <components:WindowsButton Text="◱" OnClick="{Binding RestoreCommand}" Visibility="{Binding RestoreVisibility}"/>
+            <components:WindowsButton Text="X" OnClick="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

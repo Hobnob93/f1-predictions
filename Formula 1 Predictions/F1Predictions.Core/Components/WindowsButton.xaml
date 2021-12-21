@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              x:Name="self"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="auto" d:DesignWidth="auto">
     <Grid>
-        <Button Content="{Binding Text, ElementName=self}" Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+        <Button Content="{Binding Text, FallbackValue=?, ElementName=self}" Command="{Binding OnClick, ElementName=self}" 
+                Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

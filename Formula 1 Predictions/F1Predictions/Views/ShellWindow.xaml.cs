@@ -12,6 +12,7 @@ namespace F1Predictions.Views
             DataContext = this;
         }
 
+        
         public string ToolbarRegionName => Regions.ToolbarRegion.ToString();
     }
 }

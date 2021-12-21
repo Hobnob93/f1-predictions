@@ -8,11 +8,11 @@ using Prism.Regions;
 
 namespace F1Predictions.ToolbarModule;
 
-public class ToolbarModule : IModule
+public class Module : IModule
 {
     private readonly IRegionManager _regionManager;
     
-    public ToolbarModule(IRegionManager regionManager)
+    public Module(IRegionManager regionManager)
     {
         _regionManager = regionManager;
     }
