@@ -20,7 +20,7 @@ namespace F1Predictions
         {
             base.OnStartup(e);
             
-            _startup.Initialize(e);
+            _startup.InitializeLogging();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

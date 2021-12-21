@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Windows;
 using F1Predictions.Core.Config;
@@ -24,18 +25,21 @@ public class Startup
     }
     
     
-    public void Initialize(StartupEventArgs e)
+    public void InitializeLogging()
     {
+        var logger = _config.GetValue<LoggingConfig>(LoggingConfig.Section);
+        var interval = Enum.Parse<RollingInterval>(logger.RollingInterval, true);
+        
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.Console()
-            .WriteTo.File("logs\\_Log.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.File(logger.LogFile, rollingInterval: interval)
             .CreateLogger();
     }
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        SetupLogging(containerRegistry);
+        RegisterLogging(containerRegistry);
         
         // WPF Services
         containerRegistry.Register<IWindowService, WindowService>();
@@ -46,9 +50,10 @@ public class Startup
         containerRegistry.RegisterInstance(_config.GetValue<ToolbarConfig>(ToolbarConfig.Section));
     }
 
-    private void SetupLogging(IContainerRegistry containerRegistry)
+    private void RegisterLogging(IContainerRegistry containerRegistry)
     {
-        var appLogger = new SerilogLoggerProvider(Log.Logger).CreateLogger("App");
+        var logger = _config.GetValue<LoggingConfig>(LoggingConfig.Section);
+        var appLogger = new SerilogLoggerProvider(Log.Logger).CreateLogger(logger.LoggerName);
         containerRegistry.RegisterInstance(appLogger);
     }
 
