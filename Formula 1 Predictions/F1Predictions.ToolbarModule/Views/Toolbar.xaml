@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         d:DesignHeight="auto" d:DesignWidth="auto">
     
-    <Grid Background="#0F0F2D">
+    <Grid Background="{Binding BackgroundColor, FallbackValue=Black}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseLeftButtonDown">
                 <i:InvokeCommandAction Command="{Binding WindowDragCommand}"/>

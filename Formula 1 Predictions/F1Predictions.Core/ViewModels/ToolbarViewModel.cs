@@ -10,8 +10,9 @@ public class ToolbarViewModel : BindableBase
 {
     private readonly IToolbarService _toolbar;
     
-    private string _appName = "F1 Predictions 2021";
-    private string _f1ImageRef = "/Images/F1.png";
+    private string _appName;
+    private string _f1ImageRef;
+    private string _backgroundColor;
     private Visibility _restoreVisibility = Visibility.Collapsed;
     private Visibility _maximizeVisibility = Visibility.Visible;
 
@@ -25,15 +26,15 @@ public class ToolbarViewModel : BindableBase
         MinimizeCommand = new DelegateCommand(_toolbar.MinimizeWindow);
         WindowDragCommand = new DelegateCommand(_toolbar.DragWindow);
 
-        _toolbar.ViewModel = this;
+        _toolbar.Initialize(this);
     }
     
     
-    public ICommand CloseCommand { get; private set; }
-    public ICommand MaximizeCommand { get; private set; }
-    public ICommand RestoreCommand { get; private set; }
-    public ICommand MinimizeCommand { get; private set; }
-    public ICommand WindowDragCommand { get; private set; }
+    public ICommand CloseCommand { get; }
+    public ICommand MaximizeCommand { get; }
+    public ICommand RestoreCommand { get; }
+    public ICommand MinimizeCommand { get; }
+    public ICommand WindowDragCommand { get; }
     
     public string AppName
     {
@@ -45,6 +46,12 @@ public class ToolbarViewModel : BindableBase
     {
         get => _f1ImageRef;
         set => SetProperty(ref _f1ImageRef, value);
+    }
+    
+    public string BackgroundColor
+    {
+        get => _backgroundColor;
+        set => SetProperty(ref _backgroundColor, value);
     }
 
     public Visibility RestoreVisibility
