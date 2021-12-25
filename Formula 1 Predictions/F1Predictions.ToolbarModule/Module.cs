@@ -20,7 +20,7 @@ public class Module : IModule
     
     public void OnInitialized(IContainerProvider containerProvider)
     {
-        _regionManager.RegisterViewWithRegion<ToolbarView>($"{Regions.ToolbarRegion}");
+        _regionManager.RegisterViewWithRegion<ToolbarView>($"{Regions.Toolbar}");
     }
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
