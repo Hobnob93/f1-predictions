@@ -2,4 +2,8 @@ using F1Predictions.Core.Enums;
 
 namespace F1Predictions.Core.Models;
 
-public record ScoreOverride(string Question, ScoringTypes ScoringType);
+public record ScoreOverride
+{
+    public string Question { get; set; }
+    public ScoringTypes ScoringType { get; set; }
+}

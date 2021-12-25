@@ -48,6 +48,8 @@ public class Startup
         // App Options
         containerRegistry.RegisterInstance(_config.GetSection(AppConfig.Section).Get<AppConfig>());
         containerRegistry.RegisterInstance(_config.GetSection(ToolbarConfig.Section).Get<ToolbarConfig>());
+        containerRegistry.RegisterInstance(_config.GetSection(PredictionConfig.Section).Get<PredictionConfig>());
+        containerRegistry.RegisterInstance(_config.GetSection(ChampionshipConfig.Section).Get<ChampionshipConfig>());
     }
 
     private void RegisterLogging(IContainerRegistry containerRegistry)

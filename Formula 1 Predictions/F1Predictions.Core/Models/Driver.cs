@@ -1,3 +1,7 @@
 namespace F1Predictions.Core.Models;
 
-public record Driver(string Id, string Name);
+public record Driver
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+};
