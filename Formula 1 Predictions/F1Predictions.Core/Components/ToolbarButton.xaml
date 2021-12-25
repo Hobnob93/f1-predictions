@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             x:Name="self"
+             x:Name="Self"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Button Content="{Binding Text, ElementName=self}" Foreground="White" Margin="15,0" BorderThickness="0" 
+        <Button Content="{Binding Text, ElementName=Self}" Foreground="White" Margin="15,0" BorderThickness="0" 
                 FontSize="18" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
     </Grid>
 </UserControl>
