@@ -29,7 +29,8 @@ namespace F1Predictions
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ToolbarModule.Module>();
+            moduleCatalog.AddModule<ToolbarModule.ToolbarModule>();
+            moduleCatalog.AddModule<ProgressModule.ProgressModule>();
         }
     }
 }

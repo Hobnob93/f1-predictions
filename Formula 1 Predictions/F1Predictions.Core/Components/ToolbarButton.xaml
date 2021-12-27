@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Button Content="{Binding Text, ElementName=Self}" Foreground="White" Margin="15,0" BorderThickness="0" 
+        <Button Content="{Binding Text, ElementName=Self}" Foreground="#AAAAAA" Margin="15,0" BorderThickness="0" 
                 FontSize="18" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
     </Grid>
 </UserControl>

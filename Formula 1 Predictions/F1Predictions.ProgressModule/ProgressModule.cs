@@ -8,11 +8,11 @@ using Prism.Regions;
 
 namespace F1Predictions.ProgressModule;
 
-public class Module : IModule
+public class ProgressModule : IModule
 {
     private readonly IRegionManager _regionManager;
     
-    public Module(IRegionManager regionManager)
+    public ProgressModule(IRegionManager regionManager)
     {
         _regionManager = regionManager;
     }
@@ -25,6 +25,6 @@ public class Module : IModule
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        ViewModelLocationProvider.Register<MessageView, ProgressViewModel>();
+        ViewModelLocationProvider.Register<MessageView, MessageViewModel>();
     }
 }

@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:F1Predictions"
         mc:Ignorable="d"
         FontFamily="{Binding Font, Mode=OneTime}"
+        Foreground="White"
         Title="{Binding AppName, Mode=OneTime}" Height="500" Width="920"
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanResize"
@@ -21,7 +22,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="15"></RowDefinition>
         </Grid.RowDefinitions>
