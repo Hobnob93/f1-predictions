@@ -43,6 +43,9 @@ public class Startup : IStartup
         // WPF Services
         containerRegistry.Register<IWindowService, WindowService>();
         containerRegistry.Register<IToolbarService, ToolbarService>();
+        
+        // Manager Services
+        containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
 
         // App Options
         containerRegistry.RegisterInstance(config.GetSection(AppConfig.Section).Get<AppConfig>());
