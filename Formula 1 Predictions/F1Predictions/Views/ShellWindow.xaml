@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         FontFamily="{Binding Font, Mode=OneTime}"
         Foreground="White"
-        Title="{Binding AppName, Mode=OneTime}" Height="500" Width="920"
+        Title="{Binding AppName, Mode=OneTime}" Height="750" Width="1200"
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanResize"
         Background="{Binding BackgroundColor, Mode=OneTime}"

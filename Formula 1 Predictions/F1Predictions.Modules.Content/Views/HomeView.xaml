@@ -4,9 +4,44 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:F1Predictions.Modules.Content.Views"
+             xmlns:components="clr-namespace:F1Predictions.Core.Components;assembly=F1Predictions.Core"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="auto" d:DesignWidth="auto">
     <Grid>
-        <TextBlock Text="Welcome to the home page!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Row 0 -->
+        <TextBlock Grid.Row="0" Text="This Season Overview" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        
+        <!-- Row 2 -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Column 1 -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="The Participants" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <ItemsControl ItemsSource="{Binding Participants}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <components:ParticipantBanner Text="{Binding Name}" Color="{Binding Color}" Margin="0, 5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

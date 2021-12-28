@@ -14,10 +14,10 @@ public partial class ParticipantBanner : UserControl
         DependencyProperty.Register(nameof(Text), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
     
     public static readonly DependencyProperty DataProperty = 
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(Data), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
     
     public static readonly DependencyProperty ColorProperty = 
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(Color), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
 
     public string Text
     {
