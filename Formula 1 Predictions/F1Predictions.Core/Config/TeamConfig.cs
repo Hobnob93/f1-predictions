@@ -4,5 +4,5 @@ public record TeamConfig
 {
     public string Name { get; set; }
     public string Color { get; set; }
-    public DriverConfig[] DriverSources { get; set; }
+    public DriverConfig[] Drivers { get; set; }
 }

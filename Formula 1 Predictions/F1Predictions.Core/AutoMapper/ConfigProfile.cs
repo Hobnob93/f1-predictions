@@ -13,6 +13,6 @@ public class ConfigProfile : Profile
         CreateMap<TeamConfig, Team>();
         CreateMap<ScoreOverrideConfig, ScoreOverride>();
         CreateMap<SectionConfig, Section>();
-        CreateMap<TeamConfig[], Driver[]>().ConvertUsing<TeamsToDriversTypeConverter>();
+        CreateMap<ICollection<TeamConfig>, ICollection<Driver>>().ConvertUsing<TeamsToDriversTypeConverter>();
     }
 }
