@@ -14,6 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
@@ -74,5 +75,10 @@
                 </ItemsControl>
             </StackPanel>
         </Grid>
+        
+        <!-- Row 4 -->
+        <Button Grid.Row="4" MaxWidth="250" Height="40" Background="Cornsilk" BorderThickness="0">
+            <TextBlock Text="Let's Begin..." FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
+        </Button>
     </Grid>
 </UserControl>

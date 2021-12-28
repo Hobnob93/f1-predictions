@@ -34,6 +34,9 @@
         <!-- Row 1 -->
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{Binding ProgressRegionName, Mode=OneTime}"/>
         
+        <!-- Row 2 -->
+        <Rectangle Grid.Row="2" HorizontalAlignment="Stretch" Fill="Lavender" Height="1"/>
+        
         <!-- Row 3 -->
         <ContentControl Grid.Row="3" prism:RegionManager.RegionName="{Binding ContentRegionName, Mode=OneTime}"/>
     </Grid>
