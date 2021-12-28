@@ -12,7 +12,7 @@ public class ToolbarService : IToolbarService
 
     private ToolbarViewModel _viewModel;
     
-    public ToolbarService(IWindowService window, ToolbarConfig config, ChampionshipConfig champ, PredictionConfig pred)
+    public ToolbarService(IWindowService window, ToolbarConfig config)
     {
         _window = window;
         _config = config;

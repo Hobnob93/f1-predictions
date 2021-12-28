@@ -6,5 +6,5 @@ public class ChampionshipConfig
 {
     public const string Section = "Championship";
     
-    public Team[] Competitors { get; set; }
+    public TeamConfig[] Competitors { get; set; }
 }

@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using F1Predictions.Modules.Content;
+using F1Predictions.Modules.Progress;
+using F1Predictions.Modules.Toolbar;
 using F1Predictions.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -8,18 +11,22 @@ namespace F1Predictions
 {
     public partial class App : PrismApplication
     {
-        private readonly Startup _startup;
+        private readonly IStartup startup;
 
-        public App()
+        public App() : this(new Startup())
         {
-            _startup = new Startup();
+            
+        }
+
+        public App(IStartup startup)
+        {
+            this.startup = startup;
         }
         
         
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _startup.InitializeLogging();
-            _startup.RegisterTypes(containerRegistry);
+            startup.RegisterTypes(containerRegistry);
         }
 
         protected override Window CreateShell()
@@ -29,7 +36,9 @@ namespace F1Predictions
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ToolbarModule.Module>();
+            moduleCatalog.AddModule<ToolbarModule>();
+            moduleCatalog.AddModule<ProgressModule>();
+            moduleCatalog.AddModule<ContentModule>();
         }
     }
 }

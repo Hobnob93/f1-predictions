@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:F1Predictions"
         mc:Ignorable="d"
         FontFamily="{Binding Font, Mode=OneTime}"
-        Title="{Binding AppName, Mode=OneTime}" Height="500" Width="920"
+        Foreground="White"
+        Title="{Binding AppName, Mode=OneTime}" Height="750" Width="1200"
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanResize"
         Background="{Binding BackgroundColor, Mode=OneTime}"
@@ -21,11 +22,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="15"></RowDefinition>
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
         <ContentControl Grid.Row="0" prism:RegionManager.RegionName="{Binding ToolbarRegionName, Mode=OneTime}"/>
+        
+        <!-- Row 1 -->
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{Binding ProgressRegionName, Mode=OneTime}"/>
+        
+        <!-- Row 2 -->
+        <Rectangle Grid.Row="2" HorizontalAlignment="Stretch" Fill="Lavender" Height="1"/>
+        
+        <!-- Row 3 -->
+        <ContentControl Grid.Row="3" prism:RegionManager.RegionName="{Binding ContentRegionName, Mode=OneTime}"/>
     </Grid>
 </Window>

@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             x:Name="self"
+             x:Name="Self"
              mc:Ignorable="d"
              d:DesignHeight="auto" d:DesignWidth="auto">
     <Grid>
-        <Button Content="{Binding Text, FallbackValue=?, ElementName=self}" Command="{Binding OnClick, ElementName=self}" 
-                Foreground="White" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+        <Button Content="{Binding Text, FallbackValue=?, ElementName=Self}" Command="{Binding OnClick, ElementName=Self}" 
+                Foreground="#888888" Height="20" Width="20" Margin="1,0" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

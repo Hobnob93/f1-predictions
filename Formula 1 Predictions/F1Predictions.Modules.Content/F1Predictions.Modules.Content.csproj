@@ -9,10 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="10.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
-      <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\F1Predictions.Core\F1Predictions.Core.csproj" />
     </ItemGroup>
 
 </Project>
