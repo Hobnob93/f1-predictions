@@ -11,18 +11,22 @@ namespace F1Predictions
 {
     public partial class App : PrismApplication
     {
-        private readonly Startup _startup;
+        private readonly IStartup startup;
 
-        public App()
+        public App() : this(new Startup())
         {
-            _startup = new Startup();
+            
+        }
+
+        public App(IStartup startup)
+        {
+            this.startup = startup;
         }
         
         
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _startup.InitializeLogging();
-            _startup.RegisterTypes(containerRegistry);
+            startup.RegisterTypes(containerRegistry);
         }
 
         protected override Window CreateShell()

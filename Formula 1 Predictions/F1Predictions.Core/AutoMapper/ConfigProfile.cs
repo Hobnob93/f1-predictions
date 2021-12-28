@@ -4,9 +4,9 @@ using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.AutoMapper;
 
-public class CoreProfile : Profile
+public class ConfigProfile : Profile
 {
-    public CoreProfile()
+    public ConfigProfile()
     {
         CreateMap<ParticipantConfig, Participant>();
         CreateMap<DriverConfig, Driver>();
