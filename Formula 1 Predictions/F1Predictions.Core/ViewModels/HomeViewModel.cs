@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using AutoMapper;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Extensions;
+using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
 using Prism.Mvvm;
 
@@ -18,11 +19,11 @@ public class HomeViewModel : BindableBase
     private ObservableCollection<Team> teams;
     private ObservableCollection<Driver> drivers;
 
-    public HomeViewModel(IMapper mapper, PredictionConfig predictionConfig, ChampionshipConfig championshipConfig)
+    public HomeViewModel(IParticipantsManager participantsManager, ICompetitorManager competitorManager)
     {
-        Participants = mapper.Map<List<Participant>>(predictionConfig.Participants).ToObservableCollection();
-        Teams = mapper.Map<List<Team>>(championshipConfig.Competitors).ToObservableCollection();
-        Drivers = mapper.Map<List<Driver>>(championshipConfig.Competitors).ToObservableCollection();
+        Participants = participantsManager.GetParticipants().ToObservableCollection();
+        Teams = competitorManager.GetTeams().ToObservableCollection();
+        Drivers = competitorManager.GetDrivers().ToObservableCollection();
     }
 
 

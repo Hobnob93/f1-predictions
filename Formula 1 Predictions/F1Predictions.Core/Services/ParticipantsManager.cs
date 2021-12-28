@@ -9,9 +9,9 @@ public class ParticipantsManager : IParticipantsManager
 {
     private readonly Participant[] participants;
 
-    public ParticipantsManager(IMapperBase mapper, PredictionConfig predictionConfig)
+    public ParticipantsManager(IMapper mapper, PredictionConfig predictionConfig)
     {
-        participants = mapper.Map<Participant[]>(predictionConfig.Participants);
+        participants = mapper.Map<IEnumerable<Participant>>(predictionConfig.Participants).ToArray();
     }
     
     

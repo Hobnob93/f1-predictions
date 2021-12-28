@@ -10,10 +10,10 @@ public class CompetitorManager : ICompetitorManager
     private readonly Team[] teams;
     private readonly Driver[] drivers;
 
-    public CompetitorManager(IMapperBase mapper, ChampionshipConfig championshipConfig)
+    public CompetitorManager(IMapper mapper, ChampionshipConfig championshipConfig)
     {
-        teams = mapper.Map<Team[]>(championshipConfig.Competitors);
-        drivers = mapper.Map<Driver[]>(championshipConfig.Competitors);
+        teams = mapper.Map<IEnumerable<Team>>(championshipConfig.Competitors).ToArray();
+        drivers = mapper.Map<IEnumerable<Driver>>(championshipConfig.Competitors).ToArray();
     }
     
     

@@ -4,9 +4,9 @@ using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.AutoMapper;
 
-public class TeamsToDriversTypeConverter : ITypeConverter<ICollection<TeamConfig>,ICollection<Driver>>
+public class TeamsToDriversTypeConverter : ITypeConverter<IEnumerable<TeamConfig>,IEnumerable<Driver>>
 {
-    public ICollection<Driver> Convert(ICollection<TeamConfig> source, ICollection<Driver> destination, ResolutionContext context)
+    public IEnumerable<Driver> Convert(IEnumerable<TeamConfig> source, IEnumerable<Driver> destination, ResolutionContext context)
     {
         var drivers = new List<Driver>();
         var sources = source.Select(s => new {TeamSource = s, DriverSources = s.Drivers});
