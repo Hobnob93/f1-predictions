@@ -17,27 +17,58 @@
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Text="This Season Overview" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 2 -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
-                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
             
-            <!-- Column 1 -->
-            <StackPanel Grid.Column="1">
+            <!-- Column 2 -->
+            <StackPanel Grid.Column="2" Width="225">
                 <TextBlock Text="The Participants" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
                 <ItemsControl ItemsSource="{Binding Participants}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:ParticipantBanner Text="{Binding Name}" Color="{Binding Color}" Margin="0, 5"/>
+                            <components:ParticipantBanner Text="{Binding Name}" Color="{Binding Color}" Margin="5, 5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            
+            <!-- Column 4 -->
+            <StackPanel Grid.Column="4" Width="225">
+                <TextBlock Text="The Teams" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <ItemsControl ItemsSource="{Binding Teams}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <components:CompetitorBanner Text="{Binding Name}" Color="{Binding Color}" Margin="5, 5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            
+            <!-- Column 6 -->
+            <StackPanel Grid.Column="6" Width="450">
+                <TextBlock Text="The Drivers" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <ItemsControl ItemsSource="{Binding Drivers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <components:CompetitorBanner Text="{Binding Name}" Color="{Binding Team.Color}" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

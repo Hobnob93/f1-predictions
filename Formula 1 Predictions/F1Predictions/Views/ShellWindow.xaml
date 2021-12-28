@@ -23,6 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="15"></RowDefinition>
         </Grid.RowDefinitions>
@@ -33,7 +34,7 @@
         <!-- Row 1 -->
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="{Binding ProgressRegionName, Mode=OneTime}"/>
         
-        <!-- Row 2 -->
-        <ContentControl Grid.Row="2" prism:RegionManager.RegionName="{Binding ContentRegionName, Mode=OneTime}"/>
+        <!-- Row 3 -->
+        <ContentControl Grid.Row="3" prism:RegionManager.RegionName="{Binding ContentRegionName, Mode=OneTime}"/>
     </Grid>
 </Window>

@@ -11,10 +11,10 @@
              BorderThickness="1"
              BorderBrush="{Binding Color, ElementName=Self, FallbackValue=White}"
              d:DesignHeight="auto" d:DesignWidth="auto">
-    <Grid Height="30" Width="300">
+    <Grid Height="30" Width="200">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="35"/>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -23,8 +23,8 @@
         </Grid.ColumnDefinitions>
         
         <!-- Column 1 -->
-        <Canvas Grid.Column="1">
-            <Line X1="20" Y1="-5" X2="0" Y2="35" Stroke="{Binding Color, ElementName=Self, FallbackValue=White}" StrokeThickness="15"></Line>
+        <Canvas Grid.Column="1" ClipToBounds="True">
+            <Line X1="22" Y1="-10" X2="6" Y2="40" Stroke="{Binding Color, ElementName=Self, FallbackValue=White}" StrokeThickness="15"></Line>
         </Canvas>
         
         <!-- Column 3 -->
