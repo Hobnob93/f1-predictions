@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Predictions.ToolbarModule
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Predictions.ProgressModule", "F1Predictions.ProgressModule\F1Predictions.ProgressModule.csproj", "{D60B7AB1-18E8-4918-831F-28679B17B17A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Predictions.Modules.Content", "F1Predictions.Modules.Content\F1Predictions.Modules.Content.csproj", "{6F69A3EA-4575-4592-B2E3-6C9BA71286CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{D60B7AB1-18E8-4918-831F-28679B17B17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D60B7AB1-18E8-4918-831F-28679B17B17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D60B7AB1-18E8-4918-831F-28679B17B17A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F69A3EA-4575-4592-B2E3-6C9BA71286CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F69A3EA-4575-4592-B2E3-6C9BA71286CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F69A3EA-4575-4592-B2E3-6C9BA71286CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F69A3EA-4575-4592-B2E3-6C9BA71286CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
