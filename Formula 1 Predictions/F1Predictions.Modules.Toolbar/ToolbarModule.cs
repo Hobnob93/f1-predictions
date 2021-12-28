@@ -1,12 +1,12 @@
 using F1Predictions.Core.Enums;
 using F1Predictions.Core.ViewModels;
-using F1Predictions.ToolbarModule.Views;
+using F1Predictions.Modules.Toolbar.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 
-namespace F1Predictions.ToolbarModule;
+namespace F1Predictions.Modules.Toolbar;
 
 public class ToolbarModule : IModule
 {

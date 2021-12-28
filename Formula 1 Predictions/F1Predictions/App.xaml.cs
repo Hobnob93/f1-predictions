@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using F1Predictions.Modules.Content;
 using F1Predictions.Modules.Progress;
+using F1Predictions.Modules.Toolbar;
 using F1Predictions.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -31,7 +32,7 @@ namespace F1Predictions
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ToolbarModule.ToolbarModule>();
+            moduleCatalog.AddModule<ToolbarModule>();
             moduleCatalog.AddModule<ProgressModule>();
             moduleCatalog.AddModule<ContentModule>();
         }

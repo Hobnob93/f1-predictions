@@ -27,7 +27,7 @@
       <ProjectReference Include="..\F1Predictions.Core\F1Predictions.Core.csproj" />
       <ProjectReference Include="..\F1Predictions.Modules.Content\F1Predictions.Modules.Content.csproj" />
       <ProjectReference Include="..\F1Predictions.Modules.Progress\F1Predictions.Modules.Progress.csproj" />
-      <ProjectReference Include="..\F1Predictions.ToolbarModule\F1Predictions.ToolbarModule.csproj" />
+      <ProjectReference Include="..\F1Predictions.Modules.Toolbar\F1Predictions.Modules.Toolbar.csproj" />
     </ItemGroup>
 
     <ItemGroup>
