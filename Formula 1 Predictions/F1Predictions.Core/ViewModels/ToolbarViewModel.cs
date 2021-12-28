@@ -1,3 +1,8 @@
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 using System.Windows;
 using System.Windows.Input;
 using F1Predictions.Core.Interfaces;
@@ -8,28 +13,24 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ToolbarViewModel : BindableBase
 {
-    private readonly IToolbarService _toolbar;
-    
-    private string _appName;
-    private string _f1ImageRef;
-    private string _backgroundColor;
-    private Visibility _restoreVisibility = Visibility.Collapsed;
-    private Visibility _maximizeVisibility = Visibility.Visible;
+    private string appName;
+    private string f1ImageRef;
+    private string backgroundColor;
+    private Visibility restoreVisibility = Visibility.Collapsed;
+    private Visibility maximizeVisibility = Visibility.Visible;
 
     public ToolbarViewModel(IToolbarService toolbar)
     {
-        _toolbar = toolbar;
+        CloseCommand = new DelegateCommand(toolbar.CloseWindow);
+        MaximizeCommand = new DelegateCommand(toolbar.MaximizeWindow);
+        RestoreCommand = new DelegateCommand(toolbar.RestoreWindow);
+        MinimizeCommand = new DelegateCommand(toolbar.MinimizeWindow);
+        WindowDragCommand = new DelegateCommand(toolbar.DragWindow);
 
-        CloseCommand = new DelegateCommand(_toolbar.CloseWindow);
-        MaximizeCommand = new DelegateCommand(_toolbar.MaximizeWindow);
-        RestoreCommand = new DelegateCommand(_toolbar.RestoreWindow);
-        MinimizeCommand = new DelegateCommand(_toolbar.MinimizeWindow);
-        WindowDragCommand = new DelegateCommand(_toolbar.DragWindow);
-
-        _toolbar.Initialize(this);
+        toolbar.Initialize(this);
     }
-    
-    
+
+
     public ICommand CloseCommand { get; }
     public ICommand MaximizeCommand { get; }
     public ICommand RestoreCommand { get; }
@@ -38,31 +39,31 @@ public class ToolbarViewModel : BindableBase
     
     public string AppName
     {
-        get => _appName;
-        set => SetProperty(ref _appName, value);
+        get => appName;
+        set => SetProperty(ref appName, value);
     }
 
     public string F1ImageRef
     {
-        get => _f1ImageRef;
-        set => SetProperty(ref _f1ImageRef, value);
+        get => f1ImageRef;
+        set => SetProperty(ref f1ImageRef, value);
     }
     
     public string BackgroundColor
     {
-        get => _backgroundColor;
-        set => SetProperty(ref _backgroundColor, value);
+        get => backgroundColor;
+        set => SetProperty(ref backgroundColor, value);
     }
 
     public Visibility RestoreVisibility
     {
-        get => _restoreVisibility;
-        set => SetProperty(ref _restoreVisibility, value);
+        get => restoreVisibility;
+        set => SetProperty(ref restoreVisibility, value);
     }
     
     public Visibility MaximizeVisibility
     {
-        get => _maximizeVisibility;
-        set => SetProperty(ref _maximizeVisibility, value);
+        get => maximizeVisibility;
+        set => SetProperty(ref maximizeVisibility, value);
     }
 }
