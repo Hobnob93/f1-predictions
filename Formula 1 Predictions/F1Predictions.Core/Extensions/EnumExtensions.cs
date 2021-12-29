@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace F1Predictions.Core.Extensions;
 
-public static class VisibilityExtensions
+public static class EnumExtensions
 {
     public static Visibility FlipCollapsed(this Visibility visibility)
     {
