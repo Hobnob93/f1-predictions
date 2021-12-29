@@ -19,9 +19,4 @@ public class ParticipantsManager : IParticipantsManager
     {
         return participants;
     }
-
-    public Participant GetParticipant(string name)
-    {
-        return participants.SingleOrDefault(p => p.Name == name);
-    }
 }
