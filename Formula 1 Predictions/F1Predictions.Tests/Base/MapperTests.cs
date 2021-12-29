@@ -11,6 +11,7 @@ public abstract class MapperTests
     protected const string ColorPrefix = "Color";
     protected const string DriverIdPrefix = "Driver-";
     protected const string DriverNamePrefix = "Driver";
+    protected const string ParticipantNamePrefix = "Participant";
     
     protected readonly IMapper Mapper;
 
@@ -56,6 +57,29 @@ public abstract class MapperTests
         };
     }
 
+    protected PredictionConfig CreatePredictionConfig(int numParticipants = 1)
+    {
+        var participants = new List<ParticipantConfig>();
+        for (var i = 0; i < numParticipants; i++)
+        {
+            participants.Add(new ParticipantConfig
+            {
+                Name = $"{ParticipantNamePrefix}{i}",
+                Color = $"{ColorPrefix}{i}",
+                Column = $"{i}"
+            });
+        }
+        
+        return new PredictionConfig
+        {
+            Participants = participants.ToArray(),
+            PredictionSections = Array.Empty<SectionConfig>(),
+            HeaderColumn = "H",
+            InfoColumn = "I",
+            QuestionColumn = "Q"
+        };
+    }
+
     protected TeamConfig GetTeamConfigFromTeamId(IEnumerable<TeamConfig> teamsConfig, string teamId)
     {
         return teamsConfig.Single(t => t.Id == teamId);
@@ -71,5 +95,10 @@ public abstract class MapperTests
     {
         return teamsConfig.SelectMany(t => t.Drivers)
             .Single(d => d.Id == driverId);
+    }
+
+    protected ParticipantConfig GetParticipantConfigFromParticipantName(IEnumerable<ParticipantConfig> participantsConfig, string name)
+    {
+        return participantsConfig.Single(p => p.Name == name);
     }
 }
