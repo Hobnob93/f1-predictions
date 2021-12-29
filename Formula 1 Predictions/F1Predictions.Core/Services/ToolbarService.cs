@@ -7,56 +7,56 @@ namespace F1Predictions.Core.Services;
 
 public class ToolbarService : IToolbarService
 {
-    private readonly IWindowService _window;
-    private readonly ToolbarConfig _config;
+    private readonly IWindowService window;
+    private readonly ToolbarConfig config;
 
-    private ToolbarViewModel _viewModel;
+    private ToolbarViewModel viewModel;
     
     public ToolbarService(IWindowService window, ToolbarConfig config)
     {
-        _window = window;
-        _config = config;
+        this.window = window;
+        this.config = config;
     }
 
 
     public void Initialize(ToolbarViewModel vm)
     {
-        _viewModel = vm;
-        vm.AppName = _config.Title;
-        vm.F1ImageRef = _config.F1Logo;
-        vm.BackgroundColor = _config.BackgroundColor;
+        viewModel = vm;
+        vm.AppName = config.Title;
+        vm.F1ImageRef = config.F1Logo;
+        vm.BackgroundColor = config.BackgroundColor;
     }
 
     public void CloseWindow()
     {
-        _window.Close();
+        window.Close();
     }
 
     public void MaximizeWindow()
     {
-        _window.Maximize();
+        window.Maximize();
         FlipRestoreMaximize();
     }
 
     public void MinimizeWindow()
     {
-        _window.Minimize();
+        window.Minimize();
     }
 
     public void RestoreWindow()
     {
-        _window.Restore();
+        window.Restore();
         FlipRestoreMaximize();
     }
 
     public void DragWindow()
     {
-        _window.Drag();
+        window.Drag();
     }
 
     private void FlipRestoreMaximize()
     {
-        _viewModel.MaximizeVisibility = _viewModel.MaximizeVisibility.FlipCollapsed();
-        _viewModel.RestoreVisibility = _viewModel.RestoreVisibility.FlipCollapsed();
+        viewModel.MaximizeVisibility = viewModel.MaximizeVisibility.FlipCollapsed();
+        viewModel.RestoreVisibility = viewModel.RestoreVisibility.FlipCollapsed();
     }
 }

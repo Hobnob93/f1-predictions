@@ -4,21 +4,15 @@ using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.AutoMapper;
 
-public class TeamsToDriversTypeConverter : ITypeConverter<ICollection<TeamConfig>,ICollection<Driver>>
+public class TeamsToDriversTypeConverter : ITypeConverter<IEnumerable<TeamConfig>,IEnumerable<Driver>>
 {
-    public ICollection<Driver> Convert(ICollection<TeamConfig> source, ICollection<Driver> destination, ResolutionContext context)
+    public IEnumerable<Driver> Convert(IEnumerable<TeamConfig> source, IEnumerable<Driver> destination, ResolutionContext context)
     {
-        var drivers = new List<Driver>();
         var sources = source.Select(s => new {TeamSource = s, DriverSources = s.Drivers});
-        foreach (var comboSource in sources)
-        {
-            foreach (var driverSource in comboSource.DriverSources)
-            {
-                var driver = context.Mapper.Map<Driver>(driverSource);
-                drivers.Add(driver with { Team = context.Mapper.Map<Team>(comboSource.TeamSource) });
-            }
-        }
         
-        return drivers;
+        return (from comboSource in sources from driverSource in comboSource.DriverSources 
+            let driver = context.Mapper.Map<Driver>(driverSource) 
+            select driver with {Team = context.Mapper.Map<Team>(comboSource.TeamSource)})
+            .ToList();
     }
 }

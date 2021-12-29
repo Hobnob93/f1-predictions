@@ -39,16 +39,20 @@ public class Startup : IStartup
     {
         RegisterLogging(containerRegistry);
         RegisterAutoMapper(containerRegistry);
-        
-        // WPF Services
-        containerRegistry.Register<IWindowService, WindowService>();
-        containerRegistry.Register<IToolbarService, ToolbarService>();
 
         // App Options
         containerRegistry.RegisterInstance(config.GetSection(AppConfig.Section).Get<AppConfig>());
         containerRegistry.RegisterInstance(config.GetSection(ToolbarConfig.Section).Get<ToolbarConfig>());
         containerRegistry.RegisterInstance(config.GetSection(PredictionConfig.Section).Get<PredictionConfig>());
         containerRegistry.RegisterInstance(config.GetSection(ChampionshipConfig.Section).Get<ChampionshipConfig>());
+        
+        // WPF Services
+        containerRegistry.Register<IWindowService, WindowService>();
+        containerRegistry.Register<IToolbarService, ToolbarService>();
+        
+        // Manager Services
+        containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
+        containerRegistry.RegisterSingleton<ICompetitorManager, CompetitorManager>();
     }
 
     private void RegisterLogging(IContainerRegistry containerRegistry)
