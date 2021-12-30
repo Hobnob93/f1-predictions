@@ -20,11 +20,13 @@ public class ProgressModule : IModule
     
     public void OnInitialized(IContainerProvider containerProvider)
     {
-        _regionManager.RegisterViewWithRegion<MessageView>($"{Regions.Progress}");
+        //_regionManager.RegisterViewWithRegion<MessageView>($"{Regions.Progress}");
+        _regionManager.RegisterViewWithRegion<ProgressBarView>($"{Regions.Progress}");
     }
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        ViewModelLocationProvider.Register<MessageView, MessageViewModel>();
+        //ViewModelLocationProvider.Register<MessageView, MessageViewModel>();
+        ViewModelLocationProvider.Register<ProgressBarView, ProgressBarViewModel>();
     }
 }

@@ -11,7 +11,7 @@
              BorderThickness="1"
              BorderBrush="{Binding Color, ElementName=Self, FallbackValue=White}"
              d:DesignHeight="auto" d:DesignWidth="auto">
-    <Grid Height="30" Width="200">
+    <Grid Height="30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="35"/>
