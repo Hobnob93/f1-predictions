@@ -77,7 +77,7 @@
         </Grid>
         
         <!-- Row 4 -->
-        <Button Grid.Row="4" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BeginCommand}">
+        <Button Grid.Row="4" Margin="15, 10" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BeginCommand}">
             <TextBlock Text="Let's Begin..." FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
         </Button>
     </Grid>
