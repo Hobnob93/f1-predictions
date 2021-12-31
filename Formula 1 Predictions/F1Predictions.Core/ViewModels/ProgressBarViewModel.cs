@@ -51,39 +51,37 @@ public class ProgressBarViewModel : BindableBase
 
     private void OnSectionChanged(bool isForward)
     {
-        if (activeSection == null || activeQuestion == null)
-        {
-            activeSection = sections[activeSectionId];
-            activeQuestion = activeSection.ChildBars[activeQuestionId];
-        }
-        else
+        if (activeSection != null && activeQuestion != null)
         {
             activeQuestionId++;
+            activeQuestionId %= activeSection.ChildBars.Length;
+            activeQuestion.Complete(CompletedColor);
 
-            if (activeQuestionId >= activeSection.ChildBars.Length)
+            if (activeQuestionId == 0)
             {
-                activeQuestionId = 0;
                 activeSectionId++;
-                activeSection.Color = CompletedColor;
-                activeSection.IsComplete = true;
+                activeSectionId %= Sections.Count;
+                activeSection.Complete(CompletedColor);
 
-                if (activeSectionId >= Sections.Count)
-                {
-                    // We are done
+                if (activeSectionId == 0)
                     return;
-                }
-
-                activeSection = sections[activeSectionId];
             }
-
-            activeQuestion.Color = CompletedColor;
-            activeQuestion.IsComplete = true;
-            activeQuestion = activeSection.ChildBars[activeQuestionId];
         }
         
-        activeSection.Color = ActiveColor;
-        activeQuestion.Color = ActiveColor;
-        
+        UpdateActiveSection();
+        UpdateActiveQuestion();
         sections.Refresh();
+    }
+
+    private void UpdateActiveSection()
+    {
+        activeSection = sections[activeSectionId];
+        activeSection.Color = ActiveColor;
+    }
+
+    private void UpdateActiveQuestion()
+    {
+        activeQuestion = activeSection.ChildBars[activeQuestionId];
+        activeQuestion.Color = ActiveColor;
     }
 }
