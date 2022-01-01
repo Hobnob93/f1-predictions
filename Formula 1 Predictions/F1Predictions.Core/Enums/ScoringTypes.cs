@@ -2,8 +2,9 @@ namespace F1Predictions.Core.Enums;
 
 public enum ScoringTypes
 {
-    Cascade,
-    Fact,
+    FullOrder,
+    HeadToHead,
     Numerical,
-    Top
+    Top,
+    TopMisc
 }

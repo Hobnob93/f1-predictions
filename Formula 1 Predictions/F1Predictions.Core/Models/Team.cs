@@ -1,6 +1,6 @@
 namespace F1Predictions.Core.Models;
 
-public record Team
+public record Team : ICompetitor
 {
     public string Id { get; set; }
     public string Name { get; set; }
