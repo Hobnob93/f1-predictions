@@ -34,7 +34,7 @@ public class GoogleSheets : IGoogleSheets
         {
             Name = question.Question,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
-            Answers = mapper.Map<Answer<ICompetitor>[]>(question)
+            Answers = mapper.Map<Answer<ICompetitor>[]>(answers)
         };
     }
 
@@ -51,8 +51,8 @@ public class GoogleSheets : IGoogleSheets
         return new PredictionFetchDto
         {
             Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty,
-            Note = values?.LastOrDefault()?.LastOrDefault()?.ToString() ?? string.Empty,
-            Predictions = values?.Take(1..^2)
+            Note = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? string.Empty,
+            Predictions = values?.FirstOrDefault()?.Take(1..^1)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>()
         };
@@ -62,15 +62,15 @@ public class GoogleSheets : IGoogleSheets
     {
         var values = ReadValues(resultsSheetName, $"{config.QuestionColumn}{row}:{config.EndOfAnswerColumn}{row}")?.ToArray();
         var answersEnd = config.MaxAnswersPerQuestion + 1;
-        var notesBegin = answersEnd + 1;
+        var notesBegin = answersEnd;
         
-        return new AnswerFetchDto()
+        return new AnswerFetchDto
         {
             Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty,
-            Answers = values?.Take(1..answersEnd)
+            Answers = values?.FirstOrDefault()?.Take(1..answersEnd)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>(),
-            Notes = values?.Take(notesBegin..)
+            Notes = values?.FirstOrDefault()?.Take(notesBegin..)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>(),
         };
