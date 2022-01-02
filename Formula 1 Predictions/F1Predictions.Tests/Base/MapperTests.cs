@@ -66,7 +66,7 @@ public abstract class MapperTests
             {
                 Name = $"{ParticipantNamePrefix}{i}",
                 Color = $"{ColorPrefix}{i}",
-                Column = i
+                Index = i
             });
         }
         
