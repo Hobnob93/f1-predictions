@@ -16,7 +16,7 @@ public class ConfigProfile : Profile
         CreateMap<SectionConfig, Section>();
         
         CreateMap<ICollection<TeamConfig>, IEnumerable<Driver>>().ConvertUsing<TeamsToDriversTypeConverter>();
-        CreateMap<PredictionFetchDto, Prediction<ICompetitor>[]>();
+        CreateMap<PredictionFetchDto, Prediction<ICompetitor>[]>().ConvertUsing<PredictionDtoToCompetitorPredictionsTypeConverter>();
         CreateMap<AnswerFetchDto, Answer<ICompetitor>[]>();
     }
 }

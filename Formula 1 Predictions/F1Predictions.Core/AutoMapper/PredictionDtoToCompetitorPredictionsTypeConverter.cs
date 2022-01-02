@@ -19,6 +19,15 @@ public class PredictionDtoToCompetitorPredictionsTypeConverter : ITypeConverter<
     
     public Prediction<ICompetitor>[] Convert(PredictionFetchDto source, Prediction<ICompetitor>[] destination, ResolutionContext context)
     {
-        return Array.Empty<Prediction<ICompetitor>>();
+        return source.Predictions.Select((p, i) => new
+            {
+                Participant = participantsManager.GetParticipantByIndex(i),
+                Competitor = competitorManager.GetCompetitorByName(p)
+            })
+            .Select(p => new Prediction<ICompetitor>
+            {
+                Participant = p.Participant,
+                Value = p.Competitor
+            }).ToArray();
     }
 }

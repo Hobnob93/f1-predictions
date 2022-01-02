@@ -9,4 +9,7 @@ public interface ICompetitorManager
 
     Team GetTeamById(string id);
     Driver GetDriverById(string id);
+
+    ICompetitor GetCompetitorById(string id);
+    ICompetitor GetCompetitorByName(string name);
 }
