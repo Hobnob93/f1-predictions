@@ -9,6 +9,8 @@ public class PredictionConfig
     public string HeaderColumn { get; set; }
     public string QuestionColumn { get; set; }
     public string InfoColumn { get; set; }
+    public string EndOfAnswerColumn { get; set; }
+    public int MaxAnswersPerQuestion { get; set; }
     public SectionConfig[] PredictionSections { get; set; }
     public ParticipantConfig[] Participants { get; set; }
 }

@@ -8,25 +8,23 @@ namespace F1Predictions.Views
 {
     public partial class ShellWindow : Window
     {
-        private readonly AppConfig _config;
+        private readonly AppConfig config;
         
-        public ShellWindow(AppConfig config, IGoogleSheets sheets)
+        public ShellWindow(AppConfig config)
         {
-            _config = config;
+            this.config = config;
             
             InitializeComponent();
 
             DataContext = this;
-
-            var result = sheets.FetchTopQuestion(0, 0);
         }
 
         
         public string ToolbarRegionName => Regions.Toolbar.ToString();
         public string ProgressRegionName => Regions.Progress.ToString();
         public string ContentRegionName => Regions.Content.ToString();
-        public string AppName => _config.Name;
-        public string BackgroundColor => _config.BackgroundColor;
-        public string Font => _config.DefaultFont;
+        public string AppName => config.Name;
+        public string BackgroundColor => config.BackgroundColor;
+        public string Font => config.DefaultFont;
     }
 }

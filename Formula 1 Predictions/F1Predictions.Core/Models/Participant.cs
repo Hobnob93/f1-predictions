@@ -4,4 +4,5 @@ public record Participant
 {
     public string Name { get; set; }
     public string Color { get; set; }
+    public int Column { get; set; }
 }
