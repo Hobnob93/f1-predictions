@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Windows;
 using AutoMapper;
+using DryIoc;
 using F1Predictions.Core.AutoMapper;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Interfaces;
@@ -60,6 +61,9 @@ public class Startup : IStartup
         // Manager Services
         containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
         containerRegistry.RegisterSingleton<ICompetitorManager, CompetitorManager>();
+        
+        // Data Services
+        containerRegistry.Register<IGoogleSheets, GoogleSheets>();
     }
 
     private void RegisterLogging(IContainerRegistry containerRegistry)
@@ -71,9 +75,12 @@ public class Startup : IStartup
 
     private void RegisterAutoMapper(IContainerRegistry containerRegistry)
     {
+        var container = containerRegistry.GetContainer();
+        
         var mapperConfig = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<ConfigProfile>();
+            cfg.ConstructServicesUsing(type => ActivatorUtilities.CreateInstance(container, type));
         });
 
         containerRegistry.RegisterInstance(mapperConfig.CreateMapper());

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Enums;
+using F1Predictions.Core.Interfaces;
 using ImTools;
 
 namespace F1Predictions.Views
@@ -9,13 +10,15 @@ namespace F1Predictions.Views
     {
         private readonly AppConfig _config;
         
-        public ShellWindow(AppConfig config)
+        public ShellWindow(AppConfig config, IGoogleSheets sheets)
         {
             _config = config;
             
             InitializeComponent();
 
             DataContext = this;
+
+            var result = sheets.FetchTopQuestion(0, 0);
         }
 
         
