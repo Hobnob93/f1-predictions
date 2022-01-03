@@ -10,15 +10,13 @@ namespace F1Predictions.Views
     {
         private readonly AppConfig config;
         
-        public ShellWindow(AppConfig config, IGoogleSheets sheets)
+        public ShellWindow(AppConfig config, ISectionManager sections)
         {
             this.config = config;
             
             InitializeComponent();
 
             DataContext = this;
-
-            var result = sheets.FetchTopQuestion(0, 0);
         }
 
         

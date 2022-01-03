@@ -24,6 +24,13 @@ public class GoogleSheets : IGoogleSheets
     }
 
 
+    public string FetchSectionTitle(int currentSectionNum)
+    {
+        var row = config.PredictionSections[currentSectionNum].StartingRow;
+
+        return FetchTitle(row);
+    }
+    
     public TopQuestion FetchTopQuestion(int currentSectionNum, int currentQuestionNum)
     {
         var row = CalculateRow(currentSectionNum, currentQuestionNum);
@@ -44,13 +51,20 @@ public class GoogleSheets : IGoogleSheets
         return currentSection.StartingRow + 2 + currentQuestionNum;
     }
 
+    private string FetchTitle(int row)
+    {
+        var values = ReadValues(predictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
+
+        return values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Title Not Found";
+    }
+    
     private PredictionFetchDto FetchQuestion(int row)
     {
         var values = ReadValues(predictionsSheetName, $"{config.QuestionColumn}{row}:{config.InfoColumn}{row}")?.ToArray();
         
         return new PredictionFetchDto
         {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty,
+            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
             Note = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? string.Empty,
             Predictions = values?.FirstOrDefault()?.Take(1..^1)
                 .Select(o => o.ToString())
@@ -66,7 +80,7 @@ public class GoogleSheets : IGoogleSheets
         
         return new AnswerFetchDto
         {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty,
+            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
             Answers = values?.FirstOrDefault()?.Take(1..answersEnd)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>(),
