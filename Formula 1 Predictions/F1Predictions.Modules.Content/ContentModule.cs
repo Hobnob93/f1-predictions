@@ -10,21 +10,22 @@ namespace F1Predictions.Modules.Content;
 
 public class ContentModule : IModule
 {
-    private readonly IRegionManager _regionManager;
+    private readonly IRegionManager regionManager;
     
     public ContentModule(IRegionManager regionManager)
     {
-        _regionManager = regionManager;
+        this.regionManager = regionManager;
     }
     
     
     public void OnInitialized(IContainerProvider containerProvider)
     {
-        _regionManager.RegisterViewWithRegion<HomeView>($"{Regions.Content}");
+        regionManager.RegisterViewWithRegion<HomeView>($"{Regions.Content}");
     }
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>(ViewNames.HomeView);
+        containerRegistry.RegisterForNavigation<TopQuestionView, TopQuestionViewModel>(ViewNames.TopQuestionView);
     }
 }

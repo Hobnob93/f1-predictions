@@ -1,6 +1,8 @@
+using System.Windows.Input;
 using F1Predictions.Core.Constants;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -17,14 +19,30 @@ public class TopQuestionViewModel : BindableBase, INavigationAware
     public TopQuestionViewModel(ISectionManager sectionManager)
     {
         this.sectionManager = sectionManager;
+        
+        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
+        NextCommand = new DelegateCommand(NextQuestionAction);
     }
+    
+    public ICommand PreviousCommand { get; }
+    public ICommand NextCommand { get; }
     
     public TopQuestion Question
     {
         get => question;
         set => SetProperty(ref question, value);
     }
-    
+
+
+    private void PreviousQuestionAction()
+    {
+        
+    }
+
+    private void NextQuestionAction()
+    {
+        
+    }
     
     public void OnNavigatedTo(NavigationContext navigationContext)
     {

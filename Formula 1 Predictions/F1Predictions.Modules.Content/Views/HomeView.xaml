@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 2 -->
         <Grid Grid.Row="2">
