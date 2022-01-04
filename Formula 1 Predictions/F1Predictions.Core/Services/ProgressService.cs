@@ -1,18 +1,23 @@
 using F1Predictions.Core.Config;
+using F1Predictions.Core.Constants;
+using F1Predictions.Core.Enums;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
 using Prism.Events;
+using Prism.Regions;
 
 namespace F1Predictions.Core.Services;
 
-public class ProgressStatus : IProgressStatus
+public class ProgressService : IProgressService
 {
     private readonly IEventAggregator eventAggregator;
+    private readonly IRegionManager regionManager;
     private readonly int[] numQuestionsPerSection;
     
-    public ProgressStatus(PredictionConfig config, IEventAggregator eventAggregator)
+    public ProgressService(PredictionConfig config, IEventAggregator eventAggregator, IRegionManager regionManager)
     {
         this.eventAggregator = eventAggregator;
+        this.regionManager = regionManager;
 
         CurrentQuestionIndex = -1;
         CurrentSectionIndex = -1;
@@ -30,6 +35,7 @@ public class ProgressStatus : IProgressStatus
     {
         if (isForward)
             Increment();
+        
     }
     
     private void Increment()

@@ -18,7 +18,7 @@ public class SectionManager : ISectionManager
             .ToArray();
     }
 
-    private TopQuestion GetQuestion(int sectionIndex, int questionIndex)
+    public TopQuestion GetQuestion(int sectionIndex, int questionIndex)
     {
         var section = sections[sectionIndex];
         if (questionIndex >= section.QuestionCount)

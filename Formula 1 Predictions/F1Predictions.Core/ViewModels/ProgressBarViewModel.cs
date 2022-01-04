@@ -16,7 +16,7 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ProgressBarViewModel : BindableBase
 {
-    private readonly IProgressStatus progressStatus;
+    private readonly IProgressService progressService;
     private ObservableCollection<SectionBar> sections;
     private SectionBar activeSection;
     private BaseBar activeQuestion;
@@ -25,9 +25,9 @@ public class ProgressBarViewModel : BindableBase
     private const string ActiveColor = "#8B8000";
     private const string CompletedColor = "#93C572";
 
-    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressStatus progressStatus)
+    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressService progressService)
     {
-        this.progressStatus = progressStatus;
+        this.progressService = progressService;
         var sectionsConfig = config.PredictionSections;
 
         var sectionBars = sectionsConfig.Select(s => new SectionBar
@@ -54,7 +54,7 @@ public class ProgressBarViewModel : BindableBase
     private void OnSectionChanged()
     {
         activeSection?.Complete(CompletedColor);
-        activeSection = sections[progressStatus.CurrentSectionIndex];
+        activeSection = sections[progressService.CurrentSectionIndex];
         activeSection.Color = ActiveColor;
         
         sections.Refresh();
@@ -63,7 +63,7 @@ public class ProgressBarViewModel : BindableBase
     private void OnQuestionChanged()
     {
         activeQuestion?.Complete(CompletedColor);
-        activeQuestion = activeSection.ChildBars[progressStatus.CurrentQuestionIndex];
+        activeQuestion = activeSection.ChildBars[progressService.CurrentQuestionIndex];
         activeQuestion.Color = ActiveColor;
         
         sections.Refresh();
