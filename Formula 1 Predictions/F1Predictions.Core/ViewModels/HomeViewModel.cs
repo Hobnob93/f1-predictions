@@ -64,6 +64,6 @@ public class HomeViewModel : BindableBase
     private void BeginAction()
     {
         regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.ProgressBarView);
-        eventAggregator.GetEvent<SectionChangedEvent>().Publish(true);
+        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
     }
 }

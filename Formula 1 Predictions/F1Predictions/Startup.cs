@@ -62,6 +62,7 @@ public class Startup : IStartup
         containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
         containerRegistry.RegisterSingleton<ICompetitorManager, CompetitorManager>();
         containerRegistry.RegisterSingleton<ISectionManager, SectionManager>();
+        containerRegistry.RegisterSingleton<IProgressStatus, ProgressStatus>();
         
         // Data Services
         containerRegistry.Register<IGoogleSheets, GoogleSheets>();

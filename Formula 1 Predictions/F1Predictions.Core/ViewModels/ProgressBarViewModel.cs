@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Extensions;
+using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
 using Prism.Events;
 using Prism.Mvvm;
@@ -15,18 +16,18 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ProgressBarViewModel : BindableBase
 {
+    private readonly IProgressStatus progressStatus;
     private ObservableCollection<SectionBar> sections;
     private SectionBar activeSection;
     private BaseBar activeQuestion;
-    private int activeSectionId;
-    private int activeQuestionId;
 
     private const string NormalColor = "#FFF8DC";
     private const string ActiveColor = "#8B8000";
     private const string CompletedColor = "#93C572";
 
-    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator)
+    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressStatus progressStatus)
     {
+        this.progressStatus = progressStatus;
         var sectionsConfig = config.PredictionSections;
 
         var sectionBars = sectionsConfig.Select(s => new SectionBar
@@ -40,6 +41,7 @@ public class ProgressBarViewModel : BindableBase
         Sections = new ObservableCollection<SectionBar>(sectionBars);
 
         eventAggregator.GetEvent<SectionChangedEvent>().Subscribe(OnSectionChanged);
+        eventAggregator.GetEvent<QuestionChangedEvent>().Subscribe(OnQuestionChanged);
     }
     
     
@@ -49,39 +51,21 @@ public class ProgressBarViewModel : BindableBase
         set => SetProperty(ref sections, value);
     }
 
-    private void OnSectionChanged(bool isForward)
+    private void OnSectionChanged()
     {
-        if (activeSection != null && activeQuestion != null)
-        {
-            activeQuestionId++;
-            activeQuestionId %= activeSection.ChildBars.Length;
-            activeQuestion.Complete(CompletedColor);
-
-            if (activeQuestionId == 0)
-            {
-                activeSectionId++;
-                activeSectionId %= Sections.Count;
-                activeSection.Complete(CompletedColor);
-
-                if (activeSectionId == 0)
-                    return;
-            }
-        }
+        activeSection?.Complete(CompletedColor);
+        activeSection = sections[progressStatus.CurrentSectionIndex];
+        activeSection.Color = ActiveColor;
         
-        UpdateActiveSection();
-        UpdateActiveQuestion();
         sections.Refresh();
     }
-
-    private void UpdateActiveSection()
+    
+    private void OnQuestionChanged()
     {
-        activeSection = sections[activeSectionId];
-        activeSection.Color = ActiveColor;
-    }
-
-    private void UpdateActiveQuestion()
-    {
-        activeQuestion = activeSection.ChildBars[activeQuestionId];
+        activeQuestion?.Complete(CompletedColor);
+        activeQuestion = activeSection.ChildBars[progressStatus.CurrentQuestionIndex];
         activeQuestion.Color = ActiveColor;
+        
+        sections.Refresh();
     }
 }
