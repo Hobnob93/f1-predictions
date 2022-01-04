@@ -7,24 +7,26 @@ namespace F1Predictions.Core.Services;
 
 public class SectionManager : ISectionManager
 {
-    private readonly PredictionConfig config;
-    private readonly IMapper mapper;
     private readonly IGoogleSheets sheets;
+    private readonly Section[] sections;
 
     public SectionManager(PredictionConfig config, IMapper mapper, IGoogleSheets sheets)
     {
-        this.config = config;
-        this.mapper = mapper;
         this.sheets = sheets;
-        
-        //sections = config.PredictionSections.Select(mapper.Map<Section>)
-        //    .Select((s, sectionIndex) => s with
-        //    {
-        //        Name = sheets.FetchSectionTitle(sectionIndex),
-        //        Questions = Enumerable.Range(0, s.QuestionCount)
-        //            .Select(questionIndex => sheets.FetchTopQuestion(sectionIndex, questionIndex))
-        //            .ToArray()
-        //    })
-        //    .ToArray();
+
+        sections = config.PredictionSections.Select(mapper.Map<Section>)
+            .ToArray();
+    }
+
+    private TopQuestion GetQuestion(int sectionIndex, int questionIndex)
+    {
+        var section = sections[sectionIndex];
+        if (questionIndex >= section.QuestionCount)
+            return null;
+
+        return sheets.FetchTopQuestion(sectionIndex, questionIndex) with
+        {
+            Section = sheets.FetchSectionTitle(sectionIndex)
+        };
     }
 }
