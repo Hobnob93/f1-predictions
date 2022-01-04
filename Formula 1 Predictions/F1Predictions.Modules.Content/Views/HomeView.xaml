@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 2 -->
         <Grid Grid.Row="2">
@@ -69,7 +69,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Name}" Color="{Binding Team.Color}" Margin="5, 5"/>
+                            <components:CompetitorBanner Text="{Binding Name}" Color="{Binding Team.Color}" Margin="5, 5" Width="200"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -77,7 +77,7 @@
         </Grid>
         
         <!-- Row 4 -->
-        <Button Grid.Row="4" MaxWidth="250" Height="40" Background="Cornsilk" BorderThickness="0">
+        <Button Grid.Row="4" Margin="15, 10" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BeginCommand}">
             <TextBlock Text="Let's Begin..." FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
         </Button>
     </Grid>

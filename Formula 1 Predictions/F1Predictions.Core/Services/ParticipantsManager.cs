@@ -19,4 +19,9 @@ public class ParticipantsManager : IParticipantsManager
     {
         return participants;
     }
+
+    public Participant GetParticipantByIndex(int index)
+    {
+        return participants.Single(p => p.Index == index);
+    }
 }

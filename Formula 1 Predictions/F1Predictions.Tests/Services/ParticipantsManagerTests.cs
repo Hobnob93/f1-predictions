@@ -29,7 +29,7 @@ public class ParticipantsManagerTests : MapperTests
     [TestCase(1)]
     [TestCase(5)]
     [TestCase(10)]
-    public void GetTeams_ShouldReturnAllMappedTeams(int numParticipants)
+    public void GetParticipants_ShouldReturnAllMappedParticipants(int numParticipants)
     {
         // Arrange
         var config = CreatePredictionConfig(numParticipants);
@@ -46,6 +46,26 @@ public class ParticipantsManagerTests : MapperTests
             var participantConfig = GetParticipantConfigFromParticipantName(config.Participants, participant.Name);
             participant.Name.Should().Be(participantConfig.Name);
         }
+    }
+    
+    [TestCase(5)]
+    [TestCase(10)]
+    [TestCase(100)]
+    [Repeat(10)]
+    public void GetParticipantByIndex_ShouldReturnSpecificParticipantWithGivenIndex(int numParticipants)
+    {
+        // Arrange
+        var config = CreatePredictionConfig(numParticipants);
+        var sut = CreateSut(Mapper, config);
+        var random = new Random();
+        var index = random.Next(0, numParticipants);
+
+        // Act
+        var foundParticipant = sut.GetParticipantByIndex(index);
+
+        // Assert
+        foundParticipant.Should().NotBeNull();
+        foundParticipant.Index.Should().Be(index);
     }
     
     private ParticipantsManager CreateSut(IMapper mapper, PredictionConfig config)

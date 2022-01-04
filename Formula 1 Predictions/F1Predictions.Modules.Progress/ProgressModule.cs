@@ -1,9 +1,9 @@
+using F1Predictions.Core.Constants;
 using F1Predictions.Core.Enums;
 using F1Predictions.Core.ViewModels;
 using F1Predictions.Modules.Progress.Views;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Mvvm;
 using Prism.Regions;
 
 namespace F1Predictions.Modules.Progress;
@@ -25,6 +25,7 @@ public class ProgressModule : IModule
     
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        ViewModelLocationProvider.Register<MessageView, MessageViewModel>();
+        containerRegistry.RegisterForNavigation<MessageView, MessageViewModel>(ViewNames.MessageView);
+        containerRegistry.RegisterForNavigation<ProgressBarView, ProgressBarViewModel>(ViewNames.ProgressBarView);
     }
 }

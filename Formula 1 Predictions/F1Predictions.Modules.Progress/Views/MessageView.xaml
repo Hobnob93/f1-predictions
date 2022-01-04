@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:F1Predictions.Modules.Progress.Views"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:local="clr-namespace:F1Predictions.Modules.Progress.Views"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
              d:DesignHeight="auto" d:DesignWidth="auto">
-    <Grid>
-        <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15, 10" Text="{Binding Message, FallbackValue=Sample Message}"/>
+    <Grid Margin="15, 10" Height="20">
+        <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Message, FallbackValue=Sample Message}"/>
     </Grid>
 </UserControl>

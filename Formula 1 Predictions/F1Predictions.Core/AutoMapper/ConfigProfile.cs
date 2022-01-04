@@ -1,5 +1,6 @@
 using AutoMapper;
 using F1Predictions.Core.Config;
+using F1Predictions.Core.Dtos;
 using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.AutoMapper;
@@ -13,6 +14,9 @@ public class ConfigProfile : Profile
         CreateMap<TeamConfig, Team>();
         CreateMap<ScoreOverrideConfig, ScoreOverride>();
         CreateMap<SectionConfig, Section>();
+        
         CreateMap<ICollection<TeamConfig>, IEnumerable<Driver>>().ConvertUsing<TeamsToDriversTypeConverter>();
+        CreateMap<PredictionFetchDto, Prediction<ICompetitor>[]>().ConvertUsing<PredictionDtoToCompetitorPredictionsTypeConverter>();
+        CreateMap<AnswerFetchDto, Answer<ICompetitor>[]>().ConvertUsing<AnswerDtoToCompetitorAnswersTypeConverter>();
     }
 }
