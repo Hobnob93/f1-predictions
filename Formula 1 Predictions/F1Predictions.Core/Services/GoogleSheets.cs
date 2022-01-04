@@ -40,6 +40,7 @@ public class GoogleSheets : IGoogleSheets
         return new TopQuestion
         {
             Name = question.Question,
+            Description = question.Note,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
             Answers = mapper.Map<Answer<ICompetitor>[]>(answers)
         };
