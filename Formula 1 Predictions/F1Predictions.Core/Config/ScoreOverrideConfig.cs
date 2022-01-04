@@ -4,6 +4,6 @@ namespace F1Predictions.Core.Config;
 
 public record ScoreOverrideConfig
 {
-    public string Question { get; set; }
+    public int QuestionIndex { get; set; }
     public ScoringTypes ScoringType { get; set; }
 }
