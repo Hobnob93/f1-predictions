@@ -35,7 +35,14 @@ public class ProgressService : IProgressService
     {
         if (isForward)
             Increment();
+
+        var navParams = new NavigationParameters
+        {
+            {Navigation.SectionId, CurrentSectionIndex},
+            {Navigation.QuestionId, CurrentQuestionIndex}
+        };
         
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.TopQuestionView, navParams);
     }
     
     private void Increment()
