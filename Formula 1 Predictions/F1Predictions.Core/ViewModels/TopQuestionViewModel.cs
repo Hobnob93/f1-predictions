@@ -1,8 +1,10 @@
 using System.Windows.Input;
 using F1Predictions.Core.Constants;
+using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -11,15 +13,17 @@ namespace F1Predictions.Core.ViewModels;
 public class TopQuestionViewModel : BindableBase, INavigationAware
 {
     private readonly ISectionManager sectionManager;
-    
+    private readonly IEventAggregator eventAggregator;
+
     private TopQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopQuestionViewModel(ISectionManager sectionManager)
+    public TopQuestionViewModel(ISectionManager sectionManager, IEventAggregator eventAggregator)
     {
         this.sectionManager = sectionManager;
-        
+        this.eventAggregator = eventAggregator;
+
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
         NextCommand = new DelegateCommand(NextQuestionAction);
     }
@@ -41,7 +45,7 @@ public class TopQuestionViewModel : BindableBase, INavigationAware
 
     private void NextQuestionAction()
     {
-        
+        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
     }
     
     public void OnNavigatedTo(NavigationContext navigationContext)

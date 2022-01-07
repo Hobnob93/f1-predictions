@@ -1,8 +1,10 @@
+using AutoMapper;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Constants;
 using F1Predictions.Core.Enums;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
+using F1Predictions.Core.Models;
 using Prism.Events;
 using Prism.Regions;
 
@@ -12,9 +14,9 @@ public class ProgressService : IProgressService
 {
     private readonly IEventAggregator eventAggregator;
     private readonly IRegionManager regionManager;
-    private readonly int[] numQuestionsPerSection;
+    private readonly Section[] sections;
     
-    public ProgressService(PredictionConfig config, IEventAggregator eventAggregator, IRegionManager regionManager)
+    public ProgressService(PredictionConfig config, IEventAggregator eventAggregator, IRegionManager regionManager, IMapper mapper)
     {
         this.eventAggregator = eventAggregator;
         this.regionManager = regionManager;
@@ -22,7 +24,7 @@ public class ProgressService : IProgressService
         CurrentQuestionIndex = -1;
         CurrentSectionIndex = -1;
         
-        numQuestionsPerSection = config.PredictionSections.Select(s => s.QuestionCount)
+        sections = config.PredictionSections.Select(mapper.Map<Section>)
             .ToArray();
         
         eventAggregator.GetEvent<ProgressChangedEvent>().Subscribe(OnProgressChanged);
@@ -42,7 +44,20 @@ public class ProgressService : IProgressService
             {Navigation.QuestionId, CurrentQuestionIndex}
         };
         
-        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.TopQuestionView, navParams);
+        regionManager.RequestNavigate($"{Regions.Content}", ViewFromQuestionType(), navParams);
+    }
+
+    private string ViewFromQuestionType()
+    {
+        var section = sections[CurrentSectionIndex];
+        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == CurrentQuestionIndex);
+        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
+
+        return scoringType switch
+        {
+            ScoringTypes.Top => ViewNames.TopQuestionView,
+            _ => ViewNames.HomeView
+        };
     }
     
     private void Increment()
@@ -58,12 +73,12 @@ public class ProgressService : IProgressService
         else
         {
             CurrentQuestionIndex++;
-            CurrentQuestionIndex %= numQuestionsPerSection[CurrentSectionIndex];
+            CurrentQuestionIndex %= sections[CurrentSectionIndex].QuestionCount;
 
             if (CurrentQuestionIndex == 0)
             {
                 CurrentSectionIndex++;
-                CurrentSectionIndex %= numQuestionsPerSection.Length;
+                CurrentSectionIndex %= sections.Length;
                 eventAggregator.GetEvent<SectionChangedEvent>().Publish();
 
                 if (CurrentSectionIndex == 0)
