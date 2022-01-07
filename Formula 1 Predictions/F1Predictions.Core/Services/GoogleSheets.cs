@@ -9,9 +9,11 @@ namespace F1Predictions.Core.Services;
 
 public class GoogleSheets : IGoogleSheets
 {
-    private readonly string spreadsheetId = "16nlhSKutA22Z-Llu7NNYxTPUu1DgZQAtIQAWwMSHkyI";
-    private readonly string predictionsSheetName = "Predictions";
-    private readonly string resultsSheetName = "Results";
+    private const string SpreadsheetId = "16nlhSKutA22Z-Llu7NNYxTPUu1DgZQAtIQAWwMSHkyI";
+    private const string PredictionsSheetName = "Predictions";
+    private const string AnswersSheetName = "Answers";
+    private const string ResultsSheetName = "Results";
+    
     private readonly SheetsService clientService;
     private readonly PredictionConfig config;
     private readonly IMapper mapper;
@@ -42,7 +44,8 @@ public class GoogleSheets : IGoogleSheets
             Name = question.Question,
             Description = question.Note,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
-            Answers = mapper.Map<Answer<ICompetitor>[]>(answers)
+            Answers = mapper.Map<Answer<ICompetitor>[]>(answers),
+            Scoring = answers.Scoring
         };
     }
 
@@ -54,14 +57,14 @@ public class GoogleSheets : IGoogleSheets
 
     private string FetchTitle(int row)
     {
-        var values = ReadValues(predictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
+        var values = ReadValues(PredictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
 
         return values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Title Not Found";
     }
     
     private PredictionFetchDto FetchQuestion(int row)
     {
-        var values = ReadValues(predictionsSheetName, $"{config.QuestionColumn}{row}:{config.InfoColumn}{row}")?.ToArray();
+        var values = ReadValues(PredictionsSheetName, $"{config.QuestionColumn}{row}:{config.InfoColumn}{row}")?.ToArray();
         
         return new PredictionFetchDto
         {
@@ -75,7 +78,7 @@ public class GoogleSheets : IGoogleSheets
 
     private AnswerFetchDto FetchAnswers(int row)
     {
-        var values = ReadValues(resultsSheetName, $"{config.QuestionColumn}{row}:{config.EndOfAnswerColumn}{row}")?.ToArray();
+        var values = ReadValues(AnswersSheetName, $"{config.QuestionColumn}{row}:{config.EndOfAnswerColumn}{row}")?.ToArray();
         var answersEnd = config.MaxAnswersPerQuestion + 1;
         var notesBegin = answersEnd;
         
@@ -85,15 +88,16 @@ public class GoogleSheets : IGoogleSheets
             Answers = values?.FirstOrDefault()?.Take(1..answersEnd)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>(),
-            Notes = values?.FirstOrDefault()?.Take(notesBegin..)
+            Notes = values?.FirstOrDefault()?.Take(notesBegin..^1)
                 .Select(o => o.ToString())
                 .ToArray() ?? Array.Empty<string>(),
+            Scoring = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? "No scoring could be found"
         };
     }
     
     private IEnumerable<IEnumerable<object>> ReadValues(string sheet, string range)
     {
-        var request = clientService.Spreadsheets.Values.Get(spreadsheetId, $"{sheet}!{range}");
+        var request = clientService.Spreadsheets.Values.Get(SpreadsheetId, $"{sheet}!{range}");
         var response = request.Execute();
         return response.Values;
     }

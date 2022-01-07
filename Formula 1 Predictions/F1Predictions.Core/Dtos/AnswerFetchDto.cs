@@ -5,4 +5,5 @@ public record AnswerFetchDto
     public string Question { get; set; }
     public string[] Answers { get; set; }
     public string[] Notes { get; set; }
+    public string Scoring { get; set; }
 }

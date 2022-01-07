@@ -7,4 +7,5 @@ public record TopQuestion
     public string Description { get; set; }
     public Prediction<ICompetitor>[] Predictions { get; set; }
     public Answer<ICompetitor>[] Answers { get; set; }
+    public string Scoring { get; set; }
 }

@@ -32,7 +32,18 @@
         <TextBlock Grid.Row="3" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 4 -->
-        <TextBlock Grid.Row="4" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="1" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+        </Grid>
         
         <!-- Row 6 -->
         <Grid Grid.Row="6">
