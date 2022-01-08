@@ -98,7 +98,19 @@ public class GoogleSheets : IGoogleSheets
     private IEnumerable<IEnumerable<object>> ReadValues(string sheet, string range)
     {
         var request = clientService.Spreadsheets.Values.Get(SpreadsheetId, $"{sheet}!{range}");
-        var response = request.Execute();
-        return response.Values;
+        var requestResponse = request.Execute();
+        var response = requestResponse.Values;
+
+        foreach (var values in response)
+        {
+            for (var j = 0; j < values.Count; j++)
+            {
+                var val = values[j];
+                if (val is "/")
+                    values[j] = string.Empty;
+            }
+        }
+
+        return response;
     }
 }
