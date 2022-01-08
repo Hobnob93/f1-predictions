@@ -56,6 +56,7 @@ public class ProgressService : IProgressService
         return scoringType switch
         {
             ScoringTypes.Top => ViewNames.TopQuestionView,
+            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
             _ => ViewNames.HomeView
         };
     }
