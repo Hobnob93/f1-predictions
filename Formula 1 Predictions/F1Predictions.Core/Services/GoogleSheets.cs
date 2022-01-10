@@ -33,9 +33,9 @@ public class GoogleSheets : IGoogleSheets
         return FetchTitle(row);
     }
     
-    public TopQuestion FetchTopQuestion(int currentSectionNum, int currentQuestionNum)
+    public TopQuestion FetchTopQuestion(int sectionIndex, int questionIndex)
     {
-        var row = CalculateRow(currentSectionNum, currentQuestionNum);
+        var row = CalculateRow(sectionIndex, questionIndex);
         var question = FetchQuestion(row);
         var answers = FetchAnswers(row);
         
@@ -45,6 +45,22 @@ public class GoogleSheets : IGoogleSheets
             Description = question.Note,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
             Answers = mapper.Map<Answer<ICompetitor>[]>(answers),
+            Scoring = answers.Scoring
+        };
+    }
+
+    public NumericalQuestion FetchNumericalQuestion(int sectionIndex, int questionIndex)
+    {
+        var row = CalculateRow(sectionIndex, questionIndex);
+        var question = FetchQuestion(row);
+        var answers = FetchAnswers(row);
+        
+        return new NumericalQuestion
+        {
+            Name = question.Question,
+            Description = question.Note,
+            Predictions = mapper.Map<Prediction<int>[]>(question),
+            Answers = mapper.Map<Answer<int>>(answers),
             Scoring = answers.Scoring
         };
     }

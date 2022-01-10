@@ -53,7 +53,7 @@ public class TopQuestionViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = sectionManager.GetQuestion(sectionId, questionId);
+        Question = sectionManager.GetQuestion(sectionId, questionId) as TopQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

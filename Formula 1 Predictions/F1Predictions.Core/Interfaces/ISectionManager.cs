@@ -4,5 +4,5 @@ namespace F1Predictions.Core.Interfaces;
 
 public interface ISectionManager
 {
-    TopQuestion GetQuestion(int sectionIndex, int questionIndex);
+    BaseQuestion GetQuestion(int sectionIndex, int questionIndex);
 }
