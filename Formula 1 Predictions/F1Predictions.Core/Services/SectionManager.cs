@@ -1,6 +1,5 @@
 using AutoMapper;
 using F1Predictions.Core.Config;
-using F1Predictions.Core.Constants;
 using F1Predictions.Core.Enums;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;

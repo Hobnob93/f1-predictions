@@ -57,6 +57,7 @@ public class ProgressService : IProgressService
         {
             ScoringTypes.Top => ViewNames.TopQuestionView,
             ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
+            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
             _ => ViewNames.HomeView
         };
     }
@@ -66,7 +67,7 @@ public class ProgressService : IProgressService
         if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
         {
             CurrentQuestionIndex = 0;
-            CurrentSectionIndex = 0;
+            CurrentSectionIndex = 3;
             
             eventAggregator.GetEvent<SectionChangedEvent>().Publish();
             eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
