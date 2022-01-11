@@ -86,7 +86,7 @@
                 <ItemsControl ItemsSource="{Binding Question.Predictions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Margin="5, 5"/>
+                            <components:CompetitorBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -95,7 +95,7 @@
             <!-- Column 6 -->
             <StackPanel Grid.Column="6" Width="400">
                 <TextBlock Text="The Answer" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <TextBlock Text="{Binding Question.Answer.Value}" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <components:CompetitorBanner Text="{Binding Question.Answer.Value}" Color="Chartreuse" Margin="5, 5"/>
             </StackPanel>
         </Grid>
         

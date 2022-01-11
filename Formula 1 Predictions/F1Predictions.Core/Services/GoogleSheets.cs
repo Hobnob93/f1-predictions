@@ -60,7 +60,7 @@ public class GoogleSheets : IGoogleSheets
             Name = question.Question,
             Description = question.Note,
             Predictions = mapper.Map<Prediction<int>[]>(question),
-            Answers = mapper.Map<Answer<int>>(answers),
+            Answer = mapper.Map<Answer<int>>(answers),
             Scoring = answers.Scoring
         };
     }
