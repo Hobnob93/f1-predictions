@@ -67,7 +67,7 @@ public class ProgressService : IProgressService
         if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
         {
             CurrentQuestionIndex = 0;
-            CurrentSectionIndex = 3;
+            CurrentSectionIndex = 5;
             
             eventAggregator.GetEvent<SectionChangedEvent>().Publish();
             eventAggregator.GetEvent<QuestionChangedEvent>().Publish();

@@ -38,6 +38,7 @@ public class SectionManager : ISectionManager
             ScoringTypes.Top => sheets.FetchTopQuestion(sectionIndex, questionIndex),
             ScoringTypes.Numerical => sheets.FetchNumericalQuestion(sectionIndex, questionIndex),
             ScoringTypes.HeadToHead => sheets.FetchHeadToHeadQuestion(sectionIndex, questionIndex),
+            ScoringTypes.TopMisc => sheets.FetchTopMiscQuestion(sectionIndex, questionIndex),
             _ => null
         });
         
