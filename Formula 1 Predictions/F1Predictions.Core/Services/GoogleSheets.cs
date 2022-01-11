@@ -65,6 +65,33 @@ public class GoogleSheets : IGoogleSheets
         };
     }
 
+    public HeadToHeadQuestion FetchHeadToHeadQuestion(int sectionIndex, int questionIndex)
+    {
+        var row = CalculateRow(sectionIndex, questionIndex);
+        var question = FetchQuestion(row);
+        var answers = FetchAnswers(row);
+
+        var competitors = mapper.Map<Answer<ICompetitor>[]>(answers)
+            .Where(c => c is not null)
+            .Select(c => new HeadToHead
+            {
+                Name = c.Value.Name,
+                Color = c.Value.Color,
+                Data = int.Parse(c.Data)
+            })
+            .ToList();
+        
+        return new HeadToHeadQuestion
+        {
+            Name = question.Question,
+            Description = question.Note,
+            Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
+            First = competitors.First(),
+            Second = competitors.Last(),
+            Scoring = answers.Scoring
+        };
+    }
+
     private int CalculateRow(int currentSectionNum, int currentQuestionNum)
     {
         var currentSection = config.PredictionSections[currentSectionNum];
