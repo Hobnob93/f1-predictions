@@ -19,8 +19,10 @@ public class ConfigProfile : Profile
         
         CreateMap<PredictionFetchDto, Prediction<ICompetitor>[]>().ConvertUsing<PredictionDtoToCompetitorPredictionsTypeConverter>();
         CreateMap<PredictionFetchDto, Prediction<int>[]>().ConvertUsing<PredictionDtoToNumericalPredictionsTypeConverter>();
+        CreateMap<PredictionFetchDto, Prediction<string>[]>().ConvertUsing<PredictionDtoToStringPredictionsTypeConverter>();
 
         CreateMap<AnswerFetchDto, Answer<ICompetitor>[]>().ConvertUsing<AnswerDtoToCompetitorAnswersTypeConverter>();
         CreateMap<AnswerFetchDto, Answer<int>>().ConvertUsing<AnswerDtoToNumericalAnswerTypeConverter>();
+        CreateMap<AnswerFetchDto, Answer<string>[]>().ConvertUsing<AnswerDtoToStringAnswersTypeConverter>();
     }
 }

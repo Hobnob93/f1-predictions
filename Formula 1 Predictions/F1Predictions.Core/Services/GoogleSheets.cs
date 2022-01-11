@@ -48,6 +48,22 @@ public class GoogleSheets : IGoogleSheets
             Scoring = answers.Scoring
         };
     }
+    
+    public TopMiscQuestion FetchTopMiscQuestion(int sectionIndex, int questionIndex)
+    {
+        var row = CalculateRow(sectionIndex, questionIndex);
+        var question = FetchQuestion(row);
+        var answers = FetchAnswers(row);
+        
+        return new TopMiscQuestion
+        {
+            Name = question.Question,
+            Description = question.Note,
+            Predictions = mapper.Map<Prediction<string>[]>(question),
+            Answers = mapper.Map<Answer<string>[]>(answers),
+            Scoring = answers.Scoring
+        };
+    }
 
     public NumericalQuestion FetchNumericalQuestion(int sectionIndex, int questionIndex)
     {
