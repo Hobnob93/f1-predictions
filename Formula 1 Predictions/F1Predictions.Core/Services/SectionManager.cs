@@ -23,35 +23,28 @@ public class SectionManager : ISectionManager
     public BaseQuestion GetQuestion(int sectionIndex, int questionIndex)
     {
         var section = sections[sectionIndex];
-        if (questionIndex >= section.QuestionCount)
-            return null;
         
+        return questionIndex >= section.QuestionCount 
+            ? null 
+            : FetchBaseQuestion(section, sectionIndex, questionIndex);
+    }
+
+    private BaseQuestion FetchBaseQuestion(Section section, int sectionIndex, int questionIndex)
+    {
         var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == questionIndex);
         var scoringType = overrideData?.ScoringType ?? section.ScoringType;
 
         var question = (BaseQuestion) (scoringType switch
         {
-            ScoringTypes.Top => GetTopQuestion(sectionIndex, questionIndex),
-            ScoringTypes.Numerical => GetNumericalQuestion(sectionIndex, questionIndex),
+            ScoringTypes.Top => sheets.FetchTopQuestion(sectionIndex, questionIndex),
+            ScoringTypes.Numerical => sheets.FetchNumericalQuestion(sectionIndex, questionIndex),
+            ScoringTypes.HeadToHead => sheets.FetchHeadToHeadQuestion(sectionIndex, questionIndex),
             _ => null
         });
-
-        if (question is null)
-            return null;
-
-        return question with
+        
+        return question! with
         {
             Section = sheets.FetchSectionTitle(sectionIndex)
         };
-    }
-
-    private TopQuestion GetTopQuestion(int sectionIndex, int questionIndex)
-    {
-        return sheets.FetchTopQuestion(sectionIndex, questionIndex);
-    }
-    
-    private NumericalQuestion GetNumericalQuestion(int sectionIndex, int questionIndex)
-    {
-        return sheets.FetchNumericalQuestion(sectionIndex, questionIndex);
     }
 }
