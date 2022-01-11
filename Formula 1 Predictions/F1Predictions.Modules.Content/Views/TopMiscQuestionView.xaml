@@ -89,7 +89,7 @@
                 <ItemsControl ItemsSource="{Binding Question.Predictions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:ParticipantBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Margin="5, 5"/>
+                            <components:ParticipantBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -114,7 +114,7 @@
                 <ItemsControl ItemsSource="{Binding Question.Answers}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:ParticipantBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5, 5"/>
+                            <components:ParticipantBanner Text="{Binding Value}" Color="Chartreuse" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

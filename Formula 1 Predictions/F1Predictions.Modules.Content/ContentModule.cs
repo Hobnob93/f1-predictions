@@ -27,6 +27,7 @@ public class ContentModule : IModule
     {
         containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>(ViewNames.HomeView);
         containerRegistry.RegisterForNavigation<TopQuestionView, TopQuestionViewModel>(ViewNames.TopQuestionView);
+        containerRegistry.RegisterForNavigation<TopMiscQuestionView, TopMiscQuestionViewModel>(ViewNames.TopMiscQuestionView);
         containerRegistry.RegisterForNavigation<NumericalQuestionView, NumericalQuestionViewModel>(ViewNames.NumericalQuestionView);
         containerRegistry.RegisterForNavigation<HeadToHeadQuestionView, HeadToHeadQuestionViewModel>(ViewNames.HeadToHeadQuestionView);
     }

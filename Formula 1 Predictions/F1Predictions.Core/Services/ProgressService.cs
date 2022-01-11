@@ -58,6 +58,7 @@ public class ProgressService : IProgressService
             ScoringTypes.Top => ViewNames.TopQuestionView,
             ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
             ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
+            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
             _ => ViewNames.HomeView
         };
     }
