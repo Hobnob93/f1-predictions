@@ -8,43 +8,27 @@ namespace F1Predictions.Core.Services;
 
 public class SectionManager : ISectionManager
 {
-    private readonly IGoogleSheets sheets;
+    private readonly IProgressService progress;
     private readonly Section[] sections;
 
-    public SectionManager(PredictionConfig config, IMapper mapper, IGoogleSheets sheets)
+    public SectionManager(PredictionConfig config, IMapper mapper, IProgressService progress)
     {
-        this.sheets = sheets;
-
+        this.progress = progress;
+        
         sections = config.PredictionSections.Select(mapper.Map<Section>)
             .ToArray();
     }
 
-    public BaseQuestion GetQuestion(int sectionIndex, int questionIndex)
+    public Section GetCurrentSection()
     {
-        var section = sections[sectionIndex];
-        
-        return questionIndex >= section.QuestionCount 
-            ? null 
-            : FetchBaseQuestion(section, sectionIndex, questionIndex);
+        return sections[progress.CurrentSectionIndex];
     }
 
-    private BaseQuestion FetchBaseQuestion(Section section, int sectionIndex, int questionIndex)
+    public ScoringTypes GetCurrentQuestionScoringType()
     {
-        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == questionIndex);
-        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
-
-        var question = (BaseQuestion) (scoringType switch
-        {
-            ScoringTypes.Top => sheets.FetchTopQuestion(sectionIndex, questionIndex),
-            ScoringTypes.Numerical => sheets.FetchNumericalQuestion(sectionIndex, questionIndex),
-            ScoringTypes.HeadToHead => sheets.FetchHeadToHeadQuestion(sectionIndex, questionIndex),
-            ScoringTypes.TopMisc => sheets.FetchTopMiscQuestion(sectionIndex, questionIndex),
-            _ => null
-        });
+        var section = GetCurrentSection();
         
-        return question! with
-        {
-            Section = sheets.FetchSectionTitle(sectionIndex)
-        };
+        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == progress.CurrentQuestionIndex);
+        return overrideData?.ScoringType ?? section.ScoringType;
     }
 }
