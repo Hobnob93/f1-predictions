@@ -4,5 +4,5 @@ namespace F1Predictions.Core.Interfaces;
 
 public interface IQuestionFactory
 {
-    BaseQuestion GetQuestion();
+    BaseQuestion GetQuestion(int sectionIndex, int questionIndex);
 }

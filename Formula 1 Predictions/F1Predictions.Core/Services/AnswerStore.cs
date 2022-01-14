@@ -13,7 +13,7 @@ public class AnswerStore : IAnswerStore
     }
     
     
-    public AnswerFetchDto FetchPrediction(int sectionIndex, int questionIndex)
+    public AnswerFetchDto FetchAnswer(int sectionIndex, int questionIndex)
     {
         throw new NotImplementedException();
     }
