@@ -1,3 +1,4 @@
+using System.Text;
 using AutoMapper;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Dtos;
@@ -152,6 +153,41 @@ public class GoogleSheets : IGoogleSheets
                 .ToArray() ?? Array.Empty<string>(),
             Scoring = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? "No scoring could be found"
         };
+    }
+
+    public IEnumerable<IEnumerable<object>> FetchAllPredictions()
+    {
+        var range = DetermineFetchRanges();
+
+        return ReadValues(PredictionsSheetName, range);
+    }
+    
+    public IEnumerable<IEnumerable<object>> FetchAllAnswers()
+    {
+        var range = DetermineFetchRanges();
+        
+        return ReadValues(AnswersSheetName, range);
+    }
+
+    private string DetermineFetchRanges()
+    {
+        var strBuilder = new StringBuilder();
+
+        foreach (var p in config.PredictionSections)
+        {
+            var initialRow = p.StartingRow;
+            var finalRow = initialRow + p.QuestionCount + 1;
+
+            var initialColumn = config.QuestionColumn;
+            var finalColumn = config.EndOfAnswerColumn;
+
+            if (strBuilder.Length > 0)
+                strBuilder.Append(',');
+
+            strBuilder.Append($"{initialColumn}{initialRow}:{finalColumn}{finalRow}");
+        }
+
+        return strBuilder.ToString();
     }
     
     private IEnumerable<IEnumerable<object>> ReadValues(string sheet, string range)
