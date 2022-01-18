@@ -12,16 +12,16 @@ namespace F1Predictions.Core.ViewModels;
 
 public class TopQuestionViewModel : BindableBase, INavigationAware
 {
-    private readonly ISectionManager sectionManager;
+    private readonly IQuestionFactory questions;
     private readonly IEventAggregator eventAggregator;
 
     private TopQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopQuestionViewModel(ISectionManager sectionManager, IEventAggregator eventAggregator)
+    public TopQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
     {
-        this.sectionManager = sectionManager;
+        this.questions = questions;
         this.eventAggregator = eventAggregator;
 
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
@@ -53,7 +53,7 @@ public class TopQuestionViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = sectionManager.GetQuestion(sectionId, questionId) as TopQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as TopQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

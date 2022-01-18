@@ -12,16 +12,16 @@ namespace F1Predictions.Core.ViewModels;
 
 public class NumericalQuestionViewModel : BindableBase, INavigationAware
 {
-    private readonly ISectionManager sectionManager;
+    private readonly IQuestionFactory questions;
     private readonly IEventAggregator eventAggregator;
 
     private NumericalQuestion question;
     private int sectionId;
     private int questionId;
 
-    public NumericalQuestionViewModel(ISectionManager sectionManager, IEventAggregator eventAggregator)
+    public NumericalQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
     {
-        this.sectionManager = sectionManager;
+        this.questions = questions;
         this.eventAggregator = eventAggregator;
 
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
@@ -53,7 +53,7 @@ public class NumericalQuestionViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = sectionManager.GetQuestion(sectionId, questionId) as NumericalQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as NumericalQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

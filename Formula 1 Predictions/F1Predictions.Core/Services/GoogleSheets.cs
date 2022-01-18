@@ -1,10 +1,8 @@
 using System.Text;
 using AutoMapper;
 using F1Predictions.Core.Config;
-using F1Predictions.Core.Dtos;
 using F1Predictions.Core.Interfaces;
 using Google.Apis.Sheets.v4;
-using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.Services;
 
@@ -26,46 +24,6 @@ public class GoogleSheets : IGoogleSheets
         this.mapper = mapper;
     }
 
-
-    public string FetchSectionTitle(int currentSectionNum)
-    {
-        var row = config.PredictionSections[currentSectionNum].StartingRow;
-
-        return FetchTitle(row);
-    }
-
-    private int CalculateRow(int currentSectionNum, int currentQuestionNum)
-    {
-        var currentSection = config.PredictionSections[currentSectionNum];
-        return currentSection.StartingRow + 2 + currentQuestionNum;
-    }
-
-    private string FetchTitle(int row)
-    {
-        var values = ReadValues(PredictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
-
-        return values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Title Not Found";
-    }
-
-    private AnswerFetchDto FetchAnswers(int row)
-    {
-        var values = ReadValues(AnswersSheetName, $"{config.QuestionColumn}{row}:{config.EndOfAnswerColumn}{row}")?.ToArray();
-        var answersEnd = config.MaxAnswersPerQuestion + 1;
-        var notesBegin = answersEnd;
-        
-        return new AnswerFetchDto
-        {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
-            Answers = values?.FirstOrDefault()?.Take(1..answersEnd)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>(),
-            Notes = values?.FirstOrDefault()?.Take(notesBegin..^1)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>(),
-            Scoring = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? "No scoring could be found"
-        };
-    }
-
     public IEnumerable<IEnumerable<object>> FetchAllPredictions()
     {
         var range = DetermineFetchRanges();
@@ -82,23 +40,16 @@ public class GoogleSheets : IGoogleSheets
 
     private string DetermineFetchRanges()
     {
-        var strBuilder = new StringBuilder();
+        var firstSection = config.PredictionSections.First();
+        var lastSection = config.PredictionSections.Last();
 
-        foreach (var p in config.PredictionSections)
-        {
-            var initialRow = p.StartingRow;
-            var finalRow = initialRow + p.QuestionCount + 1;
+        var initialRow = firstSection.StartingRow;
+        var finalRow = lastSection.StartingRow + lastSection.QuestionCount + 1;
+        
+        var initialColumn = config.QuestionColumn;
+        var finalColumn = config.EndOfAnswerColumn;
 
-            var initialColumn = config.QuestionColumn;
-            var finalColumn = config.EndOfAnswerColumn;
-
-            if (strBuilder.Length > 0)
-                strBuilder.Append(',');
-
-            strBuilder.Append($"{initialColumn}{initialRow}:{finalColumn}{finalRow}");
-        }
-
-        return strBuilder.ToString();
+        return $"{initialColumn}{initialRow}:{finalColumn}{finalRow}";
     }
     
     private IEnumerable<IEnumerable<object>> ReadValues(string sheet, string range)

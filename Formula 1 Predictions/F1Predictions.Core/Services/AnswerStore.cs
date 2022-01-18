@@ -21,7 +21,7 @@ public class AnswerStore : IAnswerStore
     
     private void InitializePredictions()
     {
-        var sections = sheets.FetchAllPredictions().ToList();
+        var sections = sheets.FetchAllAnswers().ToList();
 
         answers = new List<IList<AnswerFetchDto>>();
 
@@ -32,8 +32,8 @@ public class AnswerStore : IAnswerStore
             for (var q = 0; q < sectionConfig.QuestionCount; q++)
             {
                 var row = sectionConfig.StartingRow + 2 + q;
-                var sectionData = sections[row].ToArray();
-                var sectionNameData = sections[sectionConfig.StartingRow];
+                var sectionData = sections[row - 1].ToArray();
+                var sectionNameData = sections[sectionConfig.StartingRow - 1];
                 
                 var answersEnd = config.MaxAnswersPerQuestion + 1;
 

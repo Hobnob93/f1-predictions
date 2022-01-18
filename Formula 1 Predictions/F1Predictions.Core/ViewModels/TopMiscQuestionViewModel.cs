@@ -12,16 +12,16 @@ namespace F1Predictions.Core.ViewModels;
 
 public class TopMiscQuestionViewModel : BindableBase, INavigationAware
 {
-    private readonly ISectionManager sectionManager;
+    private readonly IQuestionFactory questions;
     private readonly IEventAggregator eventAggregator;
 
     private TopMiscQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopMiscQuestionViewModel(ISectionManager sectionManager, IEventAggregator eventAggregator)
+    public TopMiscQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
     {
-        this.sectionManager = sectionManager;
+        this.questions = questions;
         this.eventAggregator = eventAggregator;
 
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
@@ -53,7 +53,7 @@ public class TopMiscQuestionViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = sectionManager.GetQuestion(sectionId, questionId) as TopMiscQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as TopMiscQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

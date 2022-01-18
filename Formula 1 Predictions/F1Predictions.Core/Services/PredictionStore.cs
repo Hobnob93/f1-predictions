@@ -32,8 +32,8 @@ public class PredictionStore : IPredictionStore
             for (var q = 0; q < sectionConfig.QuestionCount; q++)
             {
                 var row = sectionConfig.StartingRow + 2 + q;
-                var sectionData = sections[row].ToArray();
-                var sectionNameData = sections[sectionConfig.StartingRow];
+                var sectionData = sections[row - 1].ToArray();
+                var sectionNameData = sections[sectionConfig.StartingRow - 1];
                 
                 predictionsForSection.Add(new PredictionFetchDto
                 {
