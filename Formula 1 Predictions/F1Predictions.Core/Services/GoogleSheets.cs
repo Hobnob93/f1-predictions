@@ -33,15 +33,6 @@ public class GoogleSheets : IGoogleSheets
 
         return FetchTitle(row);
     }
-    
-    public TopQuestion FetchTopQuestion(int sectionIndex, int questionIndex)
-    {
-        var row = CalculateRow(sectionIndex, questionIndex);
-        var question = FetchQuestion(row);
-        var answers = FetchAnswers(row);
-        
-        
-    }
 
     private int CalculateRow(int currentSectionNum, int currentQuestionNum)
     {
@@ -54,20 +45,6 @@ public class GoogleSheets : IGoogleSheets
         var values = ReadValues(PredictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
 
         return values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Title Not Found";
-    }
-    
-    private PredictionFetchDto FetchQuestion(int row)
-    {
-        var values = ReadValues(PredictionsSheetName, $"{config.QuestionColumn}{row}:{config.InfoColumn}{row}")?.ToArray();
-        
-        return new PredictionFetchDto
-        {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
-            Note = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? string.Empty,
-            Predictions = values?.FirstOrDefault()?.Take(1..^1)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>()
-        };
     }
 
     private AnswerFetchDto FetchAnswers(int row)
