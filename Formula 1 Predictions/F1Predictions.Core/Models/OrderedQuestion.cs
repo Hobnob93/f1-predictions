@@ -1,6 +1,6 @@
 namespace F1Predictions.Core.Models;
 
-public record OrderQuestion : BaseQuestion
+public record OrderedQuestion : BaseQuestion
 {
     public Prediction<ICompetitor>[] Predictions { get; set; }
     public int Position { get; set; }

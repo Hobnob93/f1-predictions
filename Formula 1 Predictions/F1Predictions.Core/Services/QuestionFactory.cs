@@ -92,13 +92,13 @@ public class QuestionFactory : IQuestionFactory
         };
     }
 
-    private OrderQuestion CreateOrderQuestion(PredictionFetchDto prediction, int sectionIndex, int questionIndex)
+    private OrderedQuestion CreateOrderQuestion(PredictionFetchDto prediction, int sectionIndex, int questionIndex)
     {
         var questionNumber = int.Parse(prediction.Question);
         var questionAsPosition = questionNumber.AsPosition();
         var (orderedAnswers, actualAnswerIndex) = answers.FetchOrderedAnswers(sectionIndex, questionIndex);
 
-        return new OrderQuestion
+        return new OrderedQuestion
         {
             Name = questionAsPosition,
             Description = prediction.Note,
