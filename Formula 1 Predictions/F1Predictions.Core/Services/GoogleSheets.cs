@@ -1,17 +1,18 @@
+using System.Text;
 using AutoMapper;
 using F1Predictions.Core.Config;
-using F1Predictions.Core.Dtos;
 using F1Predictions.Core.Interfaces;
 using Google.Apis.Sheets.v4;
-using F1Predictions.Core.Models;
 
 namespace F1Predictions.Core.Services;
 
 public class GoogleSheets : IGoogleSheets
 {
-    private readonly string spreadsheetId = "16nlhSKutA22Z-Llu7NNYxTPUu1DgZQAtIQAWwMSHkyI";
-    private readonly string predictionsSheetName = "Predictions";
-    private readonly string resultsSheetName = "Results";
+    private const string SpreadsheetId = "16nlhSKutA22Z-Llu7NNYxTPUu1DgZQAtIQAWwMSHkyI";
+    private const string PredictionsSheetName = "Predictions";
+    private const string AnswersSheetName = "Answers";
+    private const string ResultsSheetName = "Results";
+    
     private readonly SheetsService clientService;
     private readonly PredictionConfig config;
     private readonly IMapper mapper;
@@ -23,78 +24,50 @@ public class GoogleSheets : IGoogleSheets
         this.mapper = mapper;
     }
 
-
-    public string FetchSectionTitle(int currentSectionNum)
+    public IEnumerable<IEnumerable<object>> FetchAllPredictions()
     {
-        var row = config.PredictionSections[currentSectionNum].StartingRow;
+        var range = DetermineFetchRanges();
 
-        return FetchTitle(row);
+        return ReadValues(PredictionsSheetName, range);
     }
     
-    public TopQuestion FetchTopQuestion(int currentSectionNum, int currentQuestionNum)
+    public IEnumerable<IEnumerable<object>> FetchAllAnswers()
     {
-        var row = CalculateRow(currentSectionNum, currentQuestionNum);
-        var question = FetchQuestion(row);
-        var answers = FetchAnswers(row);
+        var range = DetermineFetchRanges();
         
-        return new TopQuestion
-        {
-            Name = question.Question,
-            Description = question.Note,
-            Predictions = mapper.Map<Prediction<ICompetitor>[]>(question),
-            Answers = mapper.Map<Answer<ICompetitor>[]>(answers)
-        };
+        return ReadValues(AnswersSheetName, range);
     }
 
-    private int CalculateRow(int currentSectionNum, int currentQuestionNum)
+    private string DetermineFetchRanges()
     {
-        var currentSection = config.PredictionSections[currentSectionNum];
-        return currentSection.StartingRow + 2 + currentQuestionNum;
-    }
+        var firstSection = config.PredictionSections.First();
+        var lastSection = config.PredictionSections.Last();
 
-    private string FetchTitle(int row)
-    {
-        var values = ReadValues(predictionsSheetName, $"{config.HeaderColumn}{row}")?.ToArray();
-
-        return values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Title Not Found";
-    }
-    
-    private PredictionFetchDto FetchQuestion(int row)
-    {
-        var values = ReadValues(predictionsSheetName, $"{config.QuestionColumn}{row}:{config.InfoColumn}{row}")?.ToArray();
+        var initialRow = firstSection.StartingRow;
+        var finalRow = lastSection.StartingRow + lastSection.QuestionCount + 1;
         
-        return new PredictionFetchDto
-        {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
-            Note = values?.FirstOrDefault()?.LastOrDefault()?.ToString() ?? string.Empty,
-            Predictions = values?.FirstOrDefault()?.Take(1..^1)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>()
-        };
-    }
+        var initialColumn = config.QuestionColumn;
+        var finalColumn = config.EndOfAnswerColumn;
 
-    private AnswerFetchDto FetchAnswers(int row)
-    {
-        var values = ReadValues(resultsSheetName, $"{config.QuestionColumn}{row}:{config.EndOfAnswerColumn}{row}")?.ToArray();
-        var answersEnd = config.MaxAnswersPerQuestion + 1;
-        var notesBegin = answersEnd;
-        
-        return new AnswerFetchDto
-        {
-            Question = values?.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? "Question Not Found",
-            Answers = values?.FirstOrDefault()?.Take(1..answersEnd)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>(),
-            Notes = values?.FirstOrDefault()?.Take(notesBegin..)
-                .Select(o => o.ToString())
-                .ToArray() ?? Array.Empty<string>(),
-        };
+        return $"{initialColumn}{initialRow}:{finalColumn}{finalRow}";
     }
     
     private IEnumerable<IEnumerable<object>> ReadValues(string sheet, string range)
     {
-        var request = clientService.Spreadsheets.Values.Get(spreadsheetId, $"{sheet}!{range}");
-        var response = request.Execute();
-        return response.Values;
+        var request = clientService.Spreadsheets.Values.Get(SpreadsheetId, $"{sheet}!{range}");
+        var requestResponse = request.Execute();
+        var response = requestResponse.Values;
+
+        foreach (var values in response)
+        {
+            for (var j = 0; j < values.Count; j++)
+            {
+                var val = values[j];
+                if (val is "/")
+                    values[j] = string.Empty;
+            }
+        }
+
+        return response;
     }
 }

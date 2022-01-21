@@ -57,12 +57,15 @@ public class Startup : IStartup
         // WPF Services
         containerRegistry.Register<IWindowService, WindowService>();
         containerRegistry.Register<IToolbarService, ToolbarService>();
+        containerRegistry.Register<IQuestionFactory, QuestionFactory>();
         
         // Manager Services
         containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
         containerRegistry.RegisterSingleton<ICompetitorManager, CompetitorManager>();
         containerRegistry.RegisterSingleton<ISectionManager, SectionManager>();
         containerRegistry.RegisterSingleton<IProgressService, ProgressService>();
+        containerRegistry.RegisterSingleton<IAnswerStore, AnswerStore>();
+        containerRegistry.RegisterSingleton<IPredictionStore, PredictionStore>();
         
         // Data Services
         containerRegistry.Register<IGoogleSheets, GoogleSheets>();

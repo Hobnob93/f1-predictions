@@ -1,4 +1,4 @@
-<UserControl x:Class="F1Predictions.Modules.Content.Views.TopQuestionView"
+<UserControl x:Class="F1Predictions.Modules.Content.Views.TopMiscQuestionView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -89,7 +89,7 @@
                 <ItemsControl ItemsSource="{Binding Question.Predictions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Margin="5, 5"/>
+                            <components:ParticipantBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -114,7 +114,7 @@
                 <ItemsControl ItemsSource="{Binding Question.Answers}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5, 5"/>
+                            <components:ParticipantBanner Text="{Binding Value}" Color="Chartreuse" Margin="5, 5"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

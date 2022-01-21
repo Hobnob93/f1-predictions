@@ -1,5 +1,6 @@
 using AutoMapper;
 using F1Predictions.Core.Config;
+using F1Predictions.Core.Enums;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
 
@@ -7,26 +8,27 @@ namespace F1Predictions.Core.Services;
 
 public class SectionManager : ISectionManager
 {
-    private readonly IGoogleSheets sheets;
+    private readonly IProgressService progress;
     private readonly Section[] sections;
 
-    public SectionManager(PredictionConfig config, IMapper mapper, IGoogleSheets sheets)
+    public SectionManager(PredictionConfig config, IMapper mapper, IProgressService progress)
     {
-        this.sheets = sheets;
-
+        this.progress = progress;
+        
         sections = config.PredictionSections.Select(mapper.Map<Section>)
             .ToArray();
     }
 
-    public TopQuestion GetQuestion(int sectionIndex, int questionIndex)
+    public Section GetCurrentSection()
     {
-        var section = sections[sectionIndex];
-        if (questionIndex >= section.QuestionCount)
-            return null;
+        return sections[progress.CurrentSectionIndex];
+    }
 
-        return sheets.FetchTopQuestion(sectionIndex, questionIndex) with
-        {
-            Section = sheets.FetchSectionTitle(sectionIndex)
-        };
+    public ScoringTypes GetCurrentQuestionScoringType()
+    {
+        var section = GetCurrentSection();
+        
+        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == progress.CurrentQuestionIndex);
+        return overrideData?.ScoringType ?? section.ScoringType;
     }
 }
