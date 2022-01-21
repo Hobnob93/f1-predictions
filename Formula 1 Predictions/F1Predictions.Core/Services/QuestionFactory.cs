@@ -1,6 +1,7 @@
 using AutoMapper;
 using F1Predictions.Core.Dtos;
 using F1Predictions.Core.Enums;
+using F1Predictions.Core.Extensions;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
 
@@ -34,6 +35,7 @@ public class QuestionFactory : IQuestionFactory
             ScoringTypes.Numerical => CreateNumericalQuestion(predictionDto, answerDto),
             ScoringTypes.HeadToHead => CreateHeadToHeadQuestion(predictionDto, answerDto),
             ScoringTypes.TopMisc => CreateTopMiscQuestion(predictionDto, answerDto),
+            ScoringTypes.FullOrder => CreateOrderQuestion(predictionDto, sectionIndex, questionIndex),
             _ => null
         });
 
@@ -46,6 +48,7 @@ public class QuestionFactory : IQuestionFactory
         {
             Name = prediction.Question,
             Description = prediction.Note,
+            Section = prediction.Section,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(prediction),
             Answers = mapper.Map<Answer<ICompetitor>[]>(answer),
             Scoring = answer.Scoring
@@ -58,6 +61,7 @@ public class QuestionFactory : IQuestionFactory
         {
             Name = prediction.Question,
             Description = prediction.Note,
+            Section = prediction.Section,
             Predictions = mapper.Map<Prediction<int>[]>(prediction),
             Answer = mapper.Map<Answer<int>>(answer),
             Scoring = answer.Scoring
@@ -80,10 +84,30 @@ public class QuestionFactory : IQuestionFactory
         {
             Name = prediction.Question,
             Description = prediction.Note,
+            Section = prediction.Section,
             Predictions = mapper.Map<Prediction<ICompetitor>[]>(prediction),
             First = competitors.First(),
             Second = competitors.Last(),
             Scoring = answer.Scoring
+        };
+    }
+
+    private OrderQuestion CreateOrderQuestion(PredictionFetchDto prediction, int sectionIndex, int questionIndex)
+    {
+        var questionNumber = int.Parse(prediction.Question);
+        var questionAsPosition = questionNumber.AsPosition();
+        var (orderedAnswers, actualAnswerIndex) = answers.FetchOrderedAnswers(sectionIndex, questionIndex);
+
+        return new OrderQuestion
+        {
+            Name = questionAsPosition,
+            Description = prediction.Note,
+            Section = prediction.Section,
+            Predictions = mapper.Map<Prediction<ICompetitor>[]>(prediction),
+            Answers = mapper.Map<Answer<ICompetitor>[]>(orderedAnswers),
+            Position = questionNumber,
+            Scoring = orderedAnswers.Scoring,
+            AnswerAtIndex = actualAnswerIndex
         };
     }
     
@@ -93,6 +117,7 @@ public class QuestionFactory : IQuestionFactory
         {
             Name = prediction.Question,
             Description = prediction.Note,
+            Section = prediction.Section,
             Predictions = mapper.Map<Prediction<string>[]>(prediction),
             Answers = mapper.Map<Answer<string>[]>(answer),
             Scoring = answer.Scoring

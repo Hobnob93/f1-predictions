@@ -60,4 +60,44 @@ public class AnswerStore : IAnswerStore
     {
         return answers[sectionIndex][questionIndex];
     }
+
+    public (AnswerFetchDto answer, int actualAnswerIndex) FetchOrderedAnswers(int sectionIndex, int questionIndex, int prevCount = 2, int afterCount = 2)
+    {
+        var totalSize = prevCount + afterCount + 1;
+        var order = new AnswerFetchDto[totalSize];
+        
+        var section = answers[sectionIndex];
+        var workingIndex = 0;
+        for (var i = prevCount; prevCount > 0; prevCount--)
+        {
+            var offsetQuestionIndex = questionIndex - i;
+            if (offsetQuestionIndex < 0)
+                order[workingIndex] = null;
+            else
+                order[workingIndex] = section[offsetQuestionIndex];
+            
+            workingIndex++;
+        }
+
+        order[workingIndex] = section[questionIndex];
+        var actualAnswerIndex = workingIndex++;
+
+        for (var i = 1; i <= afterCount; i++)
+        {
+            var offsetQuestionIndex = questionIndex + i;
+            if (offsetQuestionIndex >= section.Count)
+                order[workingIndex] = null;
+            else
+                order[workingIndex] = section[offsetQuestionIndex];
+            
+            workingIndex++;
+        }
+
+        var answer = order[actualAnswerIndex] with
+        {
+            Answers = order.Select(o => o.Answers.FirstOrDefault()).ToArray()
+        };
+        
+        return (answer, actualAnswerIndex);
+    }
 }
