@@ -68,7 +68,7 @@ public class AnswerStore : IAnswerStore
         
         var section = answers[sectionIndex];
         var workingIndex = 0;
-        for (var i = prevCount; prevCount > 0; prevCount--)
+        for (var i = prevCount; i > 0; i--)
         {
             var offsetQuestionIndex = questionIndex - i;
             if (offsetQuestionIndex < 0)
@@ -95,7 +95,8 @@ public class AnswerStore : IAnswerStore
 
         var answer = order[actualAnswerIndex] with
         {
-            Answers = order.Select(o => o.Answers.FirstOrDefault()).ToArray()
+            Answers = order.Select(o => o?.Answers?.FirstOrDefault()).ToArray(),
+            Notes = order.Select(o => o?.Notes.FirstOrDefault()).ToArray()
         };
         
         return (answer, actualAnswerIndex);
