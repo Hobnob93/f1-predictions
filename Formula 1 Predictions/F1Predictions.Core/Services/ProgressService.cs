@@ -37,6 +37,8 @@ public class ProgressService : IProgressService
     {
         if (isForward)
             Increment();
+        else
+            Decrement();
 
         var navParams = new NavigationParameters
         {
@@ -87,6 +89,40 @@ public class ProgressService : IProgressService
 
                 if (CurrentSectionIndex == 0)
                     eventAggregator.GetEvent<ProgressCompleteEvent>().Publish();
+            }
+            
+            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+        }
+    }
+    
+    private void Decrement()
+    {
+        if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
+        {
+            CurrentQuestionIndex = 0;
+            CurrentSectionIndex = 0;
+            
+            eventAggregator.GetEvent<SectionChangedEvent>().Publish();
+            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+        }
+        else
+        {
+            CurrentQuestionIndex--;
+
+            if (CurrentQuestionIndex == -1)
+            {
+                CurrentSectionIndex--;
+                eventAggregator.GetEvent<SectionChangedEvent>().Publish();
+
+                if (CurrentSectionIndex == -1)
+                {
+                    eventAggregator.GetEvent<ProgressResetEvent>().Publish();
+                }
+                else
+                {
+                    CurrentQuestionIndex += sections[CurrentSectionIndex].QuestionCount;
+                    eventAggregator.GetEvent<SectionChangedEvent>().Publish();
+                }
             }
             
             eventAggregator.GetEvent<QuestionChangedEvent>().Publish();

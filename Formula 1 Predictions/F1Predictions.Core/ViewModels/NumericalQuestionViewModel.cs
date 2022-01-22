@@ -40,7 +40,7 @@ public class NumericalQuestionViewModel : BindableBase, INavigationAware
 
     private void PreviousQuestionAction()
     {
-        
+        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);
     }
 
     private void NextQuestionAction()
