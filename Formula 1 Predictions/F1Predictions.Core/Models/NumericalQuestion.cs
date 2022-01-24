@@ -1,7 +1,6 @@
 namespace F1Predictions.Core.Models;
 
-public record NumericalQuestion : BaseQuestion
+public record NumericalQuestion : BaseQuestion<int>
 {
-    public Prediction<int>[] Predictions { get; set; }
     public Answer<int> Answer { get; set; }
 }

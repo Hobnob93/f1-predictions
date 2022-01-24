@@ -67,22 +67,27 @@ public class QuestionViewModel : BindableBase
             {Navigation.QuestionId, data.QuestionIndex}
         };
         
-        regionManager.RequestNavigate($"{Regions.Predictions}", ViewFromQuestionType(data.QuestionIndex), navParams);
+        regionManager.RequestNavigate($"{Regions.Answers}", AnswersViewFromQuestionType(data.QuestionIndex), navParams);
     }
-    
-    private string ViewFromQuestionType(int questionIndex)
+
+    private ScoringTypes GetScoringType(int questionIndex)
     {
         var section = sections.GetCurrentSection();
         var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == questionIndex);
-        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
+        return overrideData?.ScoringType ?? section.ScoringType;
+    }
+    
+    private string AnswersViewFromQuestionType(int questionIndex)
+    {
+        var scoringType = GetScoringType(questionIndex);
 
         return scoringType switch
         {
-            ScoringTypes.Top => ViewNames.TopQuestionView,
-            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
-            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
-            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
-            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
+            ScoringTypes.Top => ViewNames.TopAnswersView,
+            ScoringTypes.Numerical => ViewNames.NumericalAnswersView,
+            ScoringTypes.HeadToHead => ViewNames.HeadToHeadAnswersView,
+            ScoringTypes.TopMisc => ViewNames.TopMiscAnswersView,
+            ScoringTypes.FullOrder => ViewNames.OrderedAnswersView,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

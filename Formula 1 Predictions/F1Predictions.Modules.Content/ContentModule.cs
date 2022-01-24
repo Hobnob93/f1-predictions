@@ -26,11 +26,11 @@ public class ContentModule : IModule
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>(ViewNames.HomeView);
-        containerRegistry.RegisterForNavigation<TopQuestionView, TopQuestionViewModel>(ViewNames.TopQuestionView);
-        containerRegistry.RegisterForNavigation<TopMiscQuestionView, TopMiscQuestionViewModel>(ViewNames.TopMiscQuestionView);
-        containerRegistry.RegisterForNavigation<NumericalQuestionView, NumericalQuestionViewModel>(ViewNames.NumericalQuestionView);
-        containerRegistry.RegisterForNavigation<HeadToHeadQuestionView, HeadToHeadQuestionViewModel>(ViewNames.HeadToHeadQuestionView);
-        containerRegistry.RegisterForNavigation<OrderedQuestionView, OrderedQuestionViewModel>(ViewNames.OrderedQuestionView);
+        containerRegistry.RegisterForNavigation<TopQuestionView, TopQuestionViewModel>(ViewNames.TopAnswersView);
+        containerRegistry.RegisterForNavigation<TopMiscQuestionView, TopMiscQuestionViewModel>(ViewNames.TopMiscAnswersView);
+        containerRegistry.RegisterForNavigation<NumericalQuestionView, NumericalQuestionViewModel>(ViewNames.NumericalAnswersView);
+        containerRegistry.RegisterForNavigation<HeadToHeadQuestionView, HeadToHeadQuestionViewModel>(ViewNames.HeadToHeadAnswersView);
+        containerRegistry.RegisterForNavigation<OrderedQuestionView, OrderedQuestionViewModel>(ViewNames.OrderedAnswersView);
         containerRegistry.RegisterForNavigation<QuestionView, QuestionViewModel>(ViewNames.QuestionView);
     }
 }

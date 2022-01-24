@@ -13,40 +13,22 @@ namespace F1Predictions.Core.ViewModels;
 public class HeadToHeadQuestionViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
-    private readonly IEventAggregator eventAggregator;
 
     private HeadToHeadQuestion question;
     private int sectionId;
     private int questionId;
 
-    public HeadToHeadQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
+    public HeadToHeadQuestionViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
-        this.eventAggregator = eventAggregator;
-
-        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
-        NextCommand = new DelegateCommand(NextQuestionAction);
     }
-    
-    public ICommand PreviousCommand { get; }
-    public ICommand NextCommand { get; }
     
     public HeadToHeadQuestion Question
     {
         get => question;
         set => SetProperty(ref question, value);
     }
-
-
-    private void PreviousQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);
-    }
-
-    private void NextQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
-    }
+    
     
     public void OnNavigatedTo(NavigationContext navigationContext)
     {

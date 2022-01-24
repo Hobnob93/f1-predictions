@@ -7,3 +7,8 @@ public record BaseQuestion
     public string Description { get; set; }
     public string Scoring { get; set; }
 }
+
+public record BaseQuestion<T> : BaseQuestion
+{
+    public Prediction<T>[] Predictions { get; set; }
+}
