@@ -39,14 +39,6 @@ public class ProgressService : IProgressService
             Increment();
         else
             Decrement();
-
-        var navParams = new NavigationParameters
-        {
-            {Navigation.SectionId, CurrentSectionIndex},
-            {Navigation.QuestionId, CurrentQuestionIndex}
-        };
-        
-        //regionManager.RequestNavigate($"{Regions.Content}", ViewFromQuestionType(), navParams);
     }
 
     private void Started()
@@ -64,23 +56,6 @@ public class ProgressService : IProgressService
     {
         regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
         regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
-    }
-
-    private string ViewFromQuestionType()
-    {
-        var section = sections[CurrentSectionIndex];
-        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == CurrentQuestionIndex);
-        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
-
-        return scoringType switch
-        {
-            ScoringTypes.Top => ViewNames.TopQuestionView,
-            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
-            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
-            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
-            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
-            _ => throw new ArgumentOutOfRangeException()
-        };
     }
     
     private void Increment()

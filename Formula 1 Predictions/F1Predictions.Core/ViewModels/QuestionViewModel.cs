@@ -1,5 +1,6 @@
 using System.Net;
 using System.Windows.Input;
+using F1Predictions.Core.Constants;
 using F1Predictions.Core.Enums;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
@@ -7,6 +8,7 @@ using F1Predictions.Core.Models;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
@@ -14,15 +16,17 @@ public class QuestionViewModel : BindableBase
 {
     private readonly IQuestionFactory questions;
     private readonly IEventAggregator eventAggregator;
-    private readonly IProgressService progress;
+    private readonly IRegionManager regionManager;
+    private readonly ISectionManager sections;
 
     private BaseQuestion question;
     
-    public QuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator, IProgressService progress)
+    public QuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator, IRegionManager regionManager, ISectionManager sections)
     {
         this.questions = questions;
         this.eventAggregator = eventAggregator;
-        this.progress = progress;
+        this.regionManager = regionManager;
+        this.sections = sections;
 
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
         NextCommand = new DelegateCommand(NextQuestionAction);
@@ -56,5 +60,30 @@ public class QuestionViewModel : BindableBase
     private void UpdateQuestion(QuestionChangedData data)
     {
         Question = questions.GetQuestion(data.SectionIndex, data.QuestionIndex);
+        
+        var navParams = new NavigationParameters
+        {
+            {Navigation.SectionId, data.SectionIndex},
+            {Navigation.QuestionId, data.QuestionIndex}
+        };
+        
+        regionManager.RequestNavigate($"{Regions.Predictions}", ViewFromQuestionType(data.QuestionIndex), navParams);
+    }
+    
+    private string ViewFromQuestionType(int questionIndex)
+    {
+        var section = sections.GetCurrentSection();
+        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == questionIndex);
+        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
+
+        return scoringType switch
+        {
+            ScoringTypes.Top => ViewNames.TopQuestionView,
+            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
+            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
+            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
+            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }
