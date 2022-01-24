@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:F1Predictions.Modules.Content.Views"
+             xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d"
              d:DesignHeight="auto" d:DesignWidth="500">
     <Grid>
@@ -14,18 +15,18 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>        <!-- Gutter -->
+            <RowDefinition Height="15"/>        <!-- Gutter -->
             <RowDefinition Height="auto"/>      <!-- Details -->
             <RowDefinition Height="*"/>         <!-- Predictions -->
             <RowDefinition Height="*"/>         <!-- Answers -->
             <RowDefinition Height="*"/>         <!-- Points -->
-            <RowDefinition Height="20"/>        <!-- Gutter -->
+            <RowDefinition Height="auto"/>      <!-- Buttons -->
+            <RowDefinition Height="15"/>        <!-- Gutter -->
         </Grid.RowDefinitions>
         
         <!-- Row 1 -->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
@@ -36,17 +37,43 @@
             <!-- Row 1 -->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Column="0" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                <TextBlock Grid.Column="1" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"/>
             </Grid>
+        </Grid>
+        
+        <!-- Row 2 -->
+        <ContentControl Grid.Column="1" Grid.Row="2" prism:RegionManager.RegionName="{Binding PredictionsRegionName, Mode=OneTime}"/>
+        
+        <!-- Row 3 -->
+        <ContentControl Grid.Column="1" Grid.Row="3" prism:RegionManager.RegionName="{Binding AnswersRegionName, Mode=OneTime}"/>
+        
+        <!-- Row 4 -->
+        <ContentControl Grid.Column="1" Grid.Row="4" prism:RegionManager.RegionName="{Binding PointsRegionName, Mode=OneTime}"/>
+        
+        <!-- Row 5 -->
+        <Grid Grid.Column="1" Grid.Row="5" Margin="0, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             
-            <!-- Row 2 -->
-            <TextBlock Grid.Row="2" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <!-- Column 0 -->
+            <Button Grid.Column="0" Width="150" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding PreviousCommand}">
+                <TextBlock Text="Previous" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold"/>
+            </Button>
+            
+            <!-- Column 2 -->
+            <Button Grid.Column="2" Width="150" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding NextCommand}">
+                <TextBlock Text="Next" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold"/>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

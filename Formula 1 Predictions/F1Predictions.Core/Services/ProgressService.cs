@@ -57,12 +57,12 @@ public class ProgressService : IProgressService
 
         return scoringType switch
         {
-            ScoringTypes.Top => ViewNames.TopQuestionView,
-            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
-            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
-            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
-            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
-            _ => ViewNames.HomeView
+            //ScoringTypes.Top => ViewNames.TopQuestionView,
+            //ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
+            //ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
+            //ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
+            //ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
+            _ => ViewNames.QuestionView
         };
     }
     

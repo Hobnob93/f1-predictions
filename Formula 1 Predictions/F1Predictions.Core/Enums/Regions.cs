@@ -4,5 +4,8 @@ public enum Regions
 {
     Toolbar,
     Progress,
-    Content
+    Content,
+    Predictions,
+    Answers,
+    Points
 }

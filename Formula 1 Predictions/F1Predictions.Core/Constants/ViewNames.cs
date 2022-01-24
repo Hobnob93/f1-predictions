@@ -8,6 +8,7 @@ public static class ViewNames
     public const string NumericalQuestionView = "NumericalQuestionView";
     public const string HeadToHeadQuestionView = "HeadToHeadQuestionView";
     public const string OrderedQuestionView = "OrderedQuestionView";
+    public const string QuestionView = "QuestionView";
     public const string MessageView = "MessageView";
     public const string ProgressBarView = "ProgressBarView";
 }
