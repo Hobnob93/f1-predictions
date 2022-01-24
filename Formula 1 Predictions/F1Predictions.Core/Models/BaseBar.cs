@@ -7,7 +7,17 @@ public record BaseBar
 
     public void Complete(string color)
     {
-        IsComplete = true;
         Color = color;
+        IsComplete = true;
+    }
+
+    public void Activate(string color)
+    {
+        Color = color;
+    }
+
+    public void Deactivate(string defaultColor, string completedColor)
+    {
+        Color = IsComplete ? completedColor : defaultColor;
     }
 };

@@ -46,7 +46,24 @@ public class ProgressService : IProgressService
             {Navigation.QuestionId, CurrentQuestionIndex}
         };
         
-        regionManager.RequestNavigate($"{Regions.Content}", ViewFromQuestionType(), navParams);
+        //regionManager.RequestNavigate($"{Regions.Content}", ViewFromQuestionType(), navParams);
+    }
+
+    private void Started()
+    {
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.QuestionView);
+    }
+
+    private void BackToMain()
+    {
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
+        regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
+    }
+
+    private void Completed()
+    {
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
+        regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
     }
 
     private string ViewFromQuestionType()
@@ -57,12 +74,12 @@ public class ProgressService : IProgressService
 
         return scoringType switch
         {
-            //ScoringTypes.Top => ViewNames.TopQuestionView,
-            //ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
-            //ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
-            //ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
-            //ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
-            _ => ViewNames.QuestionView
+            ScoringTypes.Top => ViewNames.TopQuestionView,
+            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
+            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
+            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
+            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
     
@@ -70,11 +87,12 @@ public class ProgressService : IProgressService
     {
         if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
         {
+            Started();
+            
             CurrentQuestionIndex = 0;
             CurrentSectionIndex = 0;
             
-            eventAggregator.GetEvent<SectionChangedEvent>().Publish();
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+            PublishQuestionChangedEvent(true);
         }
         else
         {
@@ -85,13 +103,16 @@ public class ProgressService : IProgressService
             {
                 CurrentSectionIndex++;
                 CurrentSectionIndex %= sections.Length;
-                eventAggregator.GetEvent<SectionChangedEvent>().Publish();
 
                 if (CurrentSectionIndex == 0)
+                {
                     eventAggregator.GetEvent<ProgressCompleteEvent>().Publish();
+                    Completed();
+                    return;
+                }
             }
             
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+            PublishQuestionChangedEvent(true);
         }
     }
     
@@ -99,11 +120,12 @@ public class ProgressService : IProgressService
     {
         if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
         {
+            Started();
+            
             CurrentQuestionIndex = 0;
             CurrentSectionIndex = 0;
-            
-            eventAggregator.GetEvent<SectionChangedEvent>().Publish();
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+
+            PublishQuestionChangedEvent(false);
         }
         else
         {
@@ -112,20 +134,28 @@ public class ProgressService : IProgressService
             if (CurrentQuestionIndex == -1)
             {
                 CurrentSectionIndex--;
-                eventAggregator.GetEvent<SectionChangedEvent>().Publish();
 
                 if (CurrentSectionIndex == -1)
                 {
                     eventAggregator.GetEvent<ProgressResetEvent>().Publish();
+                    BackToMain();
+                    return;
                 }
-                else
-                {
-                    CurrentQuestionIndex += sections[CurrentSectionIndex].QuestionCount;
-                    eventAggregator.GetEvent<SectionChangedEvent>().Publish();
-                }
+                    
+                CurrentQuestionIndex += sections[CurrentSectionIndex].QuestionCount;
             }
             
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+            PublishQuestionChangedEvent(false);
         }
+    }
+
+    private void PublishQuestionChangedEvent(bool isForward)
+    {
+        eventAggregator.GetEvent<QuestionChangedEvent>().Publish(new QuestionChangedData
+        {
+            IsProgression = isForward,
+            SectionIndex = CurrentSectionIndex,
+            QuestionIndex = CurrentQuestionIndex
+        });
     }
 }

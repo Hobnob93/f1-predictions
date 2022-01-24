@@ -27,7 +27,7 @@ public class QuestionViewModel : BindableBase
         PreviousCommand = new DelegateCommand(PreviousQuestionAction);
         NextCommand = new DelegateCommand(NextQuestionAction);
         
-        UpdateQuestion();
+        eventAggregator.GetEvent<QuestionChangedEvent>().Subscribe(UpdateQuestion);
     }
     
     public ICommand PreviousCommand { get; }
@@ -46,17 +46,15 @@ public class QuestionViewModel : BindableBase
     private void PreviousQuestionAction()
     {
         eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);
-        UpdateQuestion();
     }
 
     private void NextQuestionAction()
     {
         eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
-        UpdateQuestion();
     }
 
-    private void UpdateQuestion()
+    private void UpdateQuestion(QuestionChangedData data)
     {
-        Question = questions.GetQuestion(progress.CurrentSectionIndex, progress.CurrentQuestionIndex);
+        Question = questions.GetQuestion(data.SectionIndex, data.QuestionIndex);
     }
 }
