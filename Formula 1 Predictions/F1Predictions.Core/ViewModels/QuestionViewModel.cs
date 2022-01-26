@@ -67,6 +67,7 @@ public class QuestionViewModel : BindableBase
             {Navigation.QuestionId, data.QuestionIndex}
         };
         
+        regionManager.RequestNavigate($"{Regions.Predictions}", PredictionsViewFromQuestionType(data.QuestionIndex), navParams);
         regionManager.RequestNavigate($"{Regions.Answers}", AnswersViewFromQuestionType(data.QuestionIndex), navParams);
     }
 
@@ -89,6 +90,18 @@ public class QuestionViewModel : BindableBase
             ScoringTypes.TopMisc => ViewNames.TopMiscAnswersView,
             ScoringTypes.FullOrder => ViewNames.OrderedAnswersView,
             _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+    
+    private string PredictionsViewFromQuestionType(int questionIndex)
+    {
+        var scoringType = GetScoringType(questionIndex);
+
+        return scoringType switch
+        {
+            ScoringTypes.Numerical => ViewNames.ValuePredictionView,
+            ScoringTypes.TopMisc => ViewNames.ValuePredictionView,
+            _ => ViewNames.CompetitorPredictionView
         };
     }
 }

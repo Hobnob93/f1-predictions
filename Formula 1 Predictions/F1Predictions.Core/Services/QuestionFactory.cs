@@ -62,7 +62,7 @@ public class QuestionFactory : IQuestionFactory
             Name = prediction.Question,
             Description = prediction.Note,
             Section = prediction.Section,
-            Predictions = mapper.Map<Prediction<int>[]>(prediction),
+            Predictions = mapper.Map<Prediction<string>[]>(prediction),
             Answer = mapper.Map<Answer<int>>(answer),
             Scoring = answer.Scoring
         };

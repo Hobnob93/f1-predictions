@@ -6,20 +6,20 @@ using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class CompetitorPredictionsViewModel : BindableBase, INavigationAware
+public class ValuePredictionsViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
 
-    private BaseQuestion<ICompetitor> question;
+    private BaseQuestion<string> question;
     private int sectionId;
     private int questionId;
     
-    public CompetitorPredictionsViewModel(IQuestionFactory questions)
+    public ValuePredictionsViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
     }
     
-    public BaseQuestion<ICompetitor> Question
+    public BaseQuestion<string> Question
     {
         get => question;
         set => SetProperty(ref question, value);
@@ -31,7 +31,7 @@ public class CompetitorPredictionsViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = questions.GetQuestion(sectionId, questionId) as BaseQuestion<ICompetitor>;
+        Question = questions.GetQuestion(sectionId, questionId) as BaseQuestion<string>;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)
