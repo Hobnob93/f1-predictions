@@ -20,7 +20,7 @@
         <TextBlock Grid.Row="1" Text="Answer" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
     
         <!-- Row 3 -->
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <components:CompetitorBanner Text="{Binding Question.Answer.Value}" Color="Chartreuse" Margin="5,5" Width="300"/>
         </StackPanel>
     </Grid>
