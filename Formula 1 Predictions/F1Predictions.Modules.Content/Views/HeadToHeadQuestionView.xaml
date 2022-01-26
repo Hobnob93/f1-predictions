@@ -17,13 +17,13 @@
         </Grid.RowDefinitions>
         
         <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Text="Predictions" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1" Text="Head to Head Answer" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
         
         <!-- Row 3 -->
-        <StackPanel Grid.Row="3" Width="400" Orientation="Horizontal">
-            <components:CompetitorBanner Text="{Binding Question.First.Name}" Color="{Binding Question.First.Color}" Data="{Binding Question.First.Data}" Margin="5, 5" Width="200"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <components:CompetitorBanner Text="{Binding Question.First.Name}" Color="{Binding Question.First.Color}" Data="{Binding Question.First.Data}" Margin="5,5" Width="200"/>
             <TextBlock Text="{Binding Question.Result}" FontWeight="Thin" FontSize="16" Margin="10,5"/>
-            <components:CompetitorBanner Text="{Binding Question.Second.Name}" Color="{Binding Question.Second.Color}" Data="{Binding Question.Second.Data}" Margin="5, 5" Width="200"/>
+            <components:CompetitorBanner Text="{Binding Question.Second.Name}" Color="{Binding Question.Second.Color}" Data="{Binding Question.Second.Data}" Margin="5,5" Width="200"/>
         </StackPanel>
     </Grid>
 </UserControl>
