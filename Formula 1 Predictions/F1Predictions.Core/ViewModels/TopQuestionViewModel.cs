@@ -3,8 +3,6 @@ using F1Predictions.Core.Constants;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
-using Prism.Commands;
-using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -13,41 +11,23 @@ namespace F1Predictions.Core.ViewModels;
 public class TopQuestionViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
-    private readonly IEventAggregator eventAggregator;
 
     private TopQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
+    public TopQuestionViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
-        this.eventAggregator = eventAggregator;
-
-        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
-        NextCommand = new DelegateCommand(NextQuestionAction);
     }
-    
-    public ICommand PreviousCommand { get; }
-    public ICommand NextCommand { get; }
     
     public TopQuestion Question
     {
         get => question;
         set => SetProperty(ref question, value);
     }
-
-
-    private void PreviousQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);
-    }
-
-    private void NextQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
-    }
     
+
     public void OnNavigatedTo(NavigationContext navigationContext)
     {
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);

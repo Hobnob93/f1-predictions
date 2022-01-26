@@ -13,131 +13,39 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="15"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
-        
+    
         <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Text="{Binding Question.Section, FallbackValue=Section}" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        
+        <TextBlock Grid.Row="1" Text="Top 5 Answers" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
+    
         <!-- Row 3 -->
-        <TextBlock Grid.Row="3" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <TextBlock Text="" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+            <ItemsControl ItemsSource="{Binding Question.Answers}" AlternationCount="{Binding Question.Answers.Length}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}.}" 
+                                   FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="200"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
         
         <!-- Row 4 -->
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="25"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="1" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-        </Grid>
-        
-        <!-- Row 6 -->
-        <Grid Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="25"/>
-            </Grid.ColumnDefinitions>
-            
-            <!-- Column 2 -->
-            <StackPanel Grid.Column="2" Width="225">
-                <TextBlock Text="The Participants" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <ItemsControl ItemsSource="{Binding Question.Predictions}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Margin="5, 5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-            
-            <!-- Column 3 -->
-            <StackPanel Grid.Column="3">
-                <TextBlock Text="" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <ItemsControl ItemsSource="{Binding Question.Predictions}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="-->" Height="30" FontWeight="Thin" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5, 6"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-            
-            <!-- Column 4 -->
-            <StackPanel Grid.Column="4" Width="225">
-                <TextBlock Text="Their Predictions" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <ItemsControl ItemsSource="{Binding Question.Predictions}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Margin="5, 5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-            
-            <!-- Column 5 -->
-            <StackPanel Grid.Column="5">
-                <TextBlock Text="" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <ItemsControl ItemsSource="{Binding Question.Answers}" AlternationCount="{Binding Question.Answers.Length}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}.}" 
-                                       Height="30" FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5, 6.5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-            
-            <!-- Column 6 -->
-            <StackPanel Grid.Column="6" Width="400">
-                <TextBlock Text="The Answers" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
-                <ItemsControl ItemsSource="{Binding Question.Answers}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5, 5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </Grid>
-        
-        <!-- Row 8 -->
-        <Grid Grid.Row="8" Margin="15, 10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <!-- Column 0 -->
-            <Button Grid.Column="0" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding PreviousCommand}">
-                <TextBlock Text="Previous" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
-            </Button>
-            
-            <!-- Column 2 -->
-            <Button Grid.Column="2" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding NextCommand}">
-                <TextBlock Text="Next" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
-            </Button>
-        </Grid>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding Question.Answers}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="200"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </UserControl>
