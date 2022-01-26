@@ -1,4 +1,4 @@
-<UserControl x:Class="F1Predictions.Modules.Content.Views.TopQuestionView"
+<UserControl x:Class="F1Predictions.Modules.Content.Views.TopAnswerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -34,7 +34,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}.}" 
-                               FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="200"/>
+                               FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="300"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -48,7 +48,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="200"/>
+                    <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="300"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

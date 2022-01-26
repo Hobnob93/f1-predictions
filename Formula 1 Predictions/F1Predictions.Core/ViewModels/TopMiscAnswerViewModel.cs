@@ -10,7 +10,7 @@ using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class TopMiscQuestionViewModel : BindableBase, INavigationAware
+public class TopMiscAnswerViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
 
@@ -18,7 +18,7 @@ public class TopMiscQuestionViewModel : BindableBase, INavigationAware
     private int sectionId;
     private int questionId;
 
-    public TopMiscQuestionViewModel(IQuestionFactory questions)
+    public TopMiscAnswerViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
     }

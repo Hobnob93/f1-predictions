@@ -28,11 +28,11 @@ public class ContentModule : IModule
         containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>(ViewNames.HomeView);
         containerRegistry.RegisterForNavigation<QuestionView, QuestionViewModel>(ViewNames.QuestionView);
         
-        containerRegistry.RegisterForNavigation<TopQuestionView, TopQuestionViewModel>(ViewNames.TopAnswersView);
-        containerRegistry.RegisterForNavigation<TopMiscQuestionView, TopMiscQuestionViewModel>(ViewNames.TopMiscAnswersView);
-        containerRegistry.RegisterForNavigation<NumericalQuestionView, NumericalQuestionViewModel>(ViewNames.NumericalAnswersView);
-        containerRegistry.RegisterForNavigation<HeadToHeadQuestionView, HeadToHeadQuestionViewModel>(ViewNames.HeadToHeadAnswersView);
-        containerRegistry.RegisterForNavigation<OrderedQuestionView, OrderedQuestionViewModel>(ViewNames.OrderedAnswersView);
+        containerRegistry.RegisterForNavigation<TopAnswerView, TopAnswerViewModel>(ViewNames.TopAnswersView);
+        containerRegistry.RegisterForNavigation<TopMiscAnswerView, TopMiscAnswerViewModel>(ViewNames.TopMiscAnswersView);
+        containerRegistry.RegisterForNavigation<NumericalAnswerView, NumericalAnswerViewModel>(ViewNames.NumericalAnswersView);
+        containerRegistry.RegisterForNavigation<HeadToHeadAnswerView, HeadToHeadAnswerViewModel>(ViewNames.HeadToHeadAnswersView);
+        containerRegistry.RegisterForNavigation<OrderedAnswerView, OrderedAnswerViewModel>(ViewNames.OrderedAnswersView);
 
         containerRegistry.RegisterForNavigation<CompetitorPredictionsView, CompetitorPredictionsViewModel>(ViewNames.CompetitorPredictionView);
         containerRegistry.RegisterForNavigation<ValuePredictionsView, ValuePredictionsViewModel>(ViewNames.ValuePredictionView);

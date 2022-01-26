@@ -10,7 +10,7 @@ using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class HeadToHeadQuestionViewModel : BindableBase, INavigationAware
+public class HeadToHeadAnswerViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
 
@@ -18,7 +18,7 @@ public class HeadToHeadQuestionViewModel : BindableBase, INavigationAware
     private int sectionId;
     private int questionId;
 
-    public HeadToHeadQuestionViewModel(IQuestionFactory questions)
+    public HeadToHeadAnswerViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
     }

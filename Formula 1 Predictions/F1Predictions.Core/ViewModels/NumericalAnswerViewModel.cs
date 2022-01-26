@@ -10,7 +10,7 @@ using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class NumericalQuestionViewModel : BindableBase, INavigationAware
+public class NumericalAnswerViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
 
@@ -18,7 +18,7 @@ public class NumericalQuestionViewModel : BindableBase, INavigationAware
     private int sectionId;
     private int questionId;
 
-    public NumericalQuestionViewModel(IQuestionFactory questions)
+    public NumericalAnswerViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
     }

@@ -3,37 +3,38 @@ using F1Predictions.Core.Constants;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
+using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class TopQuestionViewModel : BindableBase, INavigationAware
+public class OrderedAnswerViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
 
-    private TopQuestion question;
+    private OrderedQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopQuestionViewModel(IQuestionFactory questions)
+    public OrderedAnswerViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
     }
     
-    public TopQuestion Question
+    public OrderedQuestion Question
     {
         get => question;
         set => SetProperty(ref question, value);
     }
     
-
     public void OnNavigatedTo(NavigationContext navigationContext)
     {
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = questions.GetQuestion(sectionId, questionId) as TopQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as OrderedQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

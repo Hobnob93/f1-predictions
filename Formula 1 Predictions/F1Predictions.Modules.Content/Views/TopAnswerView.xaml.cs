@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace F1Predictions.Modules.Content.Views;
 
-public partial class TopQuestionView : UserControl
+public partial class TopAnswerView : UserControl
 {
-    public TopQuestionView()
+    public TopAnswerView()
     {
         InitializeComponent();
     }
