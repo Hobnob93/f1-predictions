@@ -29,7 +29,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Margin="5,10" Width="200"/>
+                    <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Margin="5,1" Width="200"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -43,7 +43,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <components:ParticipantBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5,10" Width="200"/>
+                    <components:ParticipantBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5,1" Width="200"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
