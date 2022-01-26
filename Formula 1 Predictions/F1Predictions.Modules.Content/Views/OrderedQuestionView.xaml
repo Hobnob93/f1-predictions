@@ -22,15 +22,18 @@
             <TextBlock Grid.Row="1" Text="Answers in Order" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
         
             <!-- Row 3 -->
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <ItemsControl ItemsSource="{Binding Question.Answers}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="200"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <ItemsControl Grid.Row="3" ItemsSource="{Binding Question.Answers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="200"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>
