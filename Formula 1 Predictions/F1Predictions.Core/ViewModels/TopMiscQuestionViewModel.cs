@@ -13,23 +13,15 @@ namespace F1Predictions.Core.ViewModels;
 public class TopMiscQuestionViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
-    private readonly IEventAggregator eventAggregator;
 
     private TopMiscQuestion question;
     private int sectionId;
     private int questionId;
 
-    public TopMiscQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
+    public TopMiscQuestionViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
-        this.eventAggregator = eventAggregator;
-
-        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
-        NextCommand = new DelegateCommand(NextQuestionAction);
     }
-    
-    public ICommand PreviousCommand { get; }
-    public ICommand NextCommand { get; }
     
     public TopMiscQuestion Question
     {
@@ -37,16 +29,6 @@ public class TopMiscQuestionViewModel : BindableBase, INavigationAware
         set => SetProperty(ref question, value);
     }
 
-
-    private void PreviousQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);
-    }
-
-    private void NextQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
-    }
     
     public void OnNavigatedTo(NavigationContext navigationContext)
     {
