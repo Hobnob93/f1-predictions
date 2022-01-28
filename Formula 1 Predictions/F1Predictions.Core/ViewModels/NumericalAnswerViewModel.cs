@@ -10,42 +10,23 @@ using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class OrderedQuestionViewModel : BindableBase, INavigationAware
+public class NumericalAnswerViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
-    private readonly IEventAggregator eventAggregator;
 
-    private OrderedQuestion question;
+    private NumericalQuestion question;
     private int sectionId;
     private int questionId;
 
-    public OrderedQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
+    public NumericalAnswerViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
-        this.eventAggregator = eventAggregator;
-
-        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
-        NextCommand = new DelegateCommand(NextQuestionAction);
     }
     
-    public ICommand PreviousCommand { get; }
-    public ICommand NextCommand { get; }
-    
-    public OrderedQuestion Question
+    public NumericalQuestion Question
     {
         get => question;
         set => SetProperty(ref question, value);
-    }
-
-
-    private void PreviousQuestionAction()
-    {
-        
-    }
-
-    private void NextQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
     }
     
     public void OnNavigatedTo(NavigationContext navigationContext)
@@ -53,7 +34,7 @@ public class OrderedQuestionViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = questions.GetQuestion(sectionId, questionId) as OrderedQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as NumericalQuestion;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

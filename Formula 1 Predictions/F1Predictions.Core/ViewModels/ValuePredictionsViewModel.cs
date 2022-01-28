@@ -1,59 +1,37 @@
-using System.Windows.Input;
 using F1Predictions.Core.Constants;
-using F1Predictions.Core.Events;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
-using Prism.Commands;
-using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
 namespace F1Predictions.Core.ViewModels;
 
-public class TopMiscQuestionViewModel : BindableBase, INavigationAware
+public class ValuePredictionsViewModel : BindableBase, INavigationAware
 {
     private readonly IQuestionFactory questions;
-    private readonly IEventAggregator eventAggregator;
 
-    private TopMiscQuestion question;
+    private BaseQuestion<string> question;
     private int sectionId;
     private int questionId;
-
-    public TopMiscQuestionViewModel(IQuestionFactory questions, IEventAggregator eventAggregator)
+    
+    public ValuePredictionsViewModel(IQuestionFactory questions)
     {
         this.questions = questions;
-        this.eventAggregator = eventAggregator;
-
-        PreviousCommand = new DelegateCommand(PreviousQuestionAction);
-        NextCommand = new DelegateCommand(NextQuestionAction);
     }
     
-    public ICommand PreviousCommand { get; }
-    public ICommand NextCommand { get; }
-    
-    public TopMiscQuestion Question
+    public BaseQuestion<string> Question
     {
         get => question;
         set => SetProperty(ref question, value);
     }
 
 
-    private void PreviousQuestionAction()
-    {
-        
-    }
-
-    private void NextQuestionAction()
-    {
-        eventAggregator.GetEvent<ProgressChangedEvent>().Publish(true);
-    }
-    
     public void OnNavigatedTo(NavigationContext navigationContext)
     {
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        Question = questions.GetQuestion(sectionId, questionId) as TopMiscQuestion;
+        Question = questions.GetQuestion(sectionId, questionId) as BaseQuestion<string>;
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)

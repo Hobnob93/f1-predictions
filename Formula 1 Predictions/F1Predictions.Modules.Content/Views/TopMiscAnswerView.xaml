@@ -1,0 +1,56 @@
+<UserControl x:Class="F1Predictions.Modules.Content.Views.TopMiscAnswerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:components="clr-namespace:F1Predictions.Core.Components;assembly=F1Predictions.Core"
+             xmlns:local="clr-namespace:F1Predictions.Modules.Content.Views"
+             xmlns:converters="clr-namespace:F1Predictions.Core.Converters;assembly=F1Predictions.Core"
+             mc:Ignorable="d"
+             d:DesignHeight="auto" d:DesignWidth="auto">
+    <UserControl.Resources>
+        <converters:IndexConverter x:Key="indexConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Row 1 -->
+        <TextBlock Grid.Row="1" Text="Top 5 Answers" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
+        
+        <!-- Row 3 -->
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding Question.Answers}" AlternationCount="{Binding Question.Answers.Length}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}.}" 
+                               FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="300"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <!-- Row 4 -->
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding Question.Answers}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <components:ParticipantBanner Text="{Binding Value}" Color="Chartreuse" Margin="5,5" Width="300"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

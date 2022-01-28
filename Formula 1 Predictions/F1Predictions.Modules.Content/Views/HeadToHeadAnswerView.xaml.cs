@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace F1Predictions.Modules.Content.Views;
 
-public partial class OrderedQuestionView : UserControl
+public partial class HeadToHeadAnswerView : UserControl
 {
-    public OrderedQuestionView()
+    public HeadToHeadAnswerView()
     {
         InitializeComponent();
     }

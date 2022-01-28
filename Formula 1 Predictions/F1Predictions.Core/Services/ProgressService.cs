@@ -37,42 +37,37 @@ public class ProgressService : IProgressService
     {
         if (isForward)
             Increment();
-
-        var navParams = new NavigationParameters
-        {
-            {Navigation.SectionId, CurrentSectionIndex},
-            {Navigation.QuestionId, CurrentQuestionIndex}
-        };
-        
-        regionManager.RequestNavigate($"{Regions.Content}", ViewFromQuestionType(), navParams);
+        else
+            Decrement();
     }
 
-    private string ViewFromQuestionType()
+    private void Started()
     {
-        var section = sections[CurrentSectionIndex];
-        var overrideData = section.ScoringOverrides.FirstOrDefault(so => so.QuestionIndex == CurrentQuestionIndex);
-        var scoringType = overrideData?.ScoringType ?? section.ScoringType;
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.QuestionView);
+    }
 
-        return scoringType switch
-        {
-            ScoringTypes.Top => ViewNames.TopQuestionView,
-            ScoringTypes.Numerical => ViewNames.NumericalQuestionView,
-            ScoringTypes.HeadToHead => ViewNames.HeadToHeadQuestionView,
-            ScoringTypes.TopMisc => ViewNames.TopMiscQuestionView,
-            ScoringTypes.FullOrder => ViewNames.OrderedQuestionView,
-            _ => ViewNames.HomeView
-        };
+    private void BackToMain()
+    {
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
+        regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
+    }
+
+    private void Completed()
+    {
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
+        regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
     }
     
     private void Increment()
     {
         if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
         {
+            Started();
+            
             CurrentQuestionIndex = 0;
             CurrentSectionIndex = 0;
             
-            eventAggregator.GetEvent<SectionChangedEvent>().Publish();
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+            PublishQuestionChangedEvent(true);
         }
         else
         {
@@ -83,13 +78,59 @@ public class ProgressService : IProgressService
             {
                 CurrentSectionIndex++;
                 CurrentSectionIndex %= sections.Length;
-                eventAggregator.GetEvent<SectionChangedEvent>().Publish();
 
                 if (CurrentSectionIndex == 0)
+                {
                     eventAggregator.GetEvent<ProgressCompleteEvent>().Publish();
+                    Completed();
+                    return;
+                }
             }
             
-            eventAggregator.GetEvent<QuestionChangedEvent>().Publish();
+            PublishQuestionChangedEvent(true);
         }
+    }
+    
+    private void Decrement()
+    {
+        if (CurrentQuestionIndex == -1 || CurrentSectionIndex == -1)
+        {
+            Started();
+            
+            CurrentQuestionIndex = 0;
+            CurrentSectionIndex = 0;
+
+            PublishQuestionChangedEvent(false);
+        }
+        else
+        {
+            CurrentQuestionIndex--;
+
+            if (CurrentQuestionIndex == -1)
+            {
+                CurrentSectionIndex--;
+
+                if (CurrentSectionIndex == -1)
+                {
+                    eventAggregator.GetEvent<ProgressResetEvent>().Publish();
+                    BackToMain();
+                    return;
+                }
+                    
+                CurrentQuestionIndex += sections[CurrentSectionIndex].QuestionCount;
+            }
+            
+            PublishQuestionChangedEvent(false);
+        }
+    }
+
+    private void PublishQuestionChangedEvent(bool isForward)
+    {
+        eventAggregator.GetEvent<QuestionChangedEvent>().Publish(new QuestionChangedData
+        {
+            IsProgression = isForward,
+            SectionIndex = CurrentSectionIndex,
+            QuestionIndex = CurrentQuestionIndex
+        });
     }
 }

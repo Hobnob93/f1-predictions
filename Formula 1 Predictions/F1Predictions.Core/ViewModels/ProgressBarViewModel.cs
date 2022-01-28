@@ -40,7 +40,6 @@ public class ProgressBarViewModel : BindableBase
         
         Sections = new ObservableCollection<SectionBar>(sectionBars);
 
-        eventAggregator.GetEvent<SectionChangedEvent>().Subscribe(OnSectionChanged);
         eventAggregator.GetEvent<QuestionChangedEvent>().Subscribe(OnQuestionChanged);
     }
     
@@ -50,21 +49,24 @@ public class ProgressBarViewModel : BindableBase
         get => sections;
         set => SetProperty(ref sections, value);
     }
-
-    private void OnSectionChanged()
-    {
-        activeSection?.Complete(CompletedColor);
-        activeSection = sections[progressService.CurrentSectionIndex];
-        activeSection.Color = ActiveColor;
-        
-        sections.Refresh();
-    }
     
-    private void OnQuestionChanged()
+    private void OnQuestionChanged(QuestionChangedData data)
     {
-        activeQuestion?.Complete(CompletedColor);
-        activeQuestion = activeSection.ChildBars[progressService.CurrentQuestionIndex];
-        activeQuestion.Color = ActiveColor;
+        if (data.IsProgression)
+            activeQuestion?.Complete(CompletedColor);
+        else
+            activeQuestion?.Deactivate(NormalColor, CompletedColor);
+
+        var section = sections[data.SectionIndex];
+        if (section != activeSection && data.IsProgression)
+            activeSection?.Complete(CompletedColor);
+        else if (section != activeSection)
+            activeSection?.Deactivate(NormalColor, CompletedColor);
+
+        activeSection = section;
+        activeSection.Activate(ActiveColor);
+        activeQuestion = activeSection.ChildBars[data.QuestionIndex];
+        activeQuestion.Activate(ActiveColor);
         
         sections.Refresh();
     }
