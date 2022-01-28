@@ -4,7 +4,7 @@ using F1Predictions.Core.Extensions;
 
 namespace F1Predictions.Core.Converters;
 
-[ValueConversion(typeof(int), typeof(int))]
+[ValueConversion(typeof(int), typeof(string))]
 public class PositionConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
