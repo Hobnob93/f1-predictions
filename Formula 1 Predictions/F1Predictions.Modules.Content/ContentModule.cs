@@ -32,7 +32,7 @@ public class ContentModule : IModule
         containerRegistry.RegisterForNavigation<TopMiscAnswerView, TopMiscAnswerViewModel>(ViewNames.TopMiscAnswersView);
         containerRegistry.RegisterForNavigation<NumericalAnswerView, NumericalAnswerViewModel>(ViewNames.NumericalAnswersView);
         containerRegistry.RegisterForNavigation<HeadToHeadAnswerView, HeadToHeadAnswerViewModel>(ViewNames.HeadToHeadAnswersView);
-        containerRegistry.RegisterForNavigation<OrderedAnswerView, OrderedAnswerViewModel>(ViewNames.OrderedAnswersView);
+        containerRegistry.RegisterForNavigation<OrderedAnswerView, OrderedQuestionViewModel>(ViewNames.OrderedAnswersView);
 
         containerRegistry.RegisterForNavigation<CompetitorPredictionsView, CompetitorPredictionsViewModel>(ViewNames.CompetitorPredictionView);
         containerRegistry.RegisterForNavigation<ValuePredictionsView, ValuePredictionsViewModel>(ViewNames.ValuePredictionView);

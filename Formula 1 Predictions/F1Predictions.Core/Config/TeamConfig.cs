@@ -6,4 +6,5 @@ public record TeamConfig
     public string Name { get; set; }
     public string Color { get; set; }
     public DriverConfig[] Drivers { get; set; }
+    public int ChampionshipPosition { get; set; }
 }

@@ -7,6 +7,7 @@ public record Driver : ICompetitor
     public string Id { get; set; }
     public string Name { get; set; }
     public Team Team { get; set; }
+    public int ChampionshipPosition { get; set; }
 
     public string Color
     {

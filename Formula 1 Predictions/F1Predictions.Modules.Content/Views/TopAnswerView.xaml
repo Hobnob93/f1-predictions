@@ -33,7 +33,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}.}" 
+                    <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}}" 
                                FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="300"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

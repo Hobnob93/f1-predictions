@@ -6,4 +6,5 @@ public record Team : ICompetitor
     public string Name { get; set; }
     public string Color { get; set; }
     public Driver[] Drivers { get; set; }
+    public int ChampionshipPosition { get; set; }
 }
