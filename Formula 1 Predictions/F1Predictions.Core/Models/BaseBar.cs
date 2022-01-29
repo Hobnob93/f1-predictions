@@ -4,6 +4,8 @@ public record BaseBar
 {
     public string Color { get; set; }
     public bool IsComplete { get; set; }
+    public int SectionIndex { get; set; }
+    public int QuestionIndex { get; set; }
 
     public void Complete(string color)
     {

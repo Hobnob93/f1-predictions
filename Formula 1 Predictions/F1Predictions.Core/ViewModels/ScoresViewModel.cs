@@ -69,6 +69,8 @@ public class ScoresViewModel : BindableBase, INavigationAware
         {
             scoreManager.SetScoreForQuestion(ps.Participant, sectionId, questionId, ps.Score);
         }
+        
+        scoreManager.SaveIfDirty(sectionId, questionId);
     }
 
     private void BigAddAction(ParticipantScore ps)

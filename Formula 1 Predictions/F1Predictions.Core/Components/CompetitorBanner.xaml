@@ -9,7 +9,9 @@
              Background="#222222"
              Foreground="White"
              BorderThickness="1"
-             BorderBrush="{Binding Color, ElementName=Self, FallbackValue=White}"
+             BorderBrush="{Binding VColor, ElementName=Self, FallbackValue=White}"
+             MouseDown="CompetitorBanner_MouseDown"
+             Loaded="CompetitorBanner_OnLoaded"
              d:DesignHeight="auto" d:DesignWidth="auto">
     <Grid Height="30">
         <Grid.ColumnDefinitions>
@@ -24,13 +26,13 @@
         
         <!-- Column 1 -->
         <Canvas Grid.Column="1" ClipToBounds="True">
-            <Line X1="22" Y1="-10" X2="6" Y2="40" Stroke="{Binding Color, ElementName=Self, FallbackValue=White}" StrokeThickness="15"></Line>
+            <Line X1="22" Y1="-10" X2="6" Y2="40" Stroke="{Binding VColor, ElementName=Self, FallbackValue=White}" StrokeThickness="15"></Line>
         </Canvas>
         
         <!-- Column 3 -->
-        <TextBlock Grid.Column="3" Text="{Binding Text, ElementName=Self, FallbackValue=Test Name}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="3" Text="{Binding VText, ElementName=Self, FallbackValue=Test Name}" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
         
         <!-- Column 5 -->
-        <TextBlock Grid.Column="5" Text="{Binding Data, ElementName=Self, FallbackValue=Test Value}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBlock Grid.Column="5" Text="{Binding VData, ElementName=Self, FallbackValue=Test Value}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

@@ -17,13 +17,13 @@
         </Grid.RowDefinitions>
         
         <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Text="Head to Head Answer" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1" Text="Head to Head Answer" FontWeight="Medium" FontStyle="Oblique" FontSize="24" HorizontalAlignment="Left"/>
         
         <!-- Row 3 -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <components:CompetitorBanner Text="{Binding Question.First.Name}" Color="{Binding Question.First.Color}" Data="{Binding Question.First.Data}" Margin="5,5" Width="300"/>
-            <TextBlock Text="{Binding Question.Result}" FontWeight="bold" FontSize="18" Margin="10,5" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-            <components:CompetitorBanner Text="{Binding Question.Second.Name}" Color="{Binding Question.Second.Color}" Data="{Binding Question.Second.Data}" Margin="5,5" Width="300"/>
+            <components:CompetitorBanner Text="{Binding Question.First.Name}" Color="{Binding Question.First.Color}" Data="{Binding Question.First.Data}" Hide="True" Margin="5,5" Width="300"/>
+            <TextBlock Text="{Binding Question.Result}" FontWeight="bold" FontSize="22" Margin="10,5" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <components:CompetitorBanner Text="{Binding Question.Second.Name}" Color="{Binding Question.Second.Color}" Data="{Binding Question.Second.Data}" Hide="True" Margin="5,5" Width="300"/>
         </StackPanel>
     </Grid>
 </UserControl>

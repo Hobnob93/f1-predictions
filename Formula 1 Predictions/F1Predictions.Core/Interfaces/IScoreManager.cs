@@ -7,4 +7,5 @@ public interface IScoreManager
     void SetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex, int score);
     int GetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex);
     int GetTotalScore(Participant participant);
+    void SaveIfDirty(int sectionIndex, int questionIndex);
 }

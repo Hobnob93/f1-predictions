@@ -4,11 +4,13 @@
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Events;
 using F1Predictions.Core.Extensions;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 
@@ -16,25 +18,30 @@ namespace F1Predictions.Core.ViewModels;
 
 public class ProgressBarViewModel : BindableBase
 {
-    private readonly IProgressService progressService;
+    private readonly IEventAggregator eventAggregator;
+    private readonly IProgressService progress;
+    
     private ObservableCollection<SectionBar> sections;
     private SectionBar activeSection;
     private BaseBar activeQuestion;
 
-    private const string NormalColor = "#FFF8DC";
-    private const string ActiveColor = "#8B8000";
-    private const string CompletedColor = "#93C572";
+    private const string NormalColor = "SlateGray";
+    private const string ActiveColor = "Chartreuse";
+    private const string CompletedColor = "Cyan";
 
-    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressService progressService)
+    public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressService progress)
     {
-        this.progressService = progressService;
+        this.eventAggregator = eventAggregator;
+        this.progress = progress;
         var sectionsConfig = config.PredictionSections;
 
-        var sectionBars = sectionsConfig.Select(s => new SectionBar
+        ToQuestionCommand = new DelegateCommand<BaseBar>(ToQuestionAction);
+        
+        var sectionBars = sectionsConfig.Select((s, i) => new SectionBar
         {
             Color = NormalColor,
             ChildBars = Enumerable.Range(0, s.QuestionCount)
-                .Select(_ => new BaseBar { Color = NormalColor })
+                .Select((_, j) => new BaseBar { Color = NormalColor, SectionIndex = i, QuestionIndex = j })
                 .ToArray()
         });
         
@@ -49,6 +56,9 @@ public class ProgressBarViewModel : BindableBase
         get => sections;
         set => SetProperty(ref sections, value);
     }
+    
+    public ICommand ToQuestionCommand { get; }
+    
     
     private void OnQuestionChanged(QuestionChangedData data)
     {
@@ -69,5 +79,10 @@ public class ProgressBarViewModel : BindableBase
         activeQuestion.Activate(ActiveColor);
         
         sections.Refresh();
+    }
+
+    private void ToQuestionAction(BaseBar bar)
+    {
+        progress.GoToQuestion(bar.SectionIndex, bar.QuestionIndex);
     }
 }

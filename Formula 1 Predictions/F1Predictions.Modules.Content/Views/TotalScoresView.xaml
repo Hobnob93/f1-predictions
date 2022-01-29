@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Margin="0,20" Text="The Results!" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="0,20" Text="The Results!" FontSize="32" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 2 -->
         <Grid Grid.Row="2">
@@ -39,8 +39,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}}" 
-                                       FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="30"/>
-                            <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Margin="5,5" Width="250"/>
+                                       FontWeight="Thin" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="30"/>
+                            <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Hide="True" Margin="5,5" Width="250"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

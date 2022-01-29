@@ -20,7 +20,7 @@
             <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
         
-        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Sections}" Height="20">
+        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Sections}" Height="20" x:Name="ProgressItems">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="1" />
@@ -44,7 +44,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Rectangle Fill="{Binding Color}" Stroke="#181730" />
+                                    <Button Background="{Binding Color}" Command="{Binding ElementName=ProgressItems, Path=DataContext.ToQuestionCommand}" CommandParameter="{Binding}" BorderThickness="0"  
+                                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Height="5" Width="5" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

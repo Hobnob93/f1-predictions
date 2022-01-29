@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         
         <!-- Row 0 -->
-        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="0,20" Text="This Season Overview" FontSize="34" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <!-- Row 2 -->
         <Grid Grid.Row="2">
@@ -36,7 +36,7 @@
             
             <!-- Column 2 -->
             <StackPanel Grid.Column="2" Width="225">
-                <TextBlock Text="The Participants" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <TextBlock Text="The Participants" FontWeight="Medium" FontStyle="Oblique" FontSize="22"/>
                 <ItemsControl ItemsSource="{Binding Participants}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -48,7 +48,7 @@
             
             <!-- Column 4 -->
             <StackPanel Grid.Column="4" Width="225">
-                <TextBlock Text="The Teams" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <TextBlock Text="The Teams" FontWeight="Medium" FontStyle="Oblique" FontSize="22"/>
                 <ItemsControl ItemsSource="{Binding Teams}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -60,7 +60,7 @@
             
             <!-- Column 6 -->
             <StackPanel Grid.Column="6" Width="450">
-                <TextBlock Text="The Drivers" FontWeight="Medium" FontStyle="Oblique" FontSize="18"/>
+                <TextBlock Text="The Drivers" FontWeight="Medium" FontStyle="Oblique" FontSize="22"/>
                 <ItemsControl ItemsSource="{Binding Drivers}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -77,8 +77,8 @@
         </Grid>
         
         <!-- Row 4 -->
-        <Button Grid.Row="4" Margin="15, 10" Width="150" Height="40" Background="Cornsilk" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BeginCommand}">
-            <TextBlock Text="Let's Begin..." FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
+        <Button Grid.Row="4" Margin="15, 10" Width="180" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BeginCommand}">
+            <TextBlock Text="Let's Begin..." FontSize="22" FontStretch="Expanded" FontWeight="ExtraBold" Foreground="Black"/>
         </Button>
     </Grid>
 </UserControl>
