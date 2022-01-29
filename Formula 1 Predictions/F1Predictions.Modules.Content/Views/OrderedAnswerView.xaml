@@ -51,7 +51,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Margin="5,5" Width="300"/>
+                        <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Data="{Binding Data}" Hide="True" Margin="5,5" Width="300"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -43,7 +43,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Margin="5,1" Width="300"/>
+                    <components:CompetitorBanner Text="{Binding Value.Name}" Color="{Binding Value.Color}" Hide="True" Margin="5,1" Width="300"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

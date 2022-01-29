@@ -40,7 +40,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource indexConverter}, StringFormat={}{0}}" 
                                        FontWeight="Thin" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5" Width="30"/>
-                            <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Margin="5,5" Width="250"/>
+                            <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Hide="True" Margin="5,5" Width="250"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -21,16 +21,16 @@ public partial class ParticipantBanner : UserControl
         DependencyProperty.Register(nameof(Color), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
     
     public static readonly DependencyProperty HideProperty = 
-        DependencyProperty.Register(nameof(Hide), typeof(bool), typeof(CompetitorBanner), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(Hide), typeof(bool), typeof(ParticipantBanner), new PropertyMetadata(false));
     
     public static readonly DependencyProperty VTextProperty = 
-        DependencyProperty.Register(nameof(VText), typeof(string), typeof(CompetitorBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(VText), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
     
     public static readonly DependencyProperty VDataProperty = 
-        DependencyProperty.Register(nameof(VData), typeof(string), typeof(CompetitorBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(VData), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
     
     public static readonly DependencyProperty VColorProperty = 
-        DependencyProperty.Register(nameof(VColor), typeof(string), typeof(CompetitorBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(VColor), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
 
     public string Text
     {
