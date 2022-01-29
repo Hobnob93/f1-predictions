@@ -66,7 +66,10 @@ public class ScoresViewModel : BindableBase, INavigationAware
 
     public void OnNavigatedFrom(NavigationContext navigationContext)
     {
-        
+        foreach (var ps in participantScores)
+        {
+            participantManager.SetScoreForQuestion(ps.Participant, sectionId, questionId, ps.Score);
+        }
     }
 
     private void BigAdd(ParticipantScore ps)
