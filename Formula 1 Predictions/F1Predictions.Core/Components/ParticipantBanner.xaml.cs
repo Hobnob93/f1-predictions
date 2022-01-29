@@ -24,7 +24,7 @@ public partial class ParticipantBanner : UserControl
         DependencyProperty.Register(nameof(Hide), typeof(bool), typeof(ParticipantBanner), new PropertyMetadata(false));
     
     public static readonly DependencyProperty VTextProperty = 
-        DependencyProperty.Register(nameof(VText), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(VText), typeof(string), typeof(ParticipantBanner), new PropertyMetadata("?"));
     
     public static readonly DependencyProperty VDataProperty = 
         DependencyProperty.Register(nameof(VData), typeof(string), typeof(ParticipantBanner), new PropertyMetadata(string.Empty));
