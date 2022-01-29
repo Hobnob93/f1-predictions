@@ -25,7 +25,7 @@ public class ParticipantsManager : IParticipantsManager
         return participants.Single(p => p.Index == index);
     }
 
-    public void SetScore(Participant participant, int sectionIndex, int questionIndex, int score)
+    public void SetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex, int score)
     {
         var scoreId = QuestionIndicesToId(sectionIndex, questionIndex);
 
@@ -35,7 +35,7 @@ public class ParticipantsManager : IParticipantsManager
             participant.Scores.Add(scoreId, score);
     }
 
-    public int GetScore(Participant participant, int sectionIndex, int questionIndex)
+    public int GetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex)
     {
         var scoreId = QuestionIndicesToId(sectionIndex, questionIndex);
 

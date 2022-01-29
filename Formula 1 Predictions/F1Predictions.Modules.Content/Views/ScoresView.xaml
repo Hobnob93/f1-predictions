@@ -22,7 +22,7 @@
         <TextBlock Grid.Row="1" Text="Scores" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left" />
         
         <!-- Row 3 -->
-        <ItemsControl Grid.Row="3" ItemsSource="{Binding Question.Predictions}">
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParticipantScores}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -30,17 +30,17 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigSubtract}" CommandParameter="{Binding}">
+                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigSubtractCommand}" CommandParameter="{Binding}">
                         <TextBlock Text="-5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
                     </Button>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallSubtract}" CommandParameter="{Binding}">
+                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallSubtractCommand}" CommandParameter="{Binding}">
                         <TextBlock Text="-1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
                     </Button>
                     <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Margin="5,1" Width="300"/>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallAdd}" CommandParameter="{Binding}">
+                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallAddCommand}" CommandParameter="{Binding}">
                         <TextBlock Text="+1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
                     </Button>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigAdd}" CommandParameter="{Binding}">
+                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigAddCommand}" CommandParameter="{Binding}">
                         <TextBlock Text="+5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
                     </Button>
                 </DataTemplate>

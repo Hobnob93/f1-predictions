@@ -1,6 +1,11 @@
+using System.Collections.ObjectModel;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using F1Predictions.Core.Constants;
+using F1Predictions.Core.Extensions;
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -10,14 +15,30 @@ public class ScoresViewModel : BindableBase, INavigationAware
 {
     private readonly IParticipantsManager participantManager;
 
-    private Participant[] participants;
+    private ObservableCollection<ParticipantScore> participantScores;
     private int sectionId;
     private int questionId;
     
     public ScoresViewModel(IParticipantsManager participantManager)
     {
         this.participantManager = participantManager;
+        
+        BigSubtractCommand = new DelegateCommand<ParticipantScore>(BigSubtract);
+        SmallSubtractCommand = new DelegateCommand<ParticipantScore>(SmallSubtract);
+        BigAddCommand = new DelegateCommand<ParticipantScore>(BigAdd);
+        SmallAddCommand = new DelegateCommand<ParticipantScore>(SmallAdd);
     }
+
+    public ObservableCollection<ParticipantScore> ParticipantScores
+    {
+        get => participantScores;
+        set => SetProperty(ref participantScores, value);
+    }
+    
+    public ICommand BigSubtractCommand { get; }
+    public ICommand SmallSubtractCommand { get; }
+    public ICommand BigAddCommand { get; }
+    public ICommand SmallAddCommand { get; }
 
 
     public void OnNavigatedTo(NavigationContext navigationContext)
@@ -25,7 +46,14 @@ public class ScoresViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.SectionId, out sectionId);
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
-        participants = participantManager.GetParticipants().ToArray();
+        var participants = participantManager.GetParticipants();
+        participantScores = participants.Select(p => new ParticipantScore
+        {
+            Participant = p,
+            Score = participantManager.GetScoreForQuestion(p, sectionId, questionId)
+        }).ToObservableCollection();
+        
+        participantScores.Refresh();
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -39,5 +67,32 @@ public class ScoresViewModel : BindableBase, INavigationAware
     public void OnNavigatedFrom(NavigationContext navigationContext)
     {
         
+    }
+
+    private void BigAdd(ParticipantScore ps)
+    {
+        ManipulateScore(ps, 5);
+    }
+    
+    private void SmallAdd(ParticipantScore ps)
+    {
+        ManipulateScore(ps, 1);
+    }
+    
+    private void BigSubtract(ParticipantScore ps)
+    {
+        ManipulateScore(ps, -5);
+    }
+    
+    private void SmallSubtract(ParticipantScore ps)
+    {
+        ManipulateScore(ps, -1);
+    }
+
+    private void ManipulateScore(ParticipantScore ps, int scoreChange)
+    {
+        ps.Score += scoreChange;
+        
+        participantScores.Refresh();
     }
 }

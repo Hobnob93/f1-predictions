@@ -6,6 +6,6 @@ public interface IParticipantsManager
 {
     IEnumerable<Participant> GetParticipants();
     Participant GetParticipantByIndex(int index);
-    void SetScore(Participant participant, int sectionIndex, int questionIndex, int score);
-    int GetScore(Participant participant, int sectionIndex, int questionIndex);
+    void SetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex, int score);
+    int GetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex);
 }
