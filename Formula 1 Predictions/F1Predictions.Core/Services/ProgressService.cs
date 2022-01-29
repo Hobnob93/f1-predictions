@@ -32,6 +32,19 @@ public class ProgressService : IProgressService
 
     public int CurrentSectionIndex { get; private set; }
     public int CurrentQuestionIndex { get; private set; }
+    
+    public void GoToQuestion(int sectionIndex, int questionIndex)
+    {
+        CurrentQuestionIndex = questionIndex;
+        CurrentSectionIndex = sectionIndex;
+        
+        eventAggregator.GetEvent<QuestionChangedEvent>().Publish(new QuestionChangedData
+        {
+            IsProgression = false,
+            SectionIndex = CurrentSectionIndex,
+            QuestionIndex = CurrentQuestionIndex
+        });
+    }
 
     private void OnProgressChanged(bool isForward)
     {

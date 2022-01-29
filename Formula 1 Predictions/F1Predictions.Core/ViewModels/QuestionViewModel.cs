@@ -46,7 +46,7 @@ public class QuestionViewModel : BindableBase
     public string PredictionsRegionName => Regions.Predictions.ToString();
     public string AnswersRegionName => Regions.Answers.ToString();
     public string PointsRegionName => Regions.Points.ToString();
-    
+
     private void PreviousQuestionAction()
     {
         eventAggregator.GetEvent<ProgressChangedEvent>().Publish(false);

@@ -34,8 +34,9 @@ public class ScoreManager : IScoreManager
                     ForSection = sectionIndex,
                     ForQuestion = questionIndex
                 });
-
-                dirty = true;
+    
+                if (score > 0)
+                    dirty = true;
             }
             else
             {
@@ -58,7 +59,8 @@ public class ScoreManager : IScoreManager
                 }
             }));
 
-            dirty = true;
+            if (score > 0)
+                dirty = true;
         }
     }
 
