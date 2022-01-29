@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using F1Predictions.Core.Constants;
 using F1Predictions.Core.Extensions;
@@ -23,10 +22,10 @@ public class ScoresViewModel : BindableBase, INavigationAware
     {
         this.participantManager = participantManager;
         
-        BigSubtractCommand = new DelegateCommand<ParticipantScore>(BigSubtract);
-        SmallSubtractCommand = new DelegateCommand<ParticipantScore>(SmallSubtract);
-        BigAddCommand = new DelegateCommand<ParticipantScore>(BigAdd);
-        SmallAddCommand = new DelegateCommand<ParticipantScore>(SmallAdd);
+        BigSubtractCommand = new DelegateCommand<ParticipantScore>(BigSubtractAction);
+        SmallSubtractCommand = new DelegateCommand<ParticipantScore>(SmallSubtractAction);
+        BigAddCommand = new DelegateCommand<ParticipantScore>(BigAddAction);
+        SmallAddCommand = new DelegateCommand<ParticipantScore>(SmallAddAction);
     }
 
     public ObservableCollection<ParticipantScore> ParticipantScores
@@ -72,22 +71,22 @@ public class ScoresViewModel : BindableBase, INavigationAware
         }
     }
 
-    private void BigAdd(ParticipantScore ps)
+    private void BigAddAction(ParticipantScore ps)
     {
         ManipulateScore(ps, 5);
     }
     
-    private void SmallAdd(ParticipantScore ps)
+    private void SmallAddAction(ParticipantScore ps)
     {
         ManipulateScore(ps, 1);
     }
     
-    private void BigSubtract(ParticipantScore ps)
+    private void BigSubtractAction(ParticipantScore ps)
     {
         ManipulateScore(ps, -5);
     }
     
-    private void SmallSubtract(ParticipantScore ps)
+    private void SmallSubtractAction(ParticipantScore ps)
     {
         ManipulateScore(ps, -1);
     }

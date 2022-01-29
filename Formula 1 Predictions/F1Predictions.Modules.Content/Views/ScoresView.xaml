@@ -19,10 +19,10 @@
         </Grid.RowDefinitions>
         
         <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Text="Scores" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left" />
+        <TextBlock Grid.Row="1" Text="Points" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left" />
         
         <!-- Row 3 -->
-        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParticipantScores}">
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParticipantScores}" x:Name="ScoringItems">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -30,19 +30,21 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigSubtractCommand}" CommandParameter="{Binding}">
-                        <TextBlock Text="-5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
-                    </Button>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallSubtractCommand}" CommandParameter="{Binding}">
-                        <TextBlock Text="-1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
-                    </Button>
-                    <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Margin="5,1" Width="300"/>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding SmallAddCommand}" CommandParameter="{Binding}">
-                        <TextBlock Text="+1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
-                    </Button>
-                    <Button Width="20" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding BigAddCommand}" CommandParameter="{Binding}">
-                        <TextBlock Text="+5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
-                    </Button>
+                    <StackPanel Orientation="Horizontal" Margin="5,1">
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.BigSubtractCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="-5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.SmallSubtractCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="-1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Width="200"/>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.SmallAddCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="+1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.BigAddCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="+5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
