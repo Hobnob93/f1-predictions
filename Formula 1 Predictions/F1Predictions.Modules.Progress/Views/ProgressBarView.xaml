@@ -44,7 +44,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Background="{Binding Color}" Command="{Binding ElementName=ProgressItems, Path=DataContext.ToQuestionCommand}" CommandParameter="{Binding}" />
+                                    <Button Background="{Binding Color}" Command="{Binding ElementName=ProgressItems, Path=DataContext.ToQuestionCommand}" CommandParameter="{Binding}" BorderThickness="0"  
+                                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Height="5" Width="5" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

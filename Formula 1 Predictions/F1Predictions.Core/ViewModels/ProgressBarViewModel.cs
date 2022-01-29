@@ -25,9 +25,9 @@ public class ProgressBarViewModel : BindableBase
     private SectionBar activeSection;
     private BaseBar activeQuestion;
 
-    private const string NormalColor = "#FFF8DC";
-    private const string ActiveColor = "#8B8000";
-    private const string CompletedColor = "#93C572";
+    private const string NormalColor = "SlateGray";
+    private const string ActiveColor = "Chartreuse";
+    private const string CompletedColor = "Cyan";
 
     public ProgressBarViewModel(PredictionConfig config, IEventAggregator eventAggregator, IProgressService progress)
     {
