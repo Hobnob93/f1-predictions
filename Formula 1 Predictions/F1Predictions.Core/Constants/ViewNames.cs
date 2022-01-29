@@ -16,4 +16,6 @@ public static class ViewNames
 
     public const string MessageView = "MessageView";
     public const string ProgressBarView = "ProgressBarView";
+    public const string ScoresView = "ScoresView";
+    public const string TotalScoresView = "TotalScoresView";
 }

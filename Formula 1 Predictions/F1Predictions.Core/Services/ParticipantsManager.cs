@@ -17,7 +17,7 @@ public class ParticipantsManager : IParticipantsManager
     
     public IEnumerable<Participant> GetParticipants()
     {
-        return participants;
+        return participants.OrderBy(p => p.Index);
     }
 
     public Participant GetParticipantByIndex(int index)

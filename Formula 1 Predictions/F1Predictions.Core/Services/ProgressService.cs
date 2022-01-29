@@ -54,8 +54,11 @@ public class ProgressService : IProgressService
 
     private void Completed()
     {
-        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.HomeView);
-        regionManager.RequestNavigate($"{Regions.Progress}", ViewNames.MessageView);
+        regionManager.RequestNavigate($"{Regions.Content}", ViewNames.TotalScoresView);
+        foreach (var view in regionManager.Regions[$"{Regions.Progress}"].Views)
+        {
+            regionManager.Regions[$"{Regions.Progress}"].Remove(view);
+        }
     }
     
     private void Increment()

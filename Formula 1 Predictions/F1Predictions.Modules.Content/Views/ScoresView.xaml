@@ -1,0 +1,66 @@
+<UserControl x:Class="F1Predictions.Modules.Content.Views.ScoresView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:F1Predictions.Modules.Content.Views"
+             xmlns:components="clr-namespace:F1Predictions.Core.Components;assembly=F1Predictions.Core"
+             mc:Ignorable="d"
+             d:DesignHeight="auto" d:DesignWidth="auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Row 1 -->
+        <TextBlock Grid.Row="1" Text="Points" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left" />
+        
+        <!-- Row 3 -->
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding ParticipantScores}" x:Name="ScoringItems">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5,1">
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.BigSubtractCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="-5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.SmallSubtractCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="-1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <components:ParticipantBanner Text="{Binding Participant.Name}" Color="{Binding Participant.Color}" Data="{Binding Score}" Width="200"/>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.SmallAddCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="+1" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                        <Button Width="25" Height="40" Background="{Binding Participant.Color}" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding ElementName=ScoringItems, Path=DataContext.BigAddCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="+5" FontSize="14" FontStretch="Expanded" FontWeight="Thin"/>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <!-- Row 4 -->
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding Question.Predictions}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <components:ParticipantBanner Text="{Binding Value}" Color="{Binding Participant.Color}" Margin="5,1" Width="300"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

@@ -69,6 +69,7 @@ public class QuestionViewModel : BindableBase
         
         regionManager.RequestNavigate($"{Regions.Predictions}", PredictionsViewFromQuestionType(data.QuestionIndex), navParams);
         regionManager.RequestNavigate($"{Regions.Answers}", AnswersViewFromQuestionType(data.QuestionIndex), navParams);
+        regionManager.RequestNavigate($"{Regions.Points}", ViewNames.ScoresView, navParams);
     }
 
     private ScoringTypes GetScoringType(int questionIndex)
