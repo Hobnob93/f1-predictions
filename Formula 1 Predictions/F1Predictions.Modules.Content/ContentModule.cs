@@ -37,5 +37,6 @@ public class ContentModule : IModule
         containerRegistry.RegisterForNavigation<CompetitorPredictionsView, CompetitorPredictionsViewModel>(ViewNames.CompetitorPredictionView);
         containerRegistry.RegisterForNavigation<ValuePredictionsView, ValuePredictionsViewModel>(ViewNames.ValuePredictionView);
         containerRegistry.RegisterForNavigation<ScoresView, ScoresViewModel>(ViewNames.ScoresView);
+        containerRegistry.RegisterForNavigation<TotalScoresView, TotalScoresViewModel>(ViewNames.TotalScoresView);
     }
 }

@@ -68,7 +68,6 @@ public class ScoresViewModel : BindableBase, INavigationAware
         foreach (var ps in participantScores)
         {
             scoreManager.SetScoreForQuestion(ps.Participant, sectionId, questionId, ps.Score);
-            var total = scoreManager.GetTotalScore(ps.Participant);
         }
     }
 

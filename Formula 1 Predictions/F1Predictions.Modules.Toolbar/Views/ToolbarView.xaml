@@ -39,9 +39,9 @@
             
         <!-- Column 3 -->
         <StackPanel Grid.Column="3" Margin="0,6" Orientation="Horizontal">
-            <components:ToolbarButton Text="Home"/>
-            <components:ToolbarButton Text="Predictions"/>
-            <components:ToolbarButton Text="Results"/>
+            <!--<components:ToolbarButton Text="Home"/>-->
+            <!--<components:ToolbarButton Text="Predictions"/>-->
+            <!--<components:ToolbarButton Text="Results"/>-->
         </StackPanel>
             
         <!-- Column 5 -->
