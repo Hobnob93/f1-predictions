@@ -1,18 +1,20 @@
 using F1Predictions.Core.Interfaces;
 using F1Predictions.Core.Models;
-using System.Linq;
+using Google.Apis.Sheets.v4.Data;
 
 namespace F1Predictions.Core.Services;
 
 public class ScoreManager : IScoreManager
 {
-    private readonly IParticipantsManager participants;
+    private readonly IGoogleSheets sheets;
     private readonly Dictionary<string, List<ParticipantScore>> participantScoresMap = new();
 
-
-    public ScoreManager(IParticipantsManager participants)
+    private bool dirty;
+    
+    
+    public ScoreManager(IGoogleSheets sheets)
     {
-        this.participants = participants;
+        this.sheets = sheets;
     }
     
     
@@ -28,11 +30,18 @@ public class ScoreManager : IScoreManager
                 participantScoresMap[scoreId].Add(new ParticipantScore
                 {
                     Participant = participant,
-                    Score = score
+                    Score = score,
+                    ForSection = sectionIndex,
+                    ForQuestion = questionIndex
                 });
+
+                dirty = true;
             }
             else
             {
+                if (participantScore.Score != score)
+                    dirty = true;
+                
                 participantScore.Score = score;
             }
         }
@@ -43,9 +52,13 @@ public class ScoreManager : IScoreManager
                 new ParticipantScore
                 {
                     Participant = participant,
-                    Score = score
+                    Score = score,
+                    ForSection = sectionIndex,
+                    ForQuestion = questionIndex
                 }
             }));
+
+            dirty = true;
         }
     }
 
@@ -63,6 +76,18 @@ public class ScoreManager : IScoreManager
         return participantScoresMap
             .SelectMany(psm => psm.Value.Where(ps => ps.Participant == participant))
             .Sum(ps => ps.Score);
+    }
+
+    public void SaveIfDirty(int sectionIndex, int questionIndex)
+    {
+        if (dirty)
+        {
+            var scoreId = QuestionIndicesToId(sectionIndex, questionIndex);
+            var participantScores = participantScoresMap[scoreId];
+            sheets.SaveScores(participantScores);
+        }
+
+        dirty = false;
     }
 
     private string QuestionIndicesToId(int sectionIndex, int questionIndex)

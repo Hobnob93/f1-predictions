@@ -1,8 +1,9 @@
-using System.Text;
 using AutoMapper;
 using F1Predictions.Core.Config;
 using F1Predictions.Core.Interfaces;
+using F1Predictions.Core.Models;
 using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
 
 namespace F1Predictions.Core.Services;
 
@@ -38,6 +39,25 @@ public class GoogleSheets : IGoogleSheets
         return ReadValues(AnswersSheetName, range);
     }
 
+    public void SaveScores(List<ParticipantScore> participantScores)
+    {
+        var sectionIndex = participantScores.First().ForSection;
+        var questionIndex = participantScores.First().ForQuestion;
+
+        var orderedScores = participantScores.OrderBy(ps => ps.Participant.Index);
+        var outerList = new List<IList<object>>();
+        var innerList = orderedScores.Select(o => o.Score as object).ToList();
+        outerList.Add(innerList);
+
+        var section = config.PredictionSections[sectionIndex];
+        var row = section.StartingRow + questionIndex + 2;
+
+        var orderedParticipantConfig = config.Participants.OrderBy(p => p.Index).ToList();
+        var firstCol = orderedParticipantConfig.First().Column;
+        var lastCol = orderedParticipantConfig.Last().Column;
+        var updatedCellsCount = WriteValues(ResultsSheetName, $"{firstCol}{row}:{lastCol}{row}", outerList);
+    }
+
     private string DetermineFetchRanges()
     {
         var firstSection = config.PredictionSections.First();
@@ -69,5 +89,20 @@ public class GoogleSheets : IGoogleSheets
         }
 
         return response;
+    }
+
+    private int WriteValues(string sheet, string range, IList<IList<object>> values)
+    {
+        var valueRange = new ValueRange
+        {
+            Range = $"{sheet}!{range}",
+            Values = values
+        };
+        
+        var request = clientService.Spreadsheets.Values.Update(valueRange, SpreadsheetId, $"{sheet}!{range}");
+        request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+        request.IncludeValuesInResponse = true;
+        var requestResponse = request.Execute();
+        return requestResponse.UpdatedCells ?? 0;
     }
 }
