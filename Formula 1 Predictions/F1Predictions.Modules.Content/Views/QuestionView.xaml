@@ -33,7 +33,7 @@
             </Grid.RowDefinitions>
             
             <!-- Row 0 -->
-            <TextBlock Grid.Row="0" Text="{Binding Question.Section, FallbackValue=Section}" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="{Binding Question.Section, FallbackValue=Section}" FontSize="32" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             
             <!-- Row 1 -->
             <Grid Grid.Row="1">
@@ -43,9 +43,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-                <TextBlock Grid.Column="1" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="24" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="16" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"/>
+                <TextBlock Grid.Column="0" Foreground="Gainsboro" Text="{Binding Question.Description, FallbackValue=Description}" FontSize="20" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                <TextBlock Grid.Column="1" Text="{Binding Question.Name, FallbackValue=Question}" FontSize="28" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Foreground="Gold" Text="{Binding Question.Scoring, FallbackValue=Scoring Rules}" FontSize="20" FontWeight="Thin" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"/>
             </Grid>
         </Grid>
         
@@ -68,12 +68,12 @@
             
             <!-- Column 0 -->
             <Button Grid.Column="0" Width="150" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding PreviousCommand}">
-                <TextBlock Text="Previous" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold"/>
+                <TextBlock Text="Previous" FontSize="22" FontStretch="Expanded" FontWeight="ExtraBold"/>
             </Button>
             
             <!-- Column 2 -->
             <Button Grid.Column="2" Width="150" Height="40" Background="CadetBlue" BorderThickness="0" HorizontalAlignment="Right" Command="{Binding NextCommand}">
-                <TextBlock Text="Next" FontSize="18" FontStretch="Expanded" FontWeight="ExtraBold"/>
+                <TextBlock Text="Next" FontSize="22" FontStretch="Expanded" FontWeight="ExtraBold"/>
             </Button>
         </Grid>
     </Grid>

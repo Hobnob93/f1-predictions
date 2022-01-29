@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         
         <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Text="Predictions" FontWeight="Medium" FontStyle="Oblique" FontSize="18" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1" Text="Predictions" FontWeight="Medium" FontStyle="Oblique" FontSize="24" HorizontalAlignment="Left"/>
         
         <!-- Row 3 -->
         <ItemsControl Grid.Row="3" ItemsSource="{Binding Question.Predictions}">
