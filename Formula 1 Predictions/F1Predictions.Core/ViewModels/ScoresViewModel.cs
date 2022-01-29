@@ -13,15 +13,17 @@ namespace F1Predictions.Core.ViewModels;
 public class ScoresViewModel : BindableBase, INavigationAware
 {
     private readonly IParticipantsManager participantManager;
+    private readonly IScoreManager scoreManager;
 
     private ObservableCollection<ParticipantScore> participantScores;
     private int sectionId;
     private int questionId;
     
-    public ScoresViewModel(IParticipantsManager participantManager)
+    public ScoresViewModel(IParticipantsManager participantManager, IScoreManager scoreManager)
     {
         this.participantManager = participantManager;
-        
+        this.scoreManager = scoreManager;
+
         BigSubtractCommand = new DelegateCommand<ParticipantScore>(BigSubtractAction);
         SmallSubtractCommand = new DelegateCommand<ParticipantScore>(SmallSubtractAction);
         BigAddCommand = new DelegateCommand<ParticipantScore>(BigAddAction);
@@ -46,13 +48,11 @@ public class ScoresViewModel : BindableBase, INavigationAware
         navigationContext.Parameters.TryGetValue(Navigation.QuestionId, out questionId);
 
         var participants = participantManager.GetParticipants();
-        participantScores = participants.Select(p => new ParticipantScore
+        ParticipantScores = participants.Select(p => new ParticipantScore
         {
             Participant = p,
-            Score = participantManager.GetScoreForQuestion(p, sectionId, questionId)
+            Score = scoreManager.GetScoreForQuestion(p, sectionId, questionId)
         }).ToObservableCollection();
-        
-        participantScores.Refresh();
     }
 
     public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -67,7 +67,8 @@ public class ScoresViewModel : BindableBase, INavigationAware
     {
         foreach (var ps in participantScores)
         {
-            participantManager.SetScoreForQuestion(ps.Participant, sectionId, questionId, ps.Score);
+            scoreManager.SetScoreForQuestion(ps.Participant, sectionId, questionId, ps.Score);
+            var total = scoreManager.GetTotalScore(ps.Participant);
         }
     }
 
@@ -91,10 +92,14 @@ public class ScoresViewModel : BindableBase, INavigationAware
         ManipulateScore(ps, -1);
     }
 
-    private void ManipulateScore(ParticipantScore ps, int scoreChange)
+    private void ManipulateScore(ParticipantScore participantScore, int scoreChange)
     {
-        ps.Score += scoreChange;
-        
-        participantScores.Refresh();
+        var storedPs = ParticipantScores.Single(ps => ps.Participant == participantScore.Participant);
+        storedPs.Score += scoreChange;
+
+        ParticipantScores.Remove(participantScore);
+        var tempCollection = new List<ParticipantScore>(ParticipantScores) {storedPs};
+        ParticipantScores = tempCollection.OrderBy(ps => ps.Participant.Index)
+            .ToObservableCollection();
     }
 }

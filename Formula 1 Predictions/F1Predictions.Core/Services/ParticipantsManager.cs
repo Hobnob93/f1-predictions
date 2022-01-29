@@ -24,28 +24,4 @@ public class ParticipantsManager : IParticipantsManager
     {
         return participants.Single(p => p.Index == index);
     }
-
-    public void SetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex, int score)
-    {
-        var scoreId = QuestionIndicesToId(sectionIndex, questionIndex);
-
-        if (participant.Scores.ContainsKey(scoreId))
-            participant.Scores[scoreId] = score;
-        else
-            participant.Scores.Add(scoreId, score);
-    }
-
-    public int GetScoreForQuestion(Participant participant, int sectionIndex, int questionIndex)
-    {
-        var scoreId = QuestionIndicesToId(sectionIndex, questionIndex);
-
-        return participant.Scores.ContainsKey(scoreId) 
-            ? participant.Scores[scoreId]
-            : 0;
-    }
-
-    private string QuestionIndicesToId(int sectionIndex, int questionIndex)
-    {
-        return $"{sectionIndex}-{questionIndex}";
-    }
 }

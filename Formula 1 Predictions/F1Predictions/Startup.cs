@@ -63,6 +63,7 @@ public class Startup : IStartup
         containerRegistry.RegisterSingleton<IParticipantsManager, ParticipantsManager>();
         containerRegistry.RegisterSingleton<ICompetitorManager, CompetitorManager>();
         containerRegistry.RegisterSingleton<ISectionManager, SectionManager>();
+        containerRegistry.RegisterSingleton<IScoreManager, ScoreManager>();
         containerRegistry.RegisterSingleton<IProgressService, ProgressService>();
         containerRegistry.RegisterSingleton<IAnswerStore, AnswerStore>();
         containerRegistry.RegisterSingleton<IPredictionStore, PredictionStore>();
